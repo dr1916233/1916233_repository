@@ -1,1 +1,3 @@
-#include <math.h>
+#include <math.h
+
+#define TI

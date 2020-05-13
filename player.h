@@ -5,6 +5,12 @@
 
 //#pragma once//----------------------------------
 
+// 定数宣言
+#define PLAYER_IMAGENUM_X 4	// プレイヤー画像のX方向の数
+#define PLAYER_IMAGENUM_Y 4	// プレイヤー画像のY方向の数
+#define PLAYER_IMAGESIZE_X	32	// プレイヤー画像のX方向のサイズ
+#define PLAYER_IMAGESIZE_Y	32	// プレイヤー画像のY方向のサイズ
+
 // プロトタイプ宣言
 
 void PlayerSystemInit(void);	// プレイヤー情報の初期化

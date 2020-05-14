@@ -11,9 +11,10 @@
 int FieldMap1[128];
 int FieldMap2[192];
 
+XY map[MAP_Y_FIELD][MAP_X_FIELD];
 
 // フィールドマップ
-int map[MAP_Y_FIELD][MAP_X_FIELD] = {
+int Field[MAP_Y_FIELD][MAP_X_FIELD] = {
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
@@ -42,7 +43,7 @@ void StageSystemInit(void)
 
 	// ステージの描画読み込み
 	// 地上のマップ
-	//LoadDivGraph("image/stage/field_forest.png", 128, 8, 16, MAP_IMAGESIZE_X, MAP_IMAGESIZE_Y, FieldMap1);
+	LoadDivGraph("image/stage/field_forest.png", 128, 8, 16, MAP_IMAGESIZE_X, MAP_IMAGESIZE_Y, FieldMap1);
 	LoadDivGraph("image/stage/field_grass.png", 192, 16, 12, MAP_IMAGESIZE_X, MAP_IMAGESIZE_Y, FieldMap2);
 }
 
@@ -54,12 +55,7 @@ void StageGameInit(void)
 
 XY GetStageSize(void)
 {
-	XY StageSize;
-
-	StageSize.x = MAP_X_FIELD;
-	StageSize.y = MAP_Y_FIELD;
-
-	return StageSize;
+	return map[MAP_Y_FIELD][MAP_X_FIELD];
 }
 
 // ステージ関連の描画
@@ -69,8 +65,7 @@ void StageGameDraw(void)
 	{
 		for (int y = 0; y < MAP_Y_FIELD; y++)
 		{
-			//DrawGraph(x * MAP_IMAGESIZE_X, y * MAP_IMAGESIZE_Y, FieldMap1[map[y][x]], true);
-			DrawGraph(x * MAP_IMAGESIZE_X, y * MAP_IMAGESIZE_Y, FieldMap2[map[y][x]], true);
+			DrawGraph(x * MAP_IMAGESIZE_X, y * MAP_IMAGESIZE_Y, FieldMap2[Field[y][x]], true);
 		}
 	}
 }

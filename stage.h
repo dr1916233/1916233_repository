@@ -12,7 +12,8 @@
 #define MAP_IMAGESIZE_X	32	// マップ画像のX方向のサイズ
 #define MAP_IMAGESIZE_Y	32	// マップ画像のY方向のサイズ
 
-//
+//ゲッター関数
+XY GetStageSize(void);
 
 // プロトタイプ宣言	
 void StageGameDraw(void);	// ステージ関連の描画

@@ -16,7 +16,6 @@
 int SceneCounter;	// シーンカウンター用
 int testCount;	
 
-
 SCENE_ID scnID;			// 今のシーン
 SCENE_ID scnIDpre;		// 1フレーム前のシーン
 
@@ -152,6 +151,7 @@ void GameScene(void)
 // ゲームメインシーン描画
 void GameDraw(void)
 {
+
 	// シーンカウンター描画
 	DrawFormatString(0, 0, GetColor(255, 255, 255), "ゲームシーンカウンター  %d", SceneCounter);
 

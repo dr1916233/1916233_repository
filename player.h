@@ -25,4 +25,4 @@
 void PlayerSystemInit(void);	// プレイヤー情報の初期化
 void PlayerGameInit(void);		// プレイヤーのゲーム関係の初期化
 void PlayerGameDraw(void);		// プレイヤーのゲーム描画
-XY PlayerControl(void);		// プレイヤーの制御処理
+XY PlayerControl(XY chipNum, XY mapPos);	// プレイヤーの制御処理

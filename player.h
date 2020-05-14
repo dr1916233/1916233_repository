@@ -11,9 +11,18 @@
 #define PLAYER_IMAGESIZE_X	32	// プレイヤー画像のX方向のサイズ
 #define PLAYER_IMAGESIZE_Y	32	// プレイヤー画像のY方向のサイズ
 
+#define PLAYER_LIFE_DEF	100	// プレイヤーのデフォルトHP
+#define PLAYER_SPEED_DEF	3	// プレイヤーのデフォルト移動速度
+
+// --------------------
+// 構造体
+// --------------------
+
+
+
 // プロトタイプ宣言
 
 void PlayerSystemInit(void);	// プレイヤー情報の初期化
 void PlayerGameInit(void);		// プレイヤーのゲーム関係の初期化
 void PlayerGameDraw(void);		// プレイヤーのゲーム描画
-void PlayerControl(void);		// プレイヤーの制御処理
+XY PlayerControl(void);		// プレイヤーの制御処理

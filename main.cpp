@@ -167,8 +167,8 @@ void GameDraw(void)
 		DrawBox(100, 100, 700, 500, GetColor(255, 0, 0), true);
 		// 各オブジェクト描画
 		StageGameDraw();
-		PlayerGameDraw();
 		EnemyGameDraw();
+		PlayerGameDraw();
 	}
 }
 

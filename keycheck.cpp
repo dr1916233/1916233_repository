@@ -39,6 +39,10 @@ void KeyCheck(void)
 
 	// 今のフレームの状態を保存
 	keyNow[KEY_SPACE] = (bool)CheckHitKey(KEY_INPUT_SPACE);
+	keyNow[KEY_DOWN] = (bool)CheckHitKey(KEY_INPUT_DOWN);
+	keyNow[KEY_RIGHT] = (bool)CheckHitKey(KEY_INPUT_RIGHT);
+	keyNow[KEY_LEFT] = (bool)CheckHitKey(KEY_INPUT_LEFT);
+	keyNow[KEY_UP] = (bool)CheckHitKey(KEY_INPUT_UP);
 
 	// トリガー処理
 	for (int keyID = 0; keyID < KEY_MAX; keyID++)

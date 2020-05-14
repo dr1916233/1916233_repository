@@ -12,6 +12,10 @@ void KeyCheck(void);	// キーの状態を取得
 // キー制御用
 enum KEY_ID {
 	KEY_SPACE,
+	KEY_DOWN,
+	KEY_RIGHT,
+	KEY_LEFT,
+	KEY_UP,
 	KEY_MAX
 };
 

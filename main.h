@@ -28,22 +28,45 @@ enum DIR
 	DIR_MAX
 };
 
+enum CHARATYPE
+{
+	CHARA_PLAYER,
+	CHARA_ENEMY,
+	CHARA_MAGIC,
+	CHARATYPE_MAX
+};
+
 // --------------------
 // 構造体
 // --------------------
 
 // 2次元ベクトル用
-struct Pos
+struct XY
 {
 	int x;
 	int y;
 };
 
 // 2次元float用
-struct Pos_F
+struct XY_F
 {
 	float x;
 	float y;
+};
+
+struct CHARACTER
+{
+	XY_F pos;
+	DIR dir;
+	CHARATYPE type;
+	XY size;
+	int lifeMax;
+	int life;
+	int animCnt;
+	float moveSpeed;
+	bool visible;
+	int level;
+	int attack;
 };
 
 // プロトタイプ宣言

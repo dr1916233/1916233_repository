@@ -14,6 +14,17 @@ int enemyImage[ENEMY_TYPE_MAX][16];
 void EnemySystemInit(void)
 {
 	LoadDivGraph("image/character/スライムfin完.png",16,4,4,32,32,enemyImage[ENEMY_TYPE_SURAIMU]);
+
+	LoadDivGraph(
+		"image/character/スライムfin完.png",
+		ENEMY_IMAGENUM_X * ENEMY_IMAGENUM_Y,
+		ENEMY_IMAGENUM_X,
+		ENEMY_IMAGENUM_Y,
+		ENEMY_IMAGESIZE_X,
+		ENEMY_IMAGESIZE_Y,
+		*enemyImage,
+		true
+	);
 }
 
 // 敵のゲームごとの初期化

@@ -52,7 +52,7 @@ void PlayerGameDraw(void)
 }
 
 // プレイヤーの制御処理
-XY PlayerControl(void)
+XY PlayerControl(XY chipNum, XY mapPos)
 {
 	XY playerPosRec = { (int)player.pos.x, (int)player.pos.y };
 	DIR playerDirRec = player.dir;
@@ -65,27 +65,34 @@ XY PlayerControl(void)
 	if (keyNow[KEY_LEFT]) player.dir = DIR_LEFT;
 	if (keyNow[KEY_UP]) player.dir = DIR_UP;
 
+	// 移動量計算用
+	XY camDiff = { 0,0 };
+
 	// 移動処理
 	switch (player.dir)
 	{
 	case DIR_DOWN:
-		player.pos.y += player.moveSpeed;
+		if(player.pos.y < chipNum.y * 32) player.pos.y += player.moveSpeed;
+		if (mapPos.y + SCREEN_SIZE_Y < chipNum.y * 32 && player.pos.y > 100) camDiff.y += player.moveSpeed;
 		break;
 	case DIR_RIGHT:
-		player.pos.x += player.moveSpeed;
+		if(player.pos.x < chipNum.x * 32) player.pos.x += player.moveSpeed;
+		if (mapPos.x + SCREEN_SIZE_Y < chipNum.x * 32 && player.pos.x > 100) camDiff.x += player.moveSpeed;
 		break;
 	case DIR_LEFT:
-		player.pos.x -= player.moveSpeed;
+		if(player.pos.x > 0) player.pos.x -= player.moveSpeed;
+		if (mapPos.x < 0 && player.pos.x < chipNum.x * 32 - 100) camDiff.x -= player.moveSpeed;
 		break;
 	case DIR_UP:
-		player.pos.y -= player.moveSpeed;
+		if(player.pos.y > 0) player.pos.y -= player.moveSpeed;
+		if (mapPos.y < 0 && player.pos.y < chipNum.y * 32 - 100) camDiff.y += player.moveSpeed;
 		break;
 	default:
 		player.dir = playerDirRec;
 		break;
 	}
 
-	return { (int)player.pos.x - playerPosRec.x ,(int)player.pos.y - playerPosRec.y };
+	return camDiff;
 }
 
 

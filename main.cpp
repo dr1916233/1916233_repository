@@ -140,9 +140,9 @@ void GameScene(void)
 	}
 
 	// 各オブジェクトの制御処理
-	PlayerControl();	// プレイヤーの制御
 	StageControl();		// ステージの制御
 	EnemyControl();		// 敵の制御
+	PlayerControl(GetStageSize());	// プレイヤーの制御
 
 	// ゲーム描画
 	GameDraw();

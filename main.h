@@ -15,7 +15,35 @@ enum SCENE_ID {
 	SCENE_TITLE,	// タイトル
 	SCENE_GAME,		// ゲームメイン
 	SCENE_GAMEOVER,	// ゲームオーバー
-	SCENE_MAX,
+	SCENE_MAX
+};
+
+// 方向用
+enum DIR
+{
+	DIR_DOWN,		// 下
+	DIR_RIGHT,		// 右
+	DIR_LEFT,		// 左
+	DIR_UP,			// 上
+	DIR_MAX
+};
+
+// --------------------
+// 構造体
+// --------------------
+
+// 2次元ベクトル用
+struct Pos
+{
+	int x;
+	int y;
+};
+
+// 2次元float用
+struct Pos_F
+{
+	float x;
+	float y;
 };
 
 // プロトタイプ宣言

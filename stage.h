@@ -7,8 +7,8 @@
 //#pragma once//----------------------------------
 
 // 定数宣言
-#define MAP_X_FIELD 30		// フィールドの横大きさ
-#define MAP_Y_FIELD 20		// フィールドの縦大きさ
+#define MAP_X_FIELD 40		// フィールドの横大きさ
+#define MAP_Y_FIELD 30		// フィールドの縦大きさ
 #define MAP_IMAGESIZE_X	32	// マップ画像のX方向のサイズ
 #define MAP_IMAGESIZE_Y	32	// マップ画像のY方向のサイズ
 

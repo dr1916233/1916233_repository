@@ -189,3 +189,13 @@ void GameOverDraw(void)
 	DrawFormatString(0, 0, GetColor(255,255,255), "ゲームオーバーシーンカウンター  %d", SceneCounter);
 	DrawBox(100, 100, 700, 500, GetColor(0, 255, 0), true);
 }
+
+// プレイヤーから移動予定座標の座標を貰って移動できるかを調べる
+bool IsPassMain(XY playerPos)
+{
+	/*if (IsPass(playerPos)) return true;
+	else return false;*/
+
+	return true; // ステージにIsPass関数を作ってたらこの行をけしてね
+}
+

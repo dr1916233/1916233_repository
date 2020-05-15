@@ -78,3 +78,4 @@ void GameScene(void);	// ゲームシーン
 void GameDraw(XY mapPos);	// ゲーム描画
 void GameOverScene(void);	// ゲームオーバーシーン
 void GameOverDraw(void);	// ゲームオーバー描画
+bool IsPassMain(XY playerPos); // プレイヤーから座標をもらって通過可能化を返す

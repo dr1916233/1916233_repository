@@ -195,6 +195,4 @@ bool IsPassMain(XY playerPos)
 {
 	if (IsPass(playerPos)) return true;
 	else return false;
-
 }
-

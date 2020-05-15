@@ -55,7 +55,7 @@ void StageGameInit(void)
 
 XY GetStageSize(void)
 {
-	return { MAP_Y_FIELD,MAP_X_FIELD };
+	return { MAP_X_FIELD,MAP_Y_FIELD };
 }
 
 // ステージ関連の描画

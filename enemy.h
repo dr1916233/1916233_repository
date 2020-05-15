@@ -2,16 +2,15 @@
 //	IsekaiKanchoProject
 //	By ゲヱム道館門下生
 //----------------------------------
-#define ENEMY_IMAGENUM_X 4	// エネミー画像のX方向の数
-#define ENEMY_IMAGENUM_Y 4	// エネミー画像のY方向の数
-#define ENEMY_IMAGESIZE_X	32	// エネミー画像のX方向のサイズ
-#define ENEMY_IMAGESIZE_Y	32	// エネミー画像のY方向のサイズ
+
+#define ENEMY_MAX 5	// 敵の総数
 
 // 定数
 enum ENEMY_TYPE
 {
 	// 敵の種類
 	ENEMY_TYPE_SURAIMU,	
+	ENEMY_TYPE_GOBURIN,
 	ENEMY_TYPE_MAX
 };
 

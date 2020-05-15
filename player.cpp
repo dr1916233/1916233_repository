@@ -68,25 +68,45 @@ XY PlayerControl(XY chipNum, XY mapPos)
 
 	// 移動量計算用
 	XY camDiff = { 0,0 };
+	// 移動先座標保存用
+	XY playerPosCopy;
+	playerPosCopy.x = player.pos.x;
+	playerPosCopy.y = player.pos.y;
 
 	// 移動処理
 	switch (player.dir)
 	{
 	case DIR_DOWN:
-		if(player.pos.y < chipNum.y * 32 -32) player.pos.y += player.moveSpeed;
-		if (mapPos.y + SCREEN_SIZE_Y < chipNum.y * 32 && player.pos.y > 100) camDiff.y += player.moveSpeed;
+		playerPosCopy.y += player.moveSpeed;
+		if (IsPassMain(playerPosCopy))
+		{
+			if (player.pos.y < chipNum.y * 32 - 32) player.pos.y += player.moveSpeed;
+			if (mapPos.y + SCREEN_SIZE_Y < chipNum.y * 32 && player.pos.y > 100) camDiff.y += player.moveSpeed;
+		}
 		break;
 	case DIR_RIGHT:
-		if(player.pos.x < chipNum.x * 32 -32) player.pos.x += player.moveSpeed;
-		if (mapPos.x + SCREEN_SIZE_X < chipNum.x * 32 && player.pos.x > 100) camDiff.x += player.moveSpeed;
+		playerPosCopy.x += player.moveSpeed;
+		if (IsPassMain(playerPosCopy))
+		{
+			if (player.pos.x < chipNum.x * 32 - 32) player.pos.x += player.moveSpeed;
+			if (mapPos.x + SCREEN_SIZE_X < chipNum.x * 32 && player.pos.x > 100) camDiff.x += player.moveSpeed;
+		}
 		break;
 	case DIR_LEFT:
-		if(player.pos.x > 0) player.pos.x -= player.moveSpeed;
-		if (mapPos.x > 0 && player.pos.x < chipNum.x * 32 - 100) camDiff.x -= player.moveSpeed;
+		playerPosCopy.x -= player.moveSpeed;
+		if (IsPassMain(playerPosCopy))
+		{
+			if (player.pos.x > 0) player.pos.x -= player.moveSpeed;
+			if (mapPos.x > 0 && player.pos.x < chipNum.x * 32 - 100) camDiff.x -= player.moveSpeed;
+		}
 		break;
 	case DIR_UP:
-		if(player.pos.y > 0) player.pos.y -= player.moveSpeed;
-		if (mapPos.y > 0 && player.pos.y < chipNum.y * 32 - 100) camDiff.y -= player.moveSpeed;
+		playerPosCopy.y -= player.moveSpeed;
+		if (IsPassMain(playerPosCopy))
+		{
+			if (player.pos.y > 0) player.pos.y -= player.moveSpeed;
+			if (mapPos.y > 0 && player.pos.y < chipNum.y * 32 - 100) camDiff.y -= player.moveSpeed;
+		}
 		break;
 	default:
 		player.dir = playerDirRec;

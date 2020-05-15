@@ -38,6 +38,18 @@ int Field[MAP_Y_FIELD][MAP_X_FIELD] = {
 	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 };
 
+// 木
+int wood[6][4] = {
+	{0,1,6,7},
+	{8,9,10,15},
+	{16,17,18,23},
+	{24,25,26,31},
+	{32,33,34,39},
+	{40,41,42,47},
+};
+
+
+
 // ステージ関連の初期化
 void StageSystemInit(void)
 {
@@ -62,11 +74,20 @@ XY GetStageSize(void)
 // ステージ関連の描画
 void StageGameDraw(XY mapPos)
 {
-	for (int y = 0; y < MAP_Y_FIELD; y++)
+	// フィールド用
+	for (int y = 0; y <= MAP_Y_FIELD; y++)
 	{
-		for (int x = 0; x < MAP_X_FIELD; x++)
+		for (int x = 0; x <= MAP_X_FIELD; x++)
 		{
 			DrawGraph(x * MAP_IMAGESIZE_X -mapPos.x, y * MAP_IMAGESIZE_Y - mapPos.y, FieldMap2[Field[y][x]], true);
+		}
+	}
+	// 木用
+	for (int y = 0; y <= 4; y++)
+	{
+		for (int x = 0; x <= 3; x++)
+		{
+			DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, y * MAP_IMAGESIZE_Y - mapPos.y, FieldMap1[wood[y][x]], true);
 		}
 	}
 }

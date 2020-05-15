@@ -39,7 +39,6 @@ int Field[MAP_Y_FIELD][MAP_X_FIELD] = {
 };
 
 
-
 // ステージ関連の初期化
 void StageSystemInit(void)
 {
@@ -68,9 +67,9 @@ XY GetStageSize(void)
 void StageGameDraw(XY mapPos)
 {
 	// フィールド用
-	for (int y = 0; y < MAP_Y_FIELD; y++)
+	for (int y = 0; y <= MAP_Y_FIELD; y++)
 	{
-		for (int x = 0; x < MAP_X_FIELD; x++)
+		for (int x = 0; x <= MAP_X_FIELD; x++)
 		{
 			if (Field[y][x] > 192)
 			{
@@ -83,6 +82,35 @@ void StageGameDraw(XY mapPos)
 			}
 		}
 	}
+}
+
+// プレイヤーが次のブロックを通過できるか判定
+bool IsPass(XY pos)
+{
+	XY Index;
+
+	Index = PosToIndex(pos);
+
+	switch (Field[Index.y][Index.x])
+	{
+	case 199:
+		return false;
+	default:
+		break;
+	}
+
+	return true;
+}
+
+// プレイヤーの座標をマップインデックスにして返す
+XY PosToIndex(XY pos)
+{
+	XY rtnIndex;
+
+	rtnIndex.x = pos.x / MAP_IMAGESIZE_X;
+	rtnIndex.y = pos.y / MAP_IMAGESIZE_Y;
+
+	return rtnIndex;
 }
 
 XY StageControl(XY playerMoveDiff)

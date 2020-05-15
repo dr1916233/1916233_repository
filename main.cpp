@@ -190,6 +190,61 @@ void GameOverDraw(void)
 	DrawBox(100, 100, 700, 500, GetColor(0, 255, 0), true);
 }
 
+// 矩形の当たり判定(接触：0、非接触：-1、ダメージがある場合：1以上の整数)
+int RectHitCheckMain(CHARATYPE type, XY pos1,  XY size1)
+{
+	// 判定先のキャラクタータイプの状態保持用変数
+	XY pos2 = {0,0};
+	XY size2 = {0,0};
+	// 判定後のオブジェクトの攻撃力取得用変数
+	int attack = 0;
+	
+	// 判定を取りたいオブジェクト情報を取得
+	switch (type)
+	{
+	case CHARA_PLAYER:
+		// pos1 = GetPlayerPos();
+		// size2 = GetPlayerSize();
+		//if ((pos1.x + size1.x > pos2.x) &&
+		//	(pos1.x < pos2.x + size2.x) &&
+		//	(pos1.y + size1.y > pos2.y) &&
+		//	(pos1.y < pos2.y + size2.y))
+		//{
+		//	attack = -1;
+		//}
+		break;
+	case CHARA_ENEMY:
+		for (int en = 0; en < ENEMY_MAX; en++)
+		{
+			// pos1 = GetEnemyPos(en);
+			// size2 = GetEnemySize(en);
+			if ((pos1.x + size1.x > pos2.x) &&
+				(pos1.x < pos2.x + size2.x) &&
+				(pos1.y + size1.y > pos2.y) &&
+				(pos1.y < pos2.y + size2.y))
+			{
+				attack = -1;
+			}
+		}
+		break;
+	case CHARA_MAGIC:
+		// pos1 = GetMagicPos();
+		// size2 = GetMagicSize();
+		//if ((pos1.x + size1.x > pos2.x) &&
+		//	(pos1.x < pos2.x + size2.x) &&
+		//	(pos1.y + size1.y > pos2.y) &&
+		//	(pos1.y < pos2.y + size2.y))
+		//{
+		//	attack = -1;
+		//}
+		break;
+	default:
+		break;
+	}
+	
+	return attack;
+}
+
 // プレイヤーから移動予定座標の座標を貰って移動できるかを調べる
 bool IsPassMain(XY playerPos)
 {

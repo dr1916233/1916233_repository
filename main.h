@@ -79,3 +79,4 @@ void GameDraw(XY mapPos);	// ゲーム描画
 void GameOverScene(void);	// ゲームオーバーシーン
 void GameOverDraw(void);	// ゲームオーバー描画
 bool IsPassMain(XY playerPos); // プレイヤーから座標をもらって通過可能化を返す
+int RectHitCheckMain(CHARATYPE type, XY pos1, XY size1);	// 矩形の当たり判定(接触：0、非接触：-1、ダメージがある場合：1以上の整数)

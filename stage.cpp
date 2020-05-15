@@ -12,6 +12,7 @@ int FieldMap1[128];
 int FieldMap2[192];
 
 XY map[MAP_Y_FIELD][MAP_X_FIELD];
+XY mapPos;
 
 // フィールドマップ
 int Field[MAP_Y_FIELD][MAP_X_FIELD] = {
@@ -50,7 +51,7 @@ void StageSystemInit(void)
 // ステージのゲーム毎の初期化
 void StageGameInit(void)
 {
-
+	mapPos = { 0,0 };
 }
 
 XY GetStageSize(void)
@@ -59,18 +60,21 @@ XY GetStageSize(void)
 }
 
 // ステージ関連の描画
-void StageGameDraw(void)
+void StageGameDraw(XY mapPos)
 {
 	for (int x = 0; x < MAP_X_FIELD; x++)
 	{
 		for (int y = 0; y < MAP_Y_FIELD; y++)
 		{
-			DrawGraph(x * MAP_IMAGESIZE_X, y * MAP_IMAGESIZE_Y, FieldMap2[Field[y][x]], true);
+			DrawGraph(x * MAP_IMAGESIZE_X -mapPos.x, y * MAP_IMAGESIZE_Y - mapPos.y, FieldMap2[Field[y][x]], true);
 		}
 	}
 }
 
-void StageControl(void)
+XY StageControl(XY playerMoveDiff)
 {
+	mapPos.x += playerMoveDiff.x;
+	mapPos.y += playerMoveDiff.y;
 
+	return mapPos;
 }

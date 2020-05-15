@@ -140,16 +140,17 @@ void GameScene(void)
 	}
 
 	// 各オブジェクトの制御処理
-	StageControl();		// ステージの制御
+
+	XY playerMoveDiff = PlayerControl(GetStageSize(), { 0,0 });	// プレイヤーの制御
+	XY mapPosMain = StageControl(playerMoveDiff);		// ステージの制御
 	EnemyControl();		// 敵の制御
-	PlayerControl(GetStageSize() ,{0,0});	// プレイヤーの制御
 
 	// ゲーム描画
-	GameDraw();
+	GameDraw(mapPosMain);
 }
 
 // ゲームメインシーン描画
-void GameDraw(void)
+void GameDraw(XY mapPos)
 {
 
 	// シーンカウンター描画
@@ -159,16 +160,16 @@ void GameDraw(void)
 	if (pauseFlag)
 	{
 		SetDrawBright(50, 50, 50);
-		StageGameDraw();
+		StageGameDraw(mapPos);
 		SetDrawBright(255, 255, 255);
 	}
 	else
 	{
 		DrawBox(100, 100, 700, 500, GetColor(255, 0, 0), true);
 		// 各オブジェクト描画
-		StageGameDraw();
+		StageGameDraw(mapPos);
 		EnemyGameDraw();
-		PlayerGameDraw();
+		PlayerGameDraw(mapPos);
 	}
 }
 

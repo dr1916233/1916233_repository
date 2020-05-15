@@ -75,6 +75,6 @@ void InitScene(void);	// 初期化シーン
 void TitleScene(void);	// タイトルシーン
 void TitleDraw(void);	// タイトル描画
 void GameScene(void);	// ゲームシーン
-void GameDraw(void);	// ゲーム描画
+void GameDraw(XY mapPos);	// ゲーム描画
 void GameOverScene(void);	// ゲームオーバーシーン
 void GameOverDraw(void);	// ゲームオーバー描画

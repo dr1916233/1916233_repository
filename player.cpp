@@ -45,10 +45,10 @@ void PlayerGameInit(void)
 }
 
 // プレイヤー情報の描画
-void PlayerGameDraw(void)
+void PlayerGameDraw(XY mapPos)
 {
 	player.animCnt++;
-	DrawGraph(player.pos.x, player.pos.y, playerImage[player.dir][player.animCnt / 10 % 4], true);
+	DrawGraph(player.pos.x - mapPos.x, player.pos.y - mapPos.y, playerImage[player.dir][player.animCnt / 10 % 4], true);
 }
 
 // プレイヤーの制御処理

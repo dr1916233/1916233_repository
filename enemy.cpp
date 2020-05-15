@@ -44,6 +44,8 @@ void EnemyGameInit(void)
 	{
 		int rnd = GetRand(ENEMY_TYPE_MAX - 1);
 		enemy[en] = enemyMaster[rnd];
+
+		enemy[en].pos.x += enemy[en].size.x * en;
 		//enemy[cnt].pos.x = GetRand(SCREEN_SIZE_X - 1);
 		//enemy[cnt].pos.y = GetRand(SCREEN_SIZE_Y - 1);
 	}
@@ -60,13 +62,13 @@ void EnemyGameDraw(void)
 
 	picMove = enemy[ENEMY_TYPE_MAX].dir * 4 + enemy[ENEMY_TYPE_MAX].animCnt / 10 % 4;
 
-	//for (int en = 0; en < ENEMY_MAX; en++)
-	//{
-		DrawGraph(enemy[ENEMY_TYPE_MAX].pos.x,
-			enemy[ENEMY_TYPE_MAX].pos.y,
-			enemyImage[enemy[ENEMY_TYPE_MAX].dir][picMove],
-			true);
-	//}
+	for (int en = 0; en < ENEMY_MAX; en++)
+	{
+		DrawGraph(enemy[en].pos.x,
+				  enemy[en].pos.y,
+				  enemyImage[enemy[en].dir][picMove],
+		  		  true);
+	}
 
 	//DrawCircle(320, 240, 150, GetColor(255,255,255), false);
 

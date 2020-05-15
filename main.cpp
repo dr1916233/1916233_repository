@@ -193,9 +193,8 @@ void GameOverDraw(void)
 // プレイヤーから移動予定座標の座標を貰って移動できるかを調べる
 bool IsPassMain(XY playerPos)
 {
-	/*if (IsPass(playerPos)) return true;
-	else return false;*/
+	if (IsPass(playerPos)) return true;
+	else return false;
 
-	return true; // ステージにIsPass関数を作ってたらこの行をけしてね
 }
 

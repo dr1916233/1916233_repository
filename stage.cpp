@@ -78,3 +78,8 @@ XY StageControl(XY playerMoveDiff)
 
 	return mapPos;
 }
+
+XY GetMapPos(void)
+{
+	return mapPos;
+}

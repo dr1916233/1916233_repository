@@ -54,7 +54,7 @@ void EnemyGameInit(void)
 }
 
 // “G‚Ì•`‰æ
-void EnemyGameDraw(XY mapPos);
+void EnemyGameDraw(XY mapPos)
 {
 	enemy[ENEMY_TYPE_MAX].animCnt++;
 
@@ -66,8 +66,8 @@ void EnemyGameDraw(XY mapPos);
 	for (int en = 0; en < ENEMY_MAX; en++)
 	{
 		DrawGraph(
-				  enemy[en].pos.x,
-				  enemy[en].pos.y,
+				  enemy[en].pos.x -mapPos.x,
+				  enemy[en].pos.y -mapPos.y,
 				  enemyImage[enemy[en].dir][picMove],
 		  		  true);
 	}
@@ -84,15 +84,11 @@ void EnemyControl(void)
 
 XY GetEnemyPos(int en)
 {
-	enemy[en].pos;
-
-	return;
+	return { (int)enemy[en].pos.x,(int)enemy[en].pos.y };
 }
 
 XY GetEnemySize(int en)
 {
-	enemy[en].size;
-
-	return;
+	return enemy[en].size;
 }
 	

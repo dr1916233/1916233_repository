@@ -168,7 +168,7 @@ void GameDraw(XY mapPos)
 		DrawBox(100, 100, 700, 500, GetColor(255, 0, 0), true);
 		// 各オブジェクト描画
 		StageGameDraw(mapPos);
-		EnemyGameDraw();
+		EnemyGameDraw(mapPos);
 		PlayerGameDraw(mapPos);
 	}
 }

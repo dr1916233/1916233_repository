@@ -62,9 +62,9 @@ XY GetStageSize(void)
 // ステージ関連の描画
 void StageGameDraw(XY mapPos)
 {
-	for (int x = 0; x < MAP_X_FIELD; x++)
+	for (int y = 0; y < MAP_Y_FIELD; y++)
 	{
-		for (int y = 0; y < MAP_Y_FIELD; y++)
+		for (int x = 0; x < MAP_X_FIELD; x++)
 		{
 			DrawGraph(x * MAP_IMAGESIZE_X -mapPos.x, y * MAP_IMAGESIZE_Y - mapPos.y, FieldMap2[Field[y][x]], true);
 		}

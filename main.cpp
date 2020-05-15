@@ -141,7 +141,7 @@ void GameScene(void)
 
 	// 各オブジェクトの制御処理
 
-	XY playerMoveDiff = PlayerControl(GetStageSize(), { 0,0 });	// プレイヤーの制御
+	XY playerMoveDiff = PlayerControl(GetStageSize(), GetMapPos());	// プレイヤーの制御
 	XY mapPosMain = StageControl(playerMoveDiff);		// ステージの制御
 	EnemyControl();		// 敵の制御
 

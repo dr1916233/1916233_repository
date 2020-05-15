@@ -49,6 +49,7 @@ void PlayerGameDraw(XY mapPos)
 {
 	player.animCnt++;
 	DrawGraph(player.pos.x - mapPos.x, player.pos.y - mapPos.y, playerImage[player.dir][player.animCnt / 10 % 4], true);
+	DrawFormatString(50, 100, GetColor(255, 255, 255), "プレイヤーのチップ : %d,%d", (int)player.pos.x / 32, (int)player.pos.y / 32);
 }
 
 // プレイヤーの制御処理
@@ -72,20 +73,20 @@ XY PlayerControl(XY chipNum, XY mapPos)
 	switch (player.dir)
 	{
 	case DIR_DOWN:
-		if(player.pos.y < chipNum.y * 32) player.pos.y += player.moveSpeed;
+		if(player.pos.y < chipNum.y * 32 -32) player.pos.y += player.moveSpeed;
 		if (mapPos.y + SCREEN_SIZE_Y < chipNum.y * 32 && player.pos.y > 100) camDiff.y += player.moveSpeed;
 		break;
 	case DIR_RIGHT:
-		if(player.pos.x < chipNum.x * 32) player.pos.x += player.moveSpeed;
-		if (mapPos.x + SCREEN_SIZE_Y < chipNum.x * 32 && player.pos.x > 100) camDiff.x += player.moveSpeed;
+		if(player.pos.x < chipNum.x * 32 -32) player.pos.x += player.moveSpeed;
+		if (mapPos.x + SCREEN_SIZE_X < chipNum.x * 32 && player.pos.x > 100) camDiff.x += player.moveSpeed;
 		break;
 	case DIR_LEFT:
 		if(player.pos.x > 0) player.pos.x -= player.moveSpeed;
-		if (mapPos.x < 0 && player.pos.x < chipNum.x * 32 - 100) camDiff.x -= player.moveSpeed;
+		if (mapPos.x > 0 && player.pos.x < chipNum.x * 32 - 100) camDiff.x -= player.moveSpeed;
 		break;
 	case DIR_UP:
 		if(player.pos.y > 0) player.pos.y -= player.moveSpeed;
-		if (mapPos.y < 0 && player.pos.y < chipNum.y * 32 - 100) camDiff.y += player.moveSpeed;
+		if (mapPos.y > 0 && player.pos.y < chipNum.y * 32 - 100) camDiff.y -= player.moveSpeed;
 		break;
 	default:
 		player.dir = playerDirRec;

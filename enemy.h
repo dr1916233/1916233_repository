@@ -3,14 +3,14 @@
 //	By ƒQƒ‘ƒ€“¹ŠÙ–å‰º¶
 //----------------------------------
 
-#define ENEMY_MAX 5	// “G‚Ì‘”
+#define ENEMY_MAX 3	// “G‚Ì‘”
+
 
 // ’è”
 enum ENEMY_TYPE
 {
 	// “G‚Ìí—Ş
 	ENEMY_TYPE_SURAIMU,	
-	ENEMY_TYPE_GOBURIN,
 	ENEMY_TYPE_MAX
 };
 
@@ -19,5 +19,9 @@ enum ENEMY_TYPE
 // ƒvƒƒgƒ^ƒCƒvéŒ¾
 void EnemySystemInit(void);		// “G‚ÌƒVƒXƒeƒ€‰Šú‰»
 void EnemyGameInit(void);		// “G‚ÌƒQ[ƒ€‰Šú‰»
-void EnemyGameDraw(void);		// “G‚ÌƒQ[ƒ€•`‰æ
+void EnemyGameDraw(XY mapPos);		// “G‚ÌƒQ[ƒ€•`‰æ
 void EnemyControl(void);		// “G‚Ì§Œäˆ—
+
+
+XY GetEnemyPos(int en);
+XY GetEnemySize(int en);

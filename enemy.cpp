@@ -34,6 +34,7 @@ void EnemySystemInit(void)
 		enemyMaster[cnt].life = 0;
 		enemyMaster[cnt].dir = DIR_DOWN;
 		enemyMaster[cnt].visible = true;
+		enemyMaster[cnt].type = CHARA_ENEMY;
 	}
 }
 
@@ -45,15 +46,15 @@ void EnemyGameInit(void)
 		int rnd = GetRand(ENEMY_TYPE_MAX - 1);
 		enemy[en] = enemyMaster[rnd];
 
-		enemy[en].pos.x += enemy[en].size.x * en;
-		//enemy[cnt].pos.x = GetRand(SCREEN_SIZE_X - 1);
-		//enemy[cnt].pos.y = GetRand(SCREEN_SIZE_Y - 1);
+		//enemy[en].pos.x += enemy[en].size.x * en;
+		enemy[en].pos.x = GetRand(SCREEN_SIZE_X - 1);
+		enemy[en].pos.y = GetRand(SCREEN_SIZE_Y - 1);
 	}
 
 }
 
 // “G‚Ì•`‰æ
-void EnemyGameDraw(void)
+void EnemyGameDraw(XY mapPos);
 {
 	enemy[ENEMY_TYPE_MAX].animCnt++;
 
@@ -64,7 +65,8 @@ void EnemyGameDraw(void)
 
 	for (int en = 0; en < ENEMY_MAX; en++)
 	{
-		DrawGraph(enemy[en].pos.x,
+		DrawGraph(
+				  enemy[en].pos.x,
 				  enemy[en].pos.y,
 				  enemyImage[enemy[en].dir][picMove],
 		  		  true);
@@ -78,5 +80,19 @@ void EnemyGameDraw(void)
 void EnemyControl(void)
 {
 	
+}
+
+XY GetEnemyPos(int en)
+{
+	enemy[en].pos;
+
+	return;
+}
+
+XY GetEnemySize(int en)
+{
+	enemy[en].size;
+
+	return;
 }
 	

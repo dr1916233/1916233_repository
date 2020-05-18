@@ -245,6 +245,14 @@ int RectHitCheckMain(CHARATYPE type, XY pos1,  XY size1)
 	return attack;
 }
 
+// 円と円の当たり判定
+int CircleHitCheckMain(CHARACTER type, XY pos1, XY size1)
+{
+	XY pos2 = { 0,0 };
+	XY size2 = { 0,0 };
+	int attack = -1;
+}
+
 // プレイヤーから移動予定座標の座標を貰って移動できるかを調べる
 bool IsPassMain(XY playerPos)
 {

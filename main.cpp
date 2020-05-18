@@ -5,11 +5,12 @@
 
 #include "DxLib.h"
 #include "main.h"
+#include "enemy.h"
 #include "keycheck.h"
 #include "effect.h"
 #include "stage.h"
 #include "player.h"
-#include "enemy.h"
+
 
 
 // •Ï”éŒ¾

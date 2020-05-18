@@ -60,6 +60,7 @@ struct CHARACTER
 	XY_F pos;			// 座標用
 	DIR dir;			// オブジェクトの向き
 	CHARATYPE type;		// キャラクターのタイプ
+	int enemyType;		// 敵の種類
 	XY size;			// サイズ
 	XY offsetSize;		// 余白なしのサイズ
 	XY offsetSizeSide;	// 横から見たときの余白サイズ

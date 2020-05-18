@@ -3,8 +3,9 @@
 //	By ゲヱム道館門下生
 //----------------------------------
 
-#define ENEMY_MAX 4	// 敵の総数
+//#pragma once//----------------------------------
 
+#define ENEMY_MAX 4	// 敵の総数
 
 // 定数
 enum ENEMY_TYPE
@@ -12,10 +13,8 @@ enum ENEMY_TYPE
 	// 敵の種類
 	ENEMY_TYPE_SLIME,	//スライム
 	ENEMY_TYPE_GOBLIN,	//ゴブリン
-	ENEMY_TYPE_MAX
+	ENEMY_TYPE_MAX,
 };
-
-//#pragma once//----------------------------------
 
 // プロトタイプ宣言
 void EnemySystemInit(void);		// 敵のシステム初期化

@@ -34,6 +34,7 @@ void EnemySystemInit(void)
 	enemyMaster[ENEMY_TYPE_SLIME].offsetSize = { 3,7 }; // スライムのオフセットサイズ
 	enemyMaster[ENEMY_TYPE_SLIME].lifeMax = 2;			// スライムのライフ
 	enemyMaster[ENEMY_TYPE_SLIME].moveSpeed = 1;		// スライムのスピード
+	enemyMaster[ENEMY_TYPE_SLIME].enemyType = ENEMY_TYPE_SLIME;	// 敵の種類をスライムにセット
 
 	LoadDivGraph("image/character/スライムfin完.png",
 		16, 4, 4, 32, 32, enemyImage[ENEMY_TYPE_SLIME]);	// スライムの描画
@@ -44,6 +45,7 @@ void EnemySystemInit(void)
 	enemyMaster[ENEMY_TYPE_GOBLIN].offsetSize = { 3,7 };// ゴブリンのオフセットサイズ
 	enemyMaster[ENEMY_TYPE_GOBLIN].lifeMax = 2;			// ゴブリンのライフ
 	enemyMaster[ENEMY_TYPE_GOBLIN].moveSpeed = 1;		// ゴブリンのスピード
+	enemyMaster[ENEMY_TYPE_GOBLIN].enemyType = ENEMY_TYPE_GOBLIN;	// 敵の種類をスライムにセット
 
 	LoadDivGraph("image/character/ゴブリンfin完.png",
 		16, 4, 4, 32, 32, enemyImage[ENEMY_TYPE_GOBLIN]);	// ゴブリンの描画
@@ -71,8 +73,6 @@ void EnemyGameInit(void)
 // 敵の描画
 void EnemyGameDraw(XY mapPos)
 {
-	enemy[ENEMY_TYPE_MAX].animCnt++;
-
 	int picMove = (enemy[ENEMY_TYPE_MAX].visible == false) ? enemy[ENEMY_TYPE_MAX].dir * 4 + enemy[ENEMY_TYPE_MAX].animCnt / 10 % 4 :
 		enemy[ENEMY_TYPE_MAX].dir * 4;
 
@@ -81,22 +81,24 @@ void EnemyGameDraw(XY mapPos)
 	for (int en = 0; en < ENEMY_MAX; en++)
 	{
 
-			DrawGraph(
-				enemy[en].pos.x - mapPos.x,
-				enemy[en].pos.y - mapPos.y,
-				enemyImage[enemy[en].type][picMove],
-				true);
+		DrawGraph(
+			enemy[en].pos.x - mapPos.x,
+			enemy[en].pos.y - mapPos.y,
+			enemyImage[enemy[en].enemyType][enemy[en].dir * 4 + enemy[en].animCnt / 10 % 4],
+			true);
 
 	};
 
 	//DrawCircle(320, 240, 150, GetColor(255,255,255), false);
-
 }
 
 // 敵の制御処理
 void EnemyControl(void)
 {
-	
+	for (int en = 0; en < ENEMY_MAX; en++)
+	{
+		enemy[en].animCnt++;
+	}
 }
 
 XY GetEnemyPos(int en)

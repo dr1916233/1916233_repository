@@ -40,6 +40,7 @@ void PlayerGameInit(void)
 	player.moveSpeed = PLAYER_SPEED_DEF;
 	player.pos = { 10.0f,180.0f };
 	player.size = { 32,32 };
+	player.offsetSize = { PLAYER_OFFSET_X,0 };
 	player.type = CHARA_PLAYER;
 	player.visible = true;
 }
@@ -61,61 +62,125 @@ XY PlayerControl(XY chipNum, XY mapPos)
 	player.dir = DIR_MAX;
 
 	// キー情報を取得する
-	if (keyNow[KEY_DOWN]) player.dir = DIR_DOWN;
-	if (keyNow[KEY_RIGHT]) player.dir = DIR_RIGHT;
-	if (keyNow[KEY_LEFT]) player.dir = DIR_LEFT;
-	if (keyNow[KEY_UP]) player.dir = DIR_UP;
+	if (keyNow[KEY_DOWN])
+	{
+		player.dir = DIR_DOWN;
+	}
 
+	if (keyNow[KEY_RIGHT])
+	{
+		player.dir = DIR_RIGHT;
+	}
+
+	if (keyNow[KEY_LEFT])
+	{
+		player.dir = DIR_LEFT;
+	}
+
+
+	if (keyNow[KEY_UP])
+	{
+		player.dir = DIR_UP;
+	}
 	// 移動量計算用
 	XY camDiff = { 0,0 };
 	// 移動先座標保存用
 	XY playerPosCopy;
 	playerPosCopy.x = player.pos.x;
 	playerPosCopy.y = player.pos.y;
+	// プレイヤーの上下左右の座標保持用
+	XY playerHitLeft = { 0,0 };
+	XY playerHitRight = { 0,0 };
+	XY playerHitTop = { 0,0 };
+	XY playerHitUnder = { 0,0 };
 
 	// 移動処理
 	switch (player.dir)
 	{
 	case DIR_DOWN:
+		// コピーの座標を進める
 		playerPosCopy.y += player.moveSpeed;
-		playerPosCopy.y += PLAYER_OFFSET_VERTICAL;
-		if (IsPassMain(playerPosCopy)&&CircleHitCheckMain(CHARA_ENEMY,playerPosCopy,player.size) == -1)
+		// プレイヤーの左右の座標保持用
+		playerHitLeft = playerPosCopy;
+		playerHitRight = playerPosCopy;
+
+		// プレイヤーの足元の実座標を右端と左端で取る
+		playerHitLeft.y += PLAYER_IMAGESIZE_Y;
+		playerHitRight.y += PLAYER_IMAGESIZE_Y;
+		playerHitLeft.x += PLAYER_OFFSET_X;
+		playerHitRight.x += PLAYER_OFFSET_X + PLAYER_SIZE_X;
+
+		// コピーが移動できたときは実態を移動させ、カメラの位置をずらす
+		if (IsPassMain(playerHitLeft)&& IsPassMain(playerHitRight) && CircleHitCheckMain(CHARA_ENEMY,playerPosCopy,player.size) == -1)
 		{
 			if (player.pos.y < chipNum.y * 32 - 32) player.pos.y += player.moveSpeed;
 			if (mapPos.y + SCREEN_SIZE_Y < chipNum.y * 32 && player.pos.y > 100) camDiff.y += player.moveSpeed;
 		}
 		break;
 	case DIR_RIGHT:
+		// コピーの座標を進める
 		playerPosCopy.x += player.moveSpeed;
-		playerPosCopy.x += PLAYER_OFFSET_SIDE;
-		if (IsPassMain(playerPosCopy) && CircleHitCheckMain(CHARA_ENEMY, playerPosCopy, player.size) == -1)
+
+		// プレイヤーの上下の座標保持用
+		playerHitTop = playerPosCopy;
+		playerHitUnder = playerPosCopy;
+
+		// プレイヤーの右側の座標を上と下で取る
+		playerHitTop.x += PLAYER_OFFSET_X + PLAYER_SIZE_X;
+		playerHitUnder.x += PLAYER_OFFSET_X + PLAYER_SIZE_X;
+		playerHitUnder.y += PLAYER_SIZE_Y;
+
+		// コピーが移動できたときは実態を移動させ、カメラの位置をずらす
+		if (IsPassMain(playerHitTop) && IsPassMain(playerHitUnder) && CircleHitCheckMain(CHARA_ENEMY, playerPosCopy, player.size) == -1)
 		{
 			if (player.pos.x < chipNum.x * 32 - 32) player.pos.x += player.moveSpeed;
 			if (mapPos.x + SCREEN_SIZE_X < chipNum.x * 32 && player.pos.x > 100) camDiff.x += player.moveSpeed;
 		}
 		break;
 	case DIR_LEFT:
+		// コピーの座標を進める
 		playerPosCopy.x -= player.moveSpeed;
-		if (IsPassMain(playerPosCopy) && CircleHitCheckMain(CHARA_ENEMY, playerPosCopy, player.size) == -1)
+
+		// プレイヤーの上下の座標保持用
+		playerHitTop = playerPosCopy;
+		playerHitUnder = playerPosCopy;
+
+		// プレイヤーの左側の座標を上と下で取る
+		playerHitTop.x += PLAYER_OFFSET_X;
+		playerHitUnder.x += PLAYER_OFFSET_X;
+		playerHitUnder.y += PLAYER_SIZE_Y;
+
+		// コピーが移動できたときは実態を移動させ、カメラの位置をずらす
+		if (IsPassMain(playerHitTop) && IsPassMain(playerHitUnder) && CircleHitCheckMain(CHARA_ENEMY, playerPosCopy, player.size) == -1)
 		{
 			if (player.pos.x > 0) player.pos.x -= player.moveSpeed;
 			if (mapPos.x > 0 && player.pos.x < chipNum.x * 32 - 100) camDiff.x -= player.moveSpeed;
 		}
 		break;
 	case DIR_UP:
+		// コピーの座標を進める
 		playerPosCopy.y -= player.moveSpeed;
-		if (IsPassMain(playerPosCopy) && CircleHitCheckMain(CHARA_ENEMY, playerPosCopy, player.size) == -1)
+
+		// プレイヤーの左右の座標保持用
+		playerHitLeft = playerPosCopy;
+		playerHitRight = playerPosCopy;
+
+		// プレイヤーの上側の座標を左右で取る
+		playerHitLeft.x += PLAYER_OFFSET_X;
+		playerHitRight.x += PLAYER_OFFSET_X + PLAYER_SIZE_X;
+
+		// コピーが移動できたときは実態を移動させ、カメラの位置をずらす
+		if (IsPassMain(playerHitLeft) && IsPassMain(playerHitRight) && CircleHitCheckMain(CHARA_ENEMY, playerPosCopy, player.size) == -1)
 		{
 			if (player.pos.y > 0) player.pos.y -= player.moveSpeed;
 			if (mapPos.y > 0 && player.pos.y < chipNum.y * 32 - 100) camDiff.y -= player.moveSpeed;
 		}
 		break;
 	default:
+		// プレイヤーが動かなかった場合は元の移動方向を代入
 		player.dir = playerDirRec;
 		break;
 	}
-
-	
 
 	return camDiff;
 }

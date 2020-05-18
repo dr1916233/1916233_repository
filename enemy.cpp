@@ -18,11 +18,13 @@ void EnemySystemInit(void)
 	//------------------------------------------------------------------------------------------
 // スライム
 
-	//enemyMaster[ENEMY_TYPE_SURAIMU].type = CHARA_ENEMY;
-	//enemyMaster[ENEMY_TYPE_SURAIMU].lifeMax = 4;
-	//enemyMaster[ENEMY_TYPE_SURAIMU].moveSpeed = 1;
-	//enemyMaster[ENEMY_TYPE_SURAIMU].size.x = 32;
-	//enemyMaster[ENEMY_TYPE_SURAIMU].size.y = 32;
+	enemyMaster[ENEMY_TYPE_SLIME].lifeMax = 4;
+	enemyMaster[ENEMY_TYPE_SLIME].moveSpeed = 1;
+	enemyMaster[ENEMY_TYPE_SLIME].size.x = 32;
+	enemyMaster[ENEMY_TYPE_SLIME].size.y = 32;
+	enemyMaster[ENEMY_TYPE_SLIME].offsetSize.x = 3;
+	enemyMaster[ENEMY_TYPE_SLIME].offsetSize.y = 7;
+
 	LoadDivGraph("image/character/スライムfin完.png",
 		16, 4, 4, 32, 32, enemyImage[ENEMY_TYPE_SLIME]);
 	//------------------------------------------------------------------------------------------
@@ -47,6 +49,7 @@ void EnemyGameInit(void)
 		enemy[en] = enemyMaster[rnd];
 
 		//enemy[en].pos.x += enemy[en].size.x * en;
+
 		enemy[en].pos.x = GetRand(SCREEN_SIZE_X - 1);
 		enemy[en].pos.y = GetRand(SCREEN_SIZE_Y - 1);
 	}

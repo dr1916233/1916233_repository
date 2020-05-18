@@ -80,11 +80,13 @@ void EnemyGameDraw(XY mapPos)
 
 	for (int en = 0; en < ENEMY_MAX; en++)
 	{
-		DrawGraph(
-				  enemy[en].pos.x -mapPos.x,
-				  enemy[en].pos.y -mapPos.y,
-				  enemyImage[enemy[en].dir][picMove],
-		  		  true);
+
+			DrawGraph(
+				enemy[en].pos.x - mapPos.x,
+				enemy[en].pos.y - mapPos.y,
+				enemyImage[enemy[en].dir][picMove],
+				true);
+
 	};
 
 	//DrawCircle(320, 240, 150, GetColor(255,255,255), false);

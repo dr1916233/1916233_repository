@@ -6,15 +6,15 @@
 //#pragma once//----------------------------------
 
 // 定数宣言
-#define PLAYER_IMAGENUM_X 4	// プレイヤー画像のX方向の数
-#define PLAYER_IMAGENUM_Y 4	// プレイヤー画像のY方向の数
-#define PLAYER_IMAGESIZE_X	32	// プレイヤー画像のX方向のサイズ
-#define PLAYER_IMAGESIZE_Y	32	// プレイヤー画像のY方向のサイズ
-#define PLAYER_OFFSET_VERTICAL 25	// プレイヤーが縦方向のときのオフセット
-#define PLAYER_OFFSET_SIDE	20// プレイヤーが横方向のときのオフセット
-
-#define PLAYER_LIFE_DEF	100	// プレイヤーのデフォルトHP
-#define PLAYER_SPEED_DEF	3	// プレイヤーのデフォルト移動速度
+#define PLAYER_IMAGENUM_X 4			// プレイヤー画像のX方向の数
+#define PLAYER_IMAGENUM_Y 4			// プレイヤー画像のY方向の数
+#define PLAYER_IMAGESIZE_X 32		// プレイヤー画像のX方向のサイズ
+#define PLAYER_IMAGESIZE_Y 32		// プレイヤー画像のY方向のサイズ
+#define PLAYER_SIZE_X 20			// プレイヤーのX方向実サイズ
+#define PLAYER_SIZE_Y 32			// プレイヤーのY方向実サイズ
+#define PLAYER_OFFSET_X 6	// プレイヤーのX方向の余白サイズ
+#define PLAYER_LIFE_DEF	100			// プレイヤーのデフォルトHP
+#define PLAYER_SPEED_DEF 3			// プレイヤーのデフォルト移動速度
 
 // --------------------
 // 構造体

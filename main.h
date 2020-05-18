@@ -62,6 +62,7 @@ struct CHARACTER
 	CHARATYPE type;		// キャラクターのタイプ
 	XY size;			// サイズ
 	XY offsetSize;		// 余白なしのサイズ
+	XY offsetSizeSide;	// 横から見たときの余白サイズ
 	int rad;			// 円で判定を取るオブジェクトの半径
 	int lifeMax;		// HPの基礎値
 	int life;			// 実際のHP

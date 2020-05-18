@@ -10,7 +10,7 @@
 enum ENEMY_TYPE
 {
 	// “G‚ÌŽí—Þ
-	ENEMY_TYPE_SURAIMU,	
+	ENEMY_TYPE_SLIME,	
 	ENEMY_TYPE_MAX
 };
 

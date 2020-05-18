@@ -24,7 +24,7 @@ void EnemySystemInit(void)
 	//enemyMaster[ENEMY_TYPE_SURAIMU].size.x = 32;
 	//enemyMaster[ENEMY_TYPE_SURAIMU].size.y = 32;
 	LoadDivGraph("image/character/ƒXƒ‰ƒCƒ€finŠ®.png",
-		16, 4, 4, 32, 32, enemyImage[ENEMY_TYPE_SURAIMU]);
+		16, 4, 4, 32, 32, enemyImage[ENEMY_TYPE_SLIME]);
 	//------------------------------------------------------------------------------------------
 
 	for (int cnt = 0; cnt < ENEMY_TYPE_MAX; cnt++)
@@ -84,11 +84,13 @@ void EnemyControl(void)
 
 XY GetEnemyPos(int en)
 {
+
 	return { (int)enemy[en].pos.x,(int)enemy[en].pos.y };
 }
 
 XY GetEnemySize(int en)
 {
+
 	return enemy[en].size;
 }
 	

@@ -78,7 +78,7 @@ XY PlayerControl(XY chipNum, XY mapPos)
 	{
 	case DIR_DOWN:
 		playerPosCopy.y += player.moveSpeed;
-		if (IsPassMain(playerPosCopy)&&RectHitCheckMain(CHARA_ENEMY,playerPosCopy,player.size) == -1)
+		if (IsPassMain(playerPosCopy)&&CircleHitCheckMain(CHARA_ENEMY,playerPosCopy,player.size) == -1)
 		{
 			if (player.pos.y < chipNum.y * 32 - 32) player.pos.y += player.moveSpeed;
 			if (mapPos.y + SCREEN_SIZE_Y < chipNum.y * 32 && player.pos.y > 100) camDiff.y += player.moveSpeed;
@@ -86,7 +86,7 @@ XY PlayerControl(XY chipNum, XY mapPos)
 		break;
 	case DIR_RIGHT:
 		playerPosCopy.x += player.moveSpeed;
-		if (IsPassMain(playerPosCopy) && RectHitCheckMain(CHARA_ENEMY, playerPosCopy, player.size) == -1)
+		if (IsPassMain(playerPosCopy) && CircleHitCheckMain(CHARA_ENEMY, playerPosCopy, player.size) == -1)
 		{
 			if (player.pos.x < chipNum.x * 32 - 32) player.pos.x += player.moveSpeed;
 			if (mapPos.x + SCREEN_SIZE_X < chipNum.x * 32 && player.pos.x > 100) camDiff.x += player.moveSpeed;
@@ -94,7 +94,7 @@ XY PlayerControl(XY chipNum, XY mapPos)
 		break;
 	case DIR_LEFT:
 		playerPosCopy.x -= player.moveSpeed;
-		if (IsPassMain(playerPosCopy) && RectHitCheckMain(CHARA_ENEMY, playerPosCopy, player.size) == -1)
+		if (IsPassMain(playerPosCopy) && CircleHitCheckMain(CHARA_ENEMY, playerPosCopy, player.size) == -1)
 		{
 			if (player.pos.x > 0) player.pos.x -= player.moveSpeed;
 			if (mapPos.x > 0 && player.pos.x < chipNum.x * 32 - 100) camDiff.x -= player.moveSpeed;
@@ -102,7 +102,7 @@ XY PlayerControl(XY chipNum, XY mapPos)
 		break;
 	case DIR_UP:
 		playerPosCopy.y -= player.moveSpeed;
-		if (IsPassMain(playerPosCopy) && RectHitCheckMain(CHARA_ENEMY, playerPosCopy, player.size) == -1)
+		if (IsPassMain(playerPosCopy) && CircleHitCheckMain(CHARA_ENEMY, playerPosCopy, player.size) == -1)
 		{
 			if (player.pos.y > 0) player.pos.y -= player.moveSpeed;
 			if (mapPos.y > 0 && player.pos.y < chipNum.y * 32 - 100) camDiff.y -= player.moveSpeed;

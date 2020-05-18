@@ -77,7 +77,8 @@ XY PlayerControl(XY chipNum, XY mapPos)
 	switch (player.dir)
 	{
 	case DIR_DOWN:
-		playerPosCopy.y += player.moveSpeed + PLAYER_OFFSET_VERTICAL;
+		playerPosCopy.y += player.moveSpeed;
+		playerPosCopy.y += PLAYER_OFFSET_VERTICAL;
 		if (IsPassMain(playerPosCopy)&&CircleHitCheckMain(CHARA_ENEMY,playerPosCopy,player.size) == -1)
 		{
 			if (player.pos.y < chipNum.y * 32 - 32) player.pos.y += player.moveSpeed;
@@ -85,7 +86,8 @@ XY PlayerControl(XY chipNum, XY mapPos)
 		}
 		break;
 	case DIR_RIGHT:
-		playerPosCopy.x += player.moveSpeed + PLAYER_OFFSET_SIDE;
+		playerPosCopy.x += player.moveSpeed;
+		playerPosCopy.x += PLAYER_OFFSET_SIDE;
 		if (IsPassMain(playerPosCopy) && CircleHitCheckMain(CHARA_ENEMY, playerPosCopy, player.size) == -1)
 		{
 			if (player.pos.x < chipNum.x * 32 - 32) player.pos.x += player.moveSpeed;

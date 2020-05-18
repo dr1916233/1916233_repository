@@ -83,7 +83,7 @@ void EnemyGameDraw(XY mapPos)
 		DrawGraph(
 				  enemy[en].pos.x -mapPos.x,
 				  enemy[en].pos.y -mapPos.y,
-				  enemyImage[enemy[ENEMY_TYPE_MAX].dir][picMove],
+				  enemyImage[enemy[en].dir][picMove],
 		  		  true);
 	};
 

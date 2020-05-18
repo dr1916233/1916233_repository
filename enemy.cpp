@@ -45,7 +45,7 @@ void EnemySystemInit(void)
 	enemyMaster[ENEMY_TYPE_GOBLIN].offsetSize = { 3,7 };// ゴブリンのオフセットサイズ
 	enemyMaster[ENEMY_TYPE_GOBLIN].lifeMax = 2;			// ゴブリンのライフ
 	enemyMaster[ENEMY_TYPE_GOBLIN].moveSpeed = 1;		// ゴブリンのスピード
-	enemyMaster[ENEMY_TYPE_GOBLIN].enemyType = ENEMY_TYPE_GOBLIN;	// 敵の種類をスライムにセット
+	enemyMaster[ENEMY_TYPE_GOBLIN].enemyType = ENEMY_TYPE_GOBLIN;	// 敵の種類をゴブリンにセット
 
 	LoadDivGraph("image/character/ゴブリンfin完.png",
 		16, 4, 4, 32, 32, enemyImage[ENEMY_TYPE_GOBLIN]);	// ゴブリンの描画

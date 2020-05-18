@@ -197,7 +197,7 @@ int RectHitCheckMain(CHARATYPE type, XY pos1,  XY size1)
 	XY pos2 = {0,0};
 	XY size2 = {0,0};
 	// 判定後のオブジェクトの攻撃力取得用変数
-	int attack = 0;
+	int attack = -1;
 	
 	// 判定を取りたいオブジェクト情報を取得
 	switch (type)
@@ -216,14 +216,14 @@ int RectHitCheckMain(CHARATYPE type, XY pos1,  XY size1)
 	case CHARA_ENEMY:
 		for (int en = 0; en < ENEMY_MAX; en++)
 		{
-			// pos1 = GetEnemyPos(en);
-			// size2 = GetEnemySize(en);
-			if ((pos1.x + size1.x > pos2.x) &&
-				(pos1.x < pos2.x + size2.x) &&
-				(pos1.y + size1.y > pos2.y) &&
-				(pos1.y < pos2.y + size2.y))
+			pos2 = GetEnemyPos(en);
+			size2 = GetEnemySize(en);
+			if ((pos1.x + size1.x >= pos2.x) &&
+				(pos1.y <= pos2.x + size2.x) &&
+				(pos1.x <= pos2.x + size2.x) &&
+				(pos1.y >= pos2.y - size2.y))
 			{
-				attack = -1;
+				attack = 0;
 			}
 		}
 		break;

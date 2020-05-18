@@ -218,6 +218,13 @@ int RectHitCheckMain(CHARATYPE type, XY pos1,  XY size1)
 		{
 			pos2 = GetEnemyPos(en);
 			size2 = GetEnemySize(en);
+	/*		if ((pos1.x + size1.x >= pos2.x) &&
+				(pos1.y <= pos2.x + size2.x) &&
+				(pos1.x <= pos2.x + size2.x) &&
+				(pos1.y >= pos2.y - size2.y))
+			{
+				attack = 0;
+			}*/
 			if ((pos1.x + size1.x >= pos2.x) &&
 				(pos1.y <= pos2.x + size2.x) &&
 				(pos1.x <= pos2.x + size2.x) &&
@@ -251,6 +258,10 @@ int CircleHitCheckMain(CHARATYPE type, XY pos1, XY size1)
 	// 判定を取るオブジェクトの情報用変数
 	XY pos2 = { 0,0 };
 	XY size2 = { 0,0 };
+
+	pos1.x += size1.x / 2;
+	pos1.y += size1.y / 2;
+
 	int attack = -1;
 
 	switch (type)
@@ -262,8 +273,11 @@ int CircleHitCheckMain(CHARATYPE type, XY pos1, XY size1)
 		{
 			pos2 = GetEnemyPos(en);
 			size2 = GetEnemySize(en);
+			// 画像の真ん中を座標の中心にする
+			pos2.x = pos2.x + size2.x / 2;
+			pos2.y = pos2.y + size2.y / 2;
 			size2.x = (size2.x + size2.y) / 2; // 画像の縦サイズと横サイズの半分の平均を半径として判定を取る
-			if ((pos2.x - pos1.x) * (pos2.x - pos1.x) + (pos2.y - pos1.y) * (pos2.y - pos1.y) <= size2.x)
+			if ((pos2.x - pos1.x) * (pos2.x - pos1.x) + (pos2.y - pos1.y) * (pos2.y - pos1.y) <= 22*22)
 			{
 				attack = 0;
 			}

@@ -57,18 +57,19 @@ struct XY_F
 // キャラクター用構造体
 struct CHARACTER
 {
-	XY_F pos;
-	DIR dir;
-	CHARATYPE type;
-	XY size;
-	XY offsetSize;
-	int lifeMax;
-	int life;
-	int animCnt;
-	float moveSpeed;
-	bool visible;
-	int level;
-	int attack;
+	XY_F pos;			// 座標用
+	DIR dir;			// オブジェクトの向き
+	CHARATYPE type;		// キャラクターのタイプ
+	XY size;			// サイズ
+	XY offsetSize;		// 余白なしのサイズ
+	int rad;			// 円で判定を取るオブジェクトの半径
+	int lifeMax;		// HPの基礎値
+	int life;			// 実際のHP
+	int animCnt;		// アニメーションカウント用
+	float moveSpeed;	// 移動速度
+	bool visible;		// 可視化状態
+	int level;			// レベル
+	int attack;			// 攻撃力用
 };
 
 // プロトタイプ宣言
@@ -82,4 +83,4 @@ void GameOverScene(void);	// ゲームオーバーシーン
 void GameOverDraw(void);	// ゲームオーバー描画
 bool IsPassMain(XY playerPos); // プレイヤーから座標をもらって通過可能化を返す
 int RectHitCheckMain(CHARATYPE type, XY pos1, XY size1);	// 矩形の当たり判定(接触：0、非接触：-1、ダメージがある場合：1以上の整数)
-int CircleHitCheckMain(CHARACTER type, XY pos1, XY size1);	// 円と円の当たり判定(接触：0、非接触：-1、ダメージがある場合：1以上の整数)
+int CircleHitCheckMain(CHARATYPE type, XY pos1, XY size1);	// 円と円の当たり判定(接触：0、非接触：-1、ダメージがある場合：1以上の整数)

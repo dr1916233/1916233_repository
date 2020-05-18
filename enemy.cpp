@@ -15,20 +15,10 @@ int enemyImage[ENEMY_TYPE_MAX][16];		// 敵の画像の種類
 // 敵の初期化
 void EnemySystemInit(void)
 {
-	//------------------------------------------------------------------------------------------
-// スライム
-
-	//enemyMaster[ENEMY_TYPE_SURAIMU].type = CHARA_ENEMY;
-	//enemyMaster[ENEMY_TYPE_SURAIMU].lifeMax = 4;
-	//enemyMaster[ENEMY_TYPE_SURAIMU].moveSpeed = 1;
-	//enemyMaster[ENEMY_TYPE_SURAIMU].size.x = 32;
-	//enemyMaster[ENEMY_TYPE_SURAIMU].size.y = 32;
-	LoadDivGraph("image/character/スライムfin完.png",
-		16, 4, 4, 32, 32, enemyImage[ENEMY_TYPE_SLIME]);
-	//------------------------------------------------------------------------------------------
-
 	for (int cnt = 0; cnt < ENEMY_TYPE_MAX; cnt++)
 	{
+		enemyMaster[cnt].size = { 0,0 };
+		enemyMaster[cnt].offsetSize = { 0,0 };
 		enemyMaster[cnt].animCnt = 0;
 		enemyMaster[cnt].lifeMax = 0;
 		enemyMaster[cnt].life = 0;
@@ -36,6 +26,19 @@ void EnemySystemInit(void)
 		enemyMaster[cnt].visible = true;
 		enemyMaster[cnt].type = CHARA_ENEMY;
 	}
+
+	//------------------------------------------------------------------------------------------
+// スライム
+
+	enemyMaster[ENEMY_TYPE_SLIME].size = { 32,32 };
+	enemyMaster[ENEMY_TYPE_SLIME].offsetSize = { 3,7 };
+	enemyMaster[ENEMY_TYPE_SLIME].lifeMax = 2;
+	enemyMaster[ENEMY_TYPE_SLIME].moveSpeed = 1;
+
+	LoadDivGraph("image/character/スライムfin完.png",
+		16, 4, 4, 32, 32, enemyImage[ENEMY_TYPE_SLIME]);
+	//------------------------------------------------------------------------------------------
+
 }
 
 // 敵のゲームごとの初期化
@@ -47,6 +50,7 @@ void EnemyGameInit(void)
 		enemy[en] = enemyMaster[rnd];
 
 		//enemy[en].pos.x += enemy[en].size.x * en;
+
 		enemy[en].pos.x = GetRand(SCREEN_SIZE_X - 1);
 		enemy[en].pos.y = GetRand(SCREEN_SIZE_Y - 1);
 	}

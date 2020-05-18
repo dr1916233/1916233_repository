@@ -246,11 +246,36 @@ int RectHitCheckMain(CHARATYPE type, XY pos1,  XY size1)
 }
 
 // 円と円の当たり判定
-int CircleHitCheckMain(CHARACTER type, XY pos1, XY size1)
+int CircleHitCheckMain(CHARATYPE type, XY pos1, XY size1)
 {
+	// 判定を取るオブジェクトの情報用変数
 	XY pos2 = { 0,0 };
 	XY size2 = { 0,0 };
 	int attack = -1;
+
+	switch (type)
+	{
+	case CHARA_PLAYER:
+		break;
+	case CHARA_ENEMY:
+		for (int en = 0; en < ENEMY_MAX; en++)
+		{
+			pos2 = GetEnemyPos(en);
+			size2 = GetEnemySize(en);
+			size2.x = (size2.x + size2.y) / 2; // 画像の縦サイズと横サイズの半分の平均を半径として判定を取る
+			if ((pos2.x - pos1.x) * (pos2.x - pos1.x) + (pos2.y - pos1.y) * (pos2.y - pos1.y) <= size2.x)
+			{
+				attack = 0;
+			}
+		}
+		break;
+	case CHARA_MAGIC:
+		break;
+	default:
+		break;
+	}
+
+	return attack;
 }
 
 // プレイヤーから移動予定座標の座標を貰って移動できるかを調べる

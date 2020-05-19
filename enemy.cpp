@@ -108,8 +108,58 @@ void EnemyControl(void)
 	for (int en = 0; en < ENEMY_MAX; en++)
 	{
 		enemy[en].animCnt++;
+
 	}
 }
+
+//@“G‚ðˆÚ“®‚³‚¹‚éŠÖ”ŒQ XˆÚ“®
+int MoveEnemyX(CHARACTER* enemy, XY playerPos)
+{
+	int speed = (*enemy).moveSpeed;
+	int diff = playerPos.x - (*enemy).pos.x;
+
+	if (diff >= 0)
+	{
+		// ‰E
+		speed = (diff < speed) ? diff : speed;
+		(*enemy).pos.x += speed;
+		(*enemy).dir = DIR_RIGHT;
+	}
+	else
+	{
+		// ¶
+		speed = (-diff < speed) ? -diff : speed;
+		(*enemy).pos.x -= speed;
+		(*enemy).dir = DIR_LEFT;
+	}
+
+	return speed;
+}
+
+// “G‚ðˆÚ“®‚³‚¹‚éŠÖ”ŒQ YˆÚ“®
+int MoveEnemyY(CHARACTER* enemy, XY playerPos)
+{
+	int speed = (*enemy).moveSpeed;
+	int diff = playerPos.y - (*enemy).pos.y;
+
+	if (diff >= 0)
+	{
+		// ‰º
+		speed = (diff < speed) ? diff : speed;
+		(*enemy).pos.y += speed;
+		(*enemy).dir = DIR_DOWN;
+	}
+	else
+	{
+		// ã
+		speed = (-diff < speed) ? -diff : speed;
+		(*enemy).pos.y -= speed;
+		(*enemy).dir = DIR_UP;
+	}
+	return speed;
+}
+
+
 
 XY GetEnemyPos(int en)
 {

@@ -13,6 +13,7 @@ enum ENEMY_TYPE
 	// 敵の種類
 	ENEMY_TYPE_SLIME,	//スライム
 	ENEMY_TYPE_GOBLIN,	//ゴブリン
+	ENEMY_TYPE_OAK,		//オーク
 	ENEMY_TYPE_MAX,
 };
 

@@ -24,5 +24,9 @@ void EnemyGameDraw(XY mapPos);	// “G‚ÌƒQ[ƒ€•`‰æ
 void EnemyControl(void);		// “G‚Ì§Œäˆ—
 void EnemyRad(void);
 
+// “G‚ğˆÚ“®‚³‚¹‚éŠÖ”ŒQ
+int MoveEnemyY(CHARACTER* enemy, XY playerPos);
+int MoveEnemyX(CHARACTER* enemy, XY playerPos);
+
 XY GetEnemyPos(int en);
 XY GetEnemySize(int en);

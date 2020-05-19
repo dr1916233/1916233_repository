@@ -23,32 +23,31 @@ void EnemySystemInit(void)
 		enemyMaster[cnt].lifeMax = 0;			// 敵の初期最大ライフ
 		enemyMaster[cnt].life = 0;				// 敵の初期ライフ
 		enemyMaster[cnt].dir = DIR_DOWN;		// 敵の初期向き
-		enemyMaster[cnt].visible = true;		
 		enemyMaster[cnt].type = CHARA_ENEMY;
 	}
 
 	//------------------------------------------------------------------------------------------
 // スライム
 
-	enemyMaster[ENEMY_TYPE_SLIME].size = { 32,32 };		// スライムのサイズ
-	enemyMaster[ENEMY_TYPE_SLIME].offsetSize = { 3,7 }; // スライムのオフセットサイズ
-	enemyMaster[ENEMY_TYPE_SLIME].lifeMax = 2;			// スライムのライフ
-	enemyMaster[ENEMY_TYPE_SLIME].moveSpeed = 1;		// スライムのスピード
+	enemyMaster[ENEMY_TYPE_SLIME].size = { 32,32 };				// スライムのサイズ
+	enemyMaster[ENEMY_TYPE_SLIME].offsetSize = { 3,7 };			// スライムのオフセットサイズ
+	enemyMaster[ENEMY_TYPE_SLIME].lifeMax = 2;					// スライムのライフ
+	enemyMaster[ENEMY_TYPE_SLIME].moveSpeed = 1;				// スライムのスピード
 	enemyMaster[ENEMY_TYPE_SLIME].enemyType = ENEMY_TYPE_SLIME;	// 敵の種類をスライムにセット
 
 	LoadDivGraph("image/character/スライムfin完.png",
-		16, 4, 4, 32, 32, enemyImage[ENEMY_TYPE_SLIME]);	// スライムの描画
+		16, 4, 4, 32, 32, enemyImage[ENEMY_TYPE_SLIME]);		// スライムの描画
 	//------------------------------------------------------------------------------------------
 	// ゴブリン
 
-	enemyMaster[ENEMY_TYPE_GOBLIN].size = { 32,32 };	// ゴブリンのサイズ
-	enemyMaster[ENEMY_TYPE_GOBLIN].offsetSize = { 3,7 };// ゴブリンのオフセットサイズ
-	enemyMaster[ENEMY_TYPE_GOBLIN].lifeMax = 2;			// ゴブリンのライフ
-	enemyMaster[ENEMY_TYPE_GOBLIN].moveSpeed = 2;		// ゴブリンのスピード
+	enemyMaster[ENEMY_TYPE_GOBLIN].size = { 32,32 };				// ゴブリンのサイズ
+	enemyMaster[ENEMY_TYPE_GOBLIN].offsetSize = { 3,7 };			// ゴブリンのオフセットサイズ
+	enemyMaster[ENEMY_TYPE_GOBLIN].lifeMax = 2;						// ゴブリンのライフ
+	enemyMaster[ENEMY_TYPE_GOBLIN].moveSpeed = 2;					// ゴブリンのスピード
 	enemyMaster[ENEMY_TYPE_GOBLIN].enemyType = ENEMY_TYPE_GOBLIN;	// 敵の種類をゴブリンにセット
 
 	LoadDivGraph("image/character/ゴブリンfin完.png",
-		16, 4, 4, 32, 32, enemyImage[ENEMY_TYPE_GOBLIN]);// ゴブリンの描画
+		16, 4, 4, 32, 32, enemyImage[ENEMY_TYPE_GOBLIN]);			// ゴブリンの描画
 	//------------------------------------------------------------------------------------------
 	// オーク
 
@@ -84,7 +83,7 @@ void EnemyGameInit(void)
 // 敵の描画
 void EnemyGameDraw(XY mapPos)
 {
-	int picMove = (enemy[ENEMY_TYPE_MAX].visible == false) ? enemy[ENEMY_TYPE_MAX].dir * 4 + enemy[ENEMY_TYPE_MAX].animCnt / 10 % 4 :
+	int picMove = (enemy[ENEMY_TYPE_MAX].enemyType == false) ? enemy[ENEMY_TYPE_MAX].dir * 4 + enemy[ENEMY_TYPE_MAX].animCnt / 10 % 4 :
 		enemy[ENEMY_TYPE_MAX].dir * 4;
 
 	picMove = enemy[ENEMY_TYPE_MAX].dir * 4 + enemy[ENEMY_TYPE_MAX].animCnt / 10 % 4;
@@ -129,4 +128,3 @@ void EnemyRad(void)
 	//17+26= 43/2= 21.5= 21
 }
 
-	

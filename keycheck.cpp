@@ -43,6 +43,8 @@ void KeyCheck(void)
 	keyNow[KEY_RIGHT] = (bool)CheckHitKey(KEY_INPUT_RIGHT);
 	keyNow[KEY_LEFT] = (bool)CheckHitKey(KEY_INPUT_LEFT);
 	keyNow[KEY_UP] = (bool)CheckHitKey(KEY_INPUT_UP);
+	keyNow[KEY_E] = (bool)CheckHitKey(KEY_INPUT_E);
+	keyNow[KEY_R] = (bool)CheckHitKey(KEY_INPUT_R);
 
 	// ÉgÉäÉKÅ[èàóù
 	for (int keyID = 0; keyID < KEY_MAX; keyID++)

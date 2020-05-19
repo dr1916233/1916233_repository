@@ -11,6 +11,7 @@
 // アイテムの種類
 enum ITEM_TYPE
 {
+	ITEM_TYPE_STONE,	// ID：0
 	ITEM_TYPE_MAX
 };
 
@@ -30,6 +31,8 @@ struct ITEM
 {
 	ITEM_STATE state;
 	ITEM_TYPE type;
+	int imageIndex;
+	XY pos;
 };
 
 // インベントリ用構造体
@@ -41,9 +44,14 @@ struct INVENTORY
 
 // プロトタイプ宣言
 void ItemSystemInit(void);
-void ItemGameInit(void);
+void ItemGameInit(int invMax);
 void ItemGameDraw(XY mapPos);
 void ItemControl(void);
+void UpdateInventoryList(int max);
+bool AddInventoryList(ITEM insertItem, int index);
+void DeleteInventoryList(int index);
+
+INVENTORY* GetInventoryPointer(void);
 
 
 

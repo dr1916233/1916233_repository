@@ -10,6 +10,7 @@
 #include "effect.h"
 #include "stage.h"
 #include "player.h"
+#include "item.h"
 
 
 
@@ -64,7 +65,7 @@ int WINAPI WinMain(HINSTANCE , HINSTANCE , LPSTR, int)
 
 		ScreenFlip();
 	}
-
+	free(GetInventoryPointer());
 	DxLib_End();     
 
 	return 0; 
@@ -99,7 +100,7 @@ bool SystemInit(void)
 	StageSystemInit();	// ステージ関連の初期化
 	PlayerSystemInit();	// プレイヤー関連の初期化
 	EnemySystemInit();	// 敵関連の初期化
-
+	ItemSystemInit();	// アイテムの初期化
 
 	return rtnFlag; 
 }
@@ -110,6 +111,7 @@ void InitScene(void)
 	PlayerGameInit();	// プレイヤーのゲームループ毎初期化
 	StageGameInit();	// ステージのゲームループ毎初期化
 	EnemyGameInit();	// 敵のゲームループ毎初期化
+	ItemGameInit(10);	// アイテムのゲームループ毎初期化
 }
 
 // タイトルシーン
@@ -145,6 +147,7 @@ void GameScene(void)
 	XY playerMoveDiff = PlayerControl(GetStageSize(), GetMapPos());	// プレイヤーの制御
 	XY mapPosMain = StageControl(playerMoveDiff);		// ステージの制御
 	EnemyControl();		// 敵の制御
+	ItemControl();	// アイテムの制御
 
 	// ゲーム描画
 	GameDraw(mapPosMain);
@@ -171,6 +174,7 @@ void GameDraw(XY mapPos)
 		StageGameDraw(mapPos);
 		EnemyGameDraw(mapPos);
 		PlayerGameDraw(mapPos);
+		ItemGameDraw(mapPos);
 	}
 }
 

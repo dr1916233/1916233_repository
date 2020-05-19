@@ -108,6 +108,8 @@ void EnemyControl(void)
 	for (int en = 0; en < ENEMY_MAX; en++)
 	{
 		enemy[en].animCnt++;
+
+		
 	}
 }
 

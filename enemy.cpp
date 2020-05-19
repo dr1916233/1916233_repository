@@ -1,4 +1,4 @@
-//----------------------------------
+//----------------------------------	
 //	IsekaiKanchoProject
 //	By ゲヱム道館門下生
 //----------------------------------
@@ -44,11 +44,22 @@ void EnemySystemInit(void)
 	enemyMaster[ENEMY_TYPE_GOBLIN].size = { 32,32 };	// ゴブリンのサイズ
 	enemyMaster[ENEMY_TYPE_GOBLIN].offsetSize = { 3,7 };// ゴブリンのオフセットサイズ
 	enemyMaster[ENEMY_TYPE_GOBLIN].lifeMax = 2;			// ゴブリンのライフ
-	enemyMaster[ENEMY_TYPE_GOBLIN].moveSpeed = 1;		// ゴブリンのスピード
+	enemyMaster[ENEMY_TYPE_GOBLIN].moveSpeed = 2;		// ゴブリンのスピード
 	enemyMaster[ENEMY_TYPE_GOBLIN].enemyType = ENEMY_TYPE_GOBLIN;	// 敵の種類をゴブリンにセット
 
 	LoadDivGraph("image/character/ゴブリンfin完.png",
-		16, 4, 4, 32, 32, enemyImage[ENEMY_TYPE_GOBLIN]);	// ゴブリンの描画
+		16, 4, 4, 32, 32, enemyImage[ENEMY_TYPE_GOBLIN]);// ゴブリンの描画
+	//------------------------------------------------------------------------------------------
+	// オーク
+
+	enemyMaster[ENEMY_TYPE_OAK].size = { 40,40 };			// オークのサイズ
+	enemyMaster[ENEMY_TYPE_OAK].offsetSize = { 3,7 };		// オークのオフセットサイズ
+	enemyMaster[ENEMY_TYPE_OAK].lifeMax = 4;				// オークのライフ
+	enemyMaster[ENEMY_TYPE_OAK].moveSpeed = 1;				// オークのスピード
+	enemyMaster[ENEMY_TYPE_OAK].enemyType = ENEMY_TYPE_OAK;	// 敵の種類をオークにセット
+
+	LoadDivGraph("image/character/オークfin完.png",
+		16, 4, 4, 40, 40, enemyImage[ENEMY_TYPE_OAK]);		// オークの描画
 	//------------------------------------------------------------------------------------------
 
 }

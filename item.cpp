@@ -7,9 +7,12 @@
 #include "item.h"
 #include "keycheck.h"
 
+// 定数宣言
+#define ITEM_CREATE_MAX ITEM_MAX + 1
+
 // 変数宣言
 ITEM itemMaster[ITEM_TYPE_MAX];	// アイテムの情報保持用
-ITEM item[ITEM_MAX];	// アイテム用
+ITEM item[ITEM_CREATE_MAX];	// アイテム用
 INVENTORY* inventoryList; // インベントリ内のアイテム制御用
 int inventoryListCnt;	// インベントリ配列の最後のインデックス保持用
 int itemImage[128];		// アイテムの画像用
@@ -77,12 +80,12 @@ void ItemControl(void)
 {
 	if (keyTrgUp[KEY_E])
 	{
-		AddInventoryList(item[0], 0);
+		//AddInventoryList(item[0], 0);
 	}
 
 	if (keyTrgUp[KEY_R])
 	{
-		AddInventoryList(item[1], 0);
+		//AddInventoryList(item[1], 0);
 	}
 }
 
@@ -110,8 +113,10 @@ void UpdateInventoryList(int max)
 	free(inventoryListCopy);
 }
 
-bool AddInventoryList(ITEM insertItem,int index)
+bool AddInventoryList(int index)
 {
+	ITEM insertItem = item[index];
+
 	// リストの一番最後にアイテムがあればfalseを返してアイテム取得不可にする
 	if (inventoryList[inventoryListCnt].num > 0) return false; 
 	
@@ -173,9 +178,38 @@ void DeleteInventoryList(int index)
 	inventoryListCnt -= 1;
 }
 
+// アイテムの配列から該当アイテムを削除
+void DeleteItem(int index)
+{
+	// アイテムをずらして削除
+	for (int sortHead = index; sortHead < ITEM_MAX; sortHead++)
+	{
+		item[sortHead] = item[sortHead + 1];
+	}
+
+	// 最後の配列を削除
+	for (int head = index; head < ITEM_MAX; head++)
+	{
+		if (item[head].type != ITEM_TYPE_NON && item[head + 1].type == ITEM_TYPE_NON)
+		{
+			item[head].imageIndex = 0;
+			item[head].pos = { 0,0 };
+			item[head].state = ITEM_STATE_NON;
+			item[head].type = ITEM_TYPE_NON;
+		}
+	}
+}
+
+// アイテムインベントリのアドレス取得用
 INVENTORY* GetInventoryPointer(void)
 {
 	return inventoryList;
+}
+
+// アイテムの座標取得用
+XY GetItemPos(int index)
+{
+	return item[index].pos;
 }
 
 

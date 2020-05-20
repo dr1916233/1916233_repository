@@ -182,6 +182,9 @@ XY PlayerControl(XY chipNum, XY mapPos)
 		break;
 	}
 
+	// ƒAƒCƒeƒ€‚Æ‚Ì“–‚½‚è”»’è
+	ItemHitCheckMain({ (int)player.pos.x + PLAYER_OFFSET_X,(int)player.pos.y }, {PLAYER_SIZE_X,PLAYER_SIZE_Y});
+
 	return camDiff;
 }
 

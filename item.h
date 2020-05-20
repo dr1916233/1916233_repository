@@ -7,11 +7,14 @@
 
 // 定数
 #define ITEM_MAX 5	// アイテムの最大数
+#define ITEM_SIZE_X	32
+#define ITEM_SIZE_Y 32
 
 // アイテムの種類
 enum ITEM_TYPE
 {
 	ITEM_TYPE_STONE,	// ID：0
+	ITEM_TYPE_NON,
 	ITEM_TYPE_MAX
 };
 
@@ -20,6 +23,7 @@ enum ITEM_STATE
 {
 	ITEM_STATE_INVENTORY,
 	ITEM_STATE_DROP,
+	ITEM_STATE_NON,
 	ITEM_STATE_MAX
 };
 
@@ -33,6 +37,7 @@ struct ITEM
 	ITEM_TYPE type;
 	int imageIndex;
 	XY pos;
+	XY size;
 };
 
 // インベントリ用構造体
@@ -48,11 +53,11 @@ void ItemGameInit(int invMax);
 void ItemGameDraw(XY mapPos);
 void ItemControl(void);
 void UpdateInventoryList(int max);
-bool AddInventoryList(ITEM insertItem, int index);
+bool AddInventoryList(int index);
 void DeleteInventoryList(int index);
-
+XY GetItemPos(int index);
 INVENTORY* GetInventoryPointer(void);
-
+void DeleteItem(int index);
 
 
 

@@ -297,6 +297,28 @@ int CircleHitCheckMain(CHARATYPE type, XY pos1, XY size1)
 	return attack;
 }
 
+// アイテムとプレイヤーの当たり判定
+void ItemHitCheckMain(XY pPos, XY pSize)
+{
+	for (int itemCnt = 0; itemCnt < ITEM_MAX; itemCnt++)
+	{
+		// アイテムの座標を取得
+		XY itemPos = GetItemPos(itemCnt);
+
+		if ((pPos.x + pSize.x > itemPos.x) &&
+			(itemPos.x + ITEM_SIZE_X > pPos.x) &&
+			(pPos.y + pSize.x > itemPos.y) &&
+			(itemPos.y + ITEM_SIZE_Y > pPos.y))
+		{
+			if (keyTrgUp[KEY_E])
+			{
+				AddInventoryList(itemCnt);
+				DeleteItem(itemCnt);
+			}
+		}
+	}
+}
+
 // プレイヤーから移動予定座標の座標を貰って移動できるかを調べる
 bool IsPassMain(XY playerPos)
 {

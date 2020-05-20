@@ -72,6 +72,7 @@ struct CHARACTER
 	bool visible;		// 可視化状態
 	int level;			// レベル
 	int attack;			// 攻撃力用
+	bool moveFlag;		// 動いてるかどうかの判定用
 };
 
 // プロトタイプ宣言
@@ -86,3 +87,4 @@ void GameOverDraw(void);	// ゲームオーバー描画
 bool IsPassMain(XY playerPos); // プレイヤーから座標をもらって通過可能化を返す
 int RectHitCheckMain(CHARATYPE type, XY pos1, XY size1);	// 矩形の当たり判定(接触：0、非接触：-1、ダメージがある場合：1以上の整数)
 int CircleHitCheckMain(CHARATYPE type, XY pos1, XY size1);	// 円と円の当たり判定(接触：0、非接触：-1、ダメージがある場合：1以上の整数)
+void ItemHitCheckMain(XY pPos, XY pSize);	// プレイヤーとアイテムの当たり判定

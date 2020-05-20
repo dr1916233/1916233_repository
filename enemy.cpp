@@ -17,10 +17,8 @@ void EnemySystemInit(void)
 {
 	for (int cnt = 0; cnt < ENEMY_TYPE_MAX; cnt++)
 	{
-		//enemyMaster[cnt].size = { 0,0 };		// 敵の初期サイズ
 		enemyMaster[cnt].offsetSize = { 0,0 };	// 敵の初期オフセットサイズ
 		enemyMaster[cnt].animCnt = 0;			// 敵の初期アニメーションカウント
-		//enemyMaster[cnt].lifeMax = 0;			// 敵の初期最大ライフ
 		enemyMaster[cnt].life = enemyMaster[cnt].lifeMax;				// 敵の初期ライフ
 		enemyMaster[cnt].dir = DIR_DOWN;		// 敵の初期向き
 		enemyMaster[cnt].type = CHARA_ENEMY;
@@ -126,7 +124,6 @@ void EnemyControl(XY playerPos, int cnt)
 			{
 				enemy[en].moveFlag = true;
 			}
-
 		}
 	}
 }

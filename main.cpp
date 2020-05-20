@@ -146,7 +146,7 @@ void GameScene(void)
 
 	XY playerMoveDiff = PlayerControl(GetStageSize(), GetMapPos());	// プレイヤーの制御
 	XY mapPosMain = StageControl(playerMoveDiff);		// ステージの制御
-	EnemyControl();		// 敵の制御
+	EnemyControl(playerMoveDiff,SceneCounter);		// 敵の制御
 	ItemControl();	// アイテムの制御
 
 	// ゲーム描画

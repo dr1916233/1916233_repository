@@ -21,7 +21,7 @@ enum ENEMY_TYPE
 void EnemySystemInit(void);		// “G‚ÌƒVƒXƒeƒ€‰Šú‰»
 void EnemyGameInit(void);		// “G‚ÌƒQ[ƒ€‰Šú‰»
 void EnemyGameDraw(XY mapPos);	// “G‚ÌƒQ[ƒ€•`‰æ
-void EnemyControl(void);		// “G‚Ì§Œäˆ—
+void EnemyControl(XY playerPos, int cnt);		// “G‚Ì§Œäˆ—
 void EnemyRad(void);
 
 // “G‚ğˆÚ“®‚³‚¹‚éŠÖ”ŒQ

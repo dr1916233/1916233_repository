@@ -52,14 +52,14 @@ void EnemySystemInit(void)
 	//------------------------------------------------------------------------------------------
 	// オーク
 
-	enemyMaster[ENEMY_TYPE_OAK].size = { 40,40 };			// オークのサイズ
+	enemyMaster[ENEMY_TYPE_OAK].size = { 41,41 };			// オークのサイズ
 	enemyMaster[ENEMY_TYPE_OAK].offsetSize = { 3,7 };		// オークのオフセットサイズ
 	enemyMaster[ENEMY_TYPE_OAK].lifeMax = 4;				// オークのライフ
 	enemyMaster[ENEMY_TYPE_OAK].moveSpeed = 1;				// オークのスピード
 	enemyMaster[ENEMY_TYPE_OAK].enemyType = ENEMY_TYPE_OAK;	// 敵の種類をオークにセット
 
 	LoadDivGraph("image/character/オークfin完.png",
-		16, 4, 4, 40, 40, enemyImage[ENEMY_TYPE_OAK]);		// オークの描画
+		16, 4, 4, 41, 41, enemyImage[ENEMY_TYPE_OAK]);		// オークの描画
 	//------------------------------------------------------------------------------------------
 
 }

@@ -187,7 +187,3 @@ XY PlayerControl(XY chipNum, XY mapPos)
 
 	return camDiff;
 }
-
-
-
-

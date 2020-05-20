@@ -17,11 +17,9 @@ void EnemySystemInit(void)
 {
 	for (int cnt = 0; cnt < ENEMY_TYPE_MAX; cnt++)
 	{
-		//enemyMaster[cnt].size = { 0,0 };		// 敵の初期サイズ
 		enemyMaster[cnt].offsetSize = { 0,0 };	// 敵の初期オフセットサイズ
 		enemyMaster[cnt].animCnt = 0;			// 敵の初期アニメーションカウント
-		enemyMaster[cnt].lifeMax = 0;			// 敵の初期最大ライフ
-		enemyMaster[cnt].life = 0;				// 敵の初期ライフ
+		enemyMaster[cnt].life = enemyMaster[cnt].lifeMax;				// 敵の初期ライフ
 		enemyMaster[cnt].dir = DIR_DOWN;		// 敵の初期向き
 		enemyMaster[cnt].type = CHARA_ENEMY;
 		enemyMaster[cnt].moveFlag = true;
@@ -52,14 +50,14 @@ void EnemySystemInit(void)
 	//------------------------------------------------------------------------------------------
 	// オーク
 
-	enemyMaster[ENEMY_TYPE_OAK].size = { 40,40 };			// オークのサイズ
+	enemyMaster[ENEMY_TYPE_OAK].size = { 41,41 };			// オークのサイズ
 	enemyMaster[ENEMY_TYPE_OAK].offsetSize = { 3,7 };		// オークのオフセットサイズ
 	enemyMaster[ENEMY_TYPE_OAK].lifeMax = 4;				// オークのライフ
 	enemyMaster[ENEMY_TYPE_OAK].moveSpeed = 1;				// オークのスピード
 	enemyMaster[ENEMY_TYPE_OAK].enemyType = ENEMY_TYPE_OAK;	// 敵の種類をオークにセット
 
 	LoadDivGraph("image/character/オークfin完.png",
-		16, 4, 4, 40, 40, enemyImage[ENEMY_TYPE_OAK]);		// オークの描画
+		16, 4, 4, 41, 41, enemyImage[ENEMY_TYPE_OAK]);		// オークの描画
 	//------------------------------------------------------------------------------------------
 
 }
@@ -88,7 +86,7 @@ void EnemyControl(XY playerPos, int cnt)
 	{
 		enemy[en].animCnt++;
 
-		if (enemy[en].life > 0)
+		if (enemy[en].lifeMax > 0)
 		{
 			switch (enemy[en].enemyType)
 			{
@@ -126,7 +124,6 @@ void EnemyControl(XY playerPos, int cnt)
 			{
 				enemy[en].moveFlag = true;
 			}
-
 		}
 	}
 }
@@ -143,6 +140,7 @@ void EnemyGameDraw(XY mapPos)
 					enemyImage[enemy[en].enemyType][enemy[en].dir * 4 + enemy[en].animCnt / 10 % 4],
 					true);
 		}
+
 	//DrawCircle(320, 240, 150, GetColor(255,255,255), false);
 }
 

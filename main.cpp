@@ -312,8 +312,11 @@ void ItemHitCheckMain(XY pPos, XY pSize)
 		{
 			if (keyTrgUp[KEY_E])
 			{
-				AddInventoryList(itemCnt);
-				DeleteItem(itemCnt);
+				if (AddInventoryList(itemCnt))
+				{
+					DeleteItem(itemCnt);
+				}
+				return;
 			}
 		}
 	}

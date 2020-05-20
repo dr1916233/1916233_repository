@@ -315,8 +315,8 @@ void ItemHitCheckMain(XY pPos, XY pSize)
 				if (AddInventoryList(itemCnt))
 				{
 					DeleteItem(itemCnt);
+					return;
 				}
-				return;
 			}
 		}
 	}

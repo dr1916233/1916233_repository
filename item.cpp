@@ -102,7 +102,7 @@ void ItemGameInit(int invMax)
 	inventoryList = (INVENTORY*)malloc(sizeof(INVENTORY) * invMax);
 	for (int list = 0; list < invMax; list++)
 	{
-		inventoryList[list].itemType = ITEM_TYPE_MAX;
+		inventoryList[list].itemType = ITEM_TYPE_NON;
 		inventoryList[list].num = 0;
 	}
 
@@ -204,20 +204,20 @@ bool AddInventoryList(int index)
 	}
 
 	// 持ってないアイテムの場合はID順に並べて追加
-	for (int listCnt = 0; listCnt < insertIndex; listCnt++)
-	{
-		if (insertItem.type > inventoryList[listCnt].itemType && insertItem.type < inventoryList[listCnt + 1].itemType)
-		{
-			insertIndex = listCnt + 1;
-			break;
-		}
-	}
+	//for (int listCnt = 0; listCnt < insertIndex; listCnt++)
+	//{
+	//	if (insertItem.type > inventoryList[listCnt].itemType && insertItem.type < inventoryList[listCnt + 1].itemType)
+	//	{
+	//		insertIndex = listCnt + 1;
+	//		break;
+	//	}
+	//}
 
 	// 挿入位置から後ろに全部1つずらす
-	for (int listCnt = inventoryListCnt; listCnt > insertIndex; listCnt--)
+	/*for (int listCnt = inventoryListCnt; listCnt > insertIndex; listCnt--)
 	{
 		inventoryList[listCnt + 1] = inventoryList[listCnt];
-	}
+	}*/
 	
 	// リストに挿入
 	inventoryList[insertIndex].itemType = insertItem.type;

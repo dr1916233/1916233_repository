@@ -17,6 +17,7 @@ INVENTORY* inventoryList; // インベントリ内のアイテム制御用
 int inventoryListCnt;	// インベントリ配列の最後のインデックス保持用
 int itemImage[128];		// アイテムの画像用
 int inventoryMax;		// インベントリの最大値
+
 // アイテムのシステム初期化
 void ItemSystemInit(void)
 {
@@ -104,6 +105,7 @@ void ItemGameInit(int invMax)
 	{
 		inventoryList[list].itemType = ITEM_TYPE_NON;
 		inventoryList[list].num = 0;
+		inventoryList[list].imageIndex = 0;
 	}
 
 	// アイテム確認用配置
@@ -153,7 +155,7 @@ void ItemControl(void)
 void UpdateInventoryList(int max)
 {
 	// リストのコピーを作成
-	INVENTORY* inventoryListCopy = (INVENTORY*)malloc(sizeof inventoryList);
+	INVENTORY* inventoryListCopy = (INVENTORY*)malloc(sizeof(INVENTORY) * inventoryListCnt);
 	
 	// コピーにインベントリ内のアイテム移動
 	//inventoryListCopy = inventoryList;
@@ -161,18 +163,28 @@ void UpdateInventoryList(int max)
 	{
 		inventoryListCopy[listCnt] = inventoryList[listCnt];
 	}
-
+	
 	// リストの作り直し
 	free(inventoryList);
 	inventoryList = (INVENTORY*)malloc(sizeof(INVENTORY) * max);
+
+	// 新しいリストの初期化
+	for (int listCnt = 0; listCnt < max; listCnt++)
+	{
+		inventoryList[listCnt].itemType = ITEM_TYPE_NON;
+		inventoryList[listCnt].num = 0;
+		inventoryList[listCnt].imageIndex = 0;
+	}
 
 	// コピーに保存した情報を新しいリストに挿入
 	for (int listCnt = 0; listCnt < inventoryListCnt; listCnt++)
 	{
 		inventoryList[listCnt].itemType = inventoryListCopy[listCnt].itemType;
 		inventoryList[listCnt].num = inventoryListCopy[listCnt].num;
+		inventoryList[listCnt].imageIndex = inventoryListCopy[listCnt].imageIndex;
 	}
 
+	// インベントリの最大値を更新
 	inventoryMax = max;
 
 	// コピーのメモリを開放
@@ -222,6 +234,7 @@ bool AddInventoryList(int index)
 	// リストに挿入
 	inventoryList[insertIndex].itemType = insertItem.type;
 	inventoryList[insertIndex].num += 1;
+	inventoryList[insertIndex].imageIndex = insertItem.imageIndex;
 	item[index].state = ITEM_STATE_INVENTORY;
 	
 	// インベントリにアイテムが入ってるスロット数を更新
@@ -281,4 +294,13 @@ XY GetItemPos(int index)
 	return item[index].pos;
 }
 
+// 指定された座標にインベントリ内アイテムを描画させる
+int InventoryItemDraw(void)
+{
+	for (int invCnt = 0; invCnt < inventoryListCnt; invCnt++)
+	{
+		DrawGraph(611 + (4 + 38) * (invCnt % 4), 189 + (invCnt/4*40),itemImage[inventoryList[invCnt].imageIndex],true);
+	}
 
+	return inventoryMax;
+}

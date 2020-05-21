@@ -13,8 +13,6 @@
 #include "item.h"
 #include "ui.h"
 
-
-
 // 変数宣言
 int SceneCounter;	// シーンカウンター用
 int testCount;	
@@ -349,4 +347,10 @@ bool IsPassMain(XY playerPos)
 {
 	if (IsPass(playerPos)) return true;
 	else return false;
+}
+
+// インベントリーの描画を促し、描画したインベントリの数を返す
+int InventoryItemDrawMain(void)
+{
+	return InventoryItemDraw();
 }

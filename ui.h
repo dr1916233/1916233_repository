@@ -6,6 +6,8 @@
 //#pragma once//----------------------------------
 
 // ’è”éŒ¾
+#define ITEMBOX_MAX 36
+
 enum MENU_TYPE
 {
 	MENU_TYPE_CRAFT,

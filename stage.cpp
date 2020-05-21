@@ -9,6 +9,7 @@
 
 // マップ画像用
 int FieldMap[3][256];
+int DungeonMap[6][256];
 
 XY map[MAP_Y_FIELD][MAP_X_FIELD];
 XY mapPos;
@@ -83,6 +84,10 @@ int Field[MAP_Y_FIELD][MAP_X_FIELD] = {
 };
 
 
+int dungeon1[MAP_Y_DUNGEON][MAP_X_DUNGEON] = {
+
+};
+
 // ステージ関連の初期化
 void StageSystemInit(void)
 {
@@ -92,6 +97,13 @@ void StageSystemInit(void)
 	LoadDivGraph("image/stage/field_grass.png",  192, 16, 12, MAP_IMAGESIZE_X, MAP_IMAGESIZE_Y, FieldMap[0]);
 	LoadDivGraph("image/stage/field_forest.png", 128,  8, 16, MAP_IMAGESIZE_X, MAP_IMAGESIZE_Y, FieldMap[1]);
 	LoadDivGraph("image/stage/field_obj.png",    256, 16, 16, MAP_IMAGESIZE_X, MAP_IMAGESIZE_Y, FieldMap[2]);
+	// ダンジョンのマップ
+	LoadDivGraph("image/stage/cave_dig_bg.png", 128, 8, 16, MAP_IMAGESIZE_X, MAP_IMAGESIZE_Y, DungeonMap[0]);
+	LoadDivGraph("image/stage/cave_dig_obj.png", 128, 8, 16, MAP_IMAGESIZE_X, MAP_IMAGESIZE_Y, DungeonMap[1]);
+	LoadDivGraph("image/stage/cave_ground.png", 128, 8, 16, MAP_IMAGESIZE_X, MAP_IMAGESIZE_Y, DungeonMap[2]);
+	LoadDivGraph("image/stage/cave_rock_bg.png", 128, 8, 16, MAP_IMAGESIZE_X, MAP_IMAGESIZE_Y, DungeonMap[3]);
+	LoadDivGraph("image/stage/cave_rock_obj.png", 128, 8, 16, MAP_IMAGESIZE_X, MAP_IMAGESIZE_Y, DungeonMap[4]);
+	LoadDivGraph("image/stage/cave_stream.png", 128, 8, 16, MAP_IMAGESIZE_X, MAP_IMAGESIZE_Y, DungeonMap[5]);
 
 }
 

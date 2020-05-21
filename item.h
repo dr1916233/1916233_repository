@@ -66,6 +66,7 @@ struct INVENTORY
 {
 	ITEM_TYPE itemType;
 	int num;
+	int imageIndex;
 };
 
 // プロトタイプ宣言
@@ -79,6 +80,7 @@ void DeleteInventoryList(int index);
 XY GetItemPos(int index);
 INVENTORY* GetInventoryPointer(void);
 void DeleteItem(int index);
+int InventoryItemDraw(void);
 
 
 

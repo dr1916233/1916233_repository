@@ -11,8 +11,7 @@
 #include "stage.h"
 #include "player.h"
 #include "item.h"
-
-
+#include "ui.h"
 
 // 変数宣言
 int SceneCounter;	// シーンカウンター用
@@ -20,6 +19,8 @@ int testCount;
 
 SCENE_ID scnID;			// 今のシーン
 SCENE_ID scnIDpre;		// 1フレーム前のシーン
+
+bool menuFlag;		// ゲームメニュー画面判定用
 
 // メイン関数
 int WINAPI WinMain(HINSTANCE , HINSTANCE , LPSTR, int)
@@ -101,6 +102,7 @@ bool SystemInit(void)
 	PlayerSystemInit();	// プレイヤー関連の初期化
 	EnemySystemInit();	// 敵関連の初期化
 	ItemSystemInit();	// アイテムの初期化
+	UiSystemInit();		// UIの初期化
 
 	return rtnFlag; 
 }
@@ -108,10 +110,13 @@ bool SystemInit(void)
 // 初期化シーン
 void InitScene(void)
 {
+	menuFlag = false;	// メニュー画面表示状態をfalseにする
+
 	PlayerGameInit();	// プレイヤーのゲームループ毎初期化
 	StageGameInit();	// ステージのゲームループ毎初期化
 	EnemyGameInit();	// 敵のゲームループ毎初期化
 	ItemGameInit(10);	// アイテムのゲームループ毎初期化
+	UiGameDraw();		// UIのゲームループ毎初期化
 }
 
 // タイトルシーン
@@ -142,12 +147,23 @@ void GameScene(void)
 		FadeOutFlag = true;
 	}
 
-	// 各オブジェクトの制御処理
 
-	XY playerMoveDiff = PlayerControl(GetStageSize(), GetMapPos());	// プレイヤーの制御
-	XY mapPosMain = StageControl(playerMoveDiff);		// ステージの制御
-	EnemyControl(playerMoveDiff,SceneCounter);		// 敵の制御
-	ItemControl();	// アイテムの制御
+	// 各オブジェクトの制御処理
+	XY mapPosMain;	// マップ移動量保存用
+
+	if (menuFlag)
+	{
+		mapPosMain = GetMapPos();
+		if (keyTrgUp[KEY_MENU]) menuFlag = false;
+	}
+	else
+	{
+		if (keyTrgUp[KEY_MENU]) menuFlag = true;
+		XY playerMoveDiff = PlayerControl(GetStageSize(), GetMapPos());	// プレイヤーの制御
+		mapPosMain = StageControl(playerMoveDiff);		// ステージの制御
+		EnemyControl(playerMoveDiff, SceneCounter);		// 敵の制御
+		ItemControl();	// アイテムの制御
+	}
 
 	// ゲーム描画
 	GameDraw(mapPosMain);
@@ -161,11 +177,15 @@ void GameDraw(XY mapPos)
 	DrawFormatString(0, 0, GetColor(255, 255, 255), "ゲームシーンカウンター  %d", SceneCounter);
 
 	// ステージの描画
-	if (pauseFlag)
+	if (menuFlag)
 	{
 		SetDrawBright(50, 50, 50);
 		StageGameDraw(mapPos);
+		EnemyGameDraw(mapPos);
+		PlayerGameDraw(mapPos);
+		ItemGameDraw(mapPos);
 		SetDrawBright(255, 255, 255);
+		UiGameDraw();
 	}
 	else
 	{
@@ -327,4 +347,10 @@ bool IsPassMain(XY playerPos)
 {
 	if (IsPass(playerPos)) return true;
 	else return false;
+}
+
+// インベントリーの描画を促し、描画したインベントリの数を返す
+int InventoryItemDrawMain(void)
+{
+	return InventoryItemDraw();
 }

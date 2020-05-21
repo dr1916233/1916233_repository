@@ -1,4 +1,3 @@
-//#pragma once
 //----------------------------------
 //	IsekaiKanchoProject
 //	By ƒQƒ‘ƒ€“¹ŠÙ–å‰º¶

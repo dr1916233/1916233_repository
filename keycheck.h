@@ -18,6 +18,7 @@ enum KEY_ID {
 	KEY_UP,
 	KEY_E,
 	KEY_R,
+	KEY_MENU,
 	KEY_MAX
 };
 

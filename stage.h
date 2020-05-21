@@ -9,11 +9,26 @@
 // 定数宣言
 #define MAP_X_FIELD 40			// フィールドの横大きさ
 #define MAP_Y_FIELD 30			// フィールドの縦大きさ
-#define MAP_X_DUNGEON 80		// フィールドの横大きさ
-#define MAP_Y_DUNGEON 80		// フィールドの縦大きさ
+
+#define MAP_X_DUNGEON 60		// フィールドの横大きさ
+#define MAP_Y_DUNGEON 50		// フィールドの縦大きさ
+
 #define MAP_IMAGESIZE_X	32		// マップ画像のX方向のサイズ
 #define MAP_IMAGESIZE_Y	32		// マップ画像のY方向のサイズ
 
+enum STAGE_ID
+{
+	STAGE_ID_FIELD,
+	STAGE_ID_DUNGEON,
+	STAGE_ID_MAX
+};
+
+enum EVENT_ID
+{
+	EVENT_ID_NON,
+	EVENT_ID_STG_JUNP,
+	EVENT_ID_MAX
+};
 
 XY GetStageSize(void);
 XY GetMapPos(void);
@@ -25,3 +40,5 @@ void StageGameInit(void);					// ステージゲーム関連の初期化
 XY StageControl(XY playerMoveDiff);			// ステージの制御処理
 bool IsPass(XY pos);						// プレイヤーが次のブロックを通過できるか判定
 XY PosToIndex(XY pos);						// プレイヤーの座標をマップのインデックスに変換して返す
+EVENT_ID GetEvent(XY pos);
+void SetMap(STAGE_ID stageID);

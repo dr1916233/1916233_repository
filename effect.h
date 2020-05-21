@@ -13,5 +13,4 @@ void EffectInit(void);
 extern SCENE_ID scnID;
 extern bool FadeOutFlag;
 extern bool FadeInFlag;
-extern bool pauseFlag;
 extern bool gameFadeOutFlag;

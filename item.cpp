@@ -15,7 +15,7 @@ ITEM itemMaster[ITEM_TYPE_MAX];	// アイテムの情報保持用
 ITEM item[ITEM_CREATE_MAX];	// アイテム用
 INVENTORY* inventoryList; // インベントリ内のアイテム制御用
 int inventoryListCnt;	// インベントリ配列の最後のインデックス保持用
-int itemImage[128];		// アイテムの画像用
+int itemImage[128+20];		// アイテムの画像用
 int inventoryMax;		// インベントリの最大値
 
 // アイテムのシステム初期化
@@ -27,6 +27,8 @@ void ItemSystemInit(void)
 
 	// 石関係アイテムの画像読み込み
 	LoadDivGraph("image/item/item_stone.png", 128, 16, 8, 32, 32, itemImage);
+	// ポーション関係アイテムの画像読み込み
+	LoadDivGraph("image/item/item_portion.png", 20, 10, 2, 32, 32, &itemImage[128]);
 
 	// ------------------------------------
 	//		   アイテム情報初期化
@@ -91,6 +93,31 @@ void ItemSystemInit(void)
 	itemMaster[ITEM_TYPE_WOODBRANCH].imageIndex = 113;
 	itemMaster[ITEM_TYPE_WOODBRANCH].type = ITEM_TYPE_WOODBRANCH;
 	itemMaster[ITEM_TYPE_WOODBRANCH].attribute = ITEM_ATTRIBUTE_MATERIAL;
+
+	// 回復ポーション情報初期化
+	itemMaster[ITEM_TYPE_HEALPORTION].imageIndex = 128;
+	itemMaster[ITEM_TYPE_HEALPORTION].type = ITEM_TYPE_HEALPORTION;
+	itemMaster[ITEM_TYPE_HEALPORTION].attribute = ITEM_ATTRIBUTE_ACTIVE;
+
+	// スピードアップポーション情報初期化
+	itemMaster[ITEM_TYPE_SPEEDUPPORTION].imageIndex = 131;
+	itemMaster[ITEM_TYPE_SPEEDUPPORTION].type = ITEM_TYPE_SPEEDUPPORTION;
+	itemMaster[ITEM_TYPE_SPEEDUPPORTION].attribute = ITEM_ATTRIBUTE_ACTIVE;
+
+	// 毒消しポーション情報初期化
+	itemMaster[ITEM_TYPE_ANTIDOTEPORTION].imageIndex = 132;
+	itemMaster[ITEM_TYPE_ANTIDOTEPORTION].type = ITEM_TYPE_ANTIDOTEPORTION;
+	itemMaster[ITEM_TYPE_ANTIDOTEPORTION].attribute = ITEM_ATTRIBUTE_ACTIVE;
+
+	// 凍結解除ポーション情報初期化
+	itemMaster[ITEM_TYPE_ANTIFREEZEPORTION].imageIndex = 129;
+	itemMaster[ITEM_TYPE_ANTIFREEZEPORTION].type = ITEM_TYPE_ANTIFREEZEPORTION;
+	itemMaster[ITEM_TYPE_ANTIFREEZEPORTION].attribute = ITEM_ATTRIBUTE_ACTIVE;
+
+	// 火傷解除ポーション情報初期化
+	itemMaster[ITEM_TYPE_ANTIBURNPORTION].imageIndex = 130;
+	itemMaster[ITEM_TYPE_ANTIBURNPORTION].type = ITEM_TYPE_ANTIBURNPORTION;
+	itemMaster[ITEM_TYPE_ANTIBURNPORTION].attribute = ITEM_ATTRIBUTE_ACTIVE;
 }
 
 // アイテムのゲーム初期化
@@ -308,4 +335,31 @@ int InventoryItemDraw(void)
 	}
 
 	return inventoryMax;
+}
+
+// アイテムの使用
+bool UseItem(CHARACTER* player,int index)
+{
+	if (itemMaster[inventoryList[index].itemType].attribute != ITEM_ATTRIBUTE_ACTIVE) return false;
+	//(*player)
+	switch (inventoryList[index].itemType)
+	{
+	case ITEM_TYPE_HEALPORTION:
+		if ((*player).life < (*player).lifeMax) (*player).life += PORTION_HEAL;
+		if ((*player).life > (*player).lifeMax) (*player).life = (*player).lifeMax;
+		break;
+	case ITEM_TYPE_SPEEDUPPORTION:
+		(*player).moveSpeed += 10;
+		break;
+	case ITEM_TYPE_ANTIDOTEPORTION:
+		break;
+	case ITEM_TYPE_ANTIFREEZEPORTION:
+		break;
+	case ITEM_TYPE_ANTIBURNPORTION:
+		break;
+	default:
+		break;
+	}
+
+	return true;
 }

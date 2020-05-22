@@ -362,7 +362,8 @@ XY GetMousePosMain(void)
 	return GetMousePos();
 }
 
-void InventoryDeleteMain(int index)
+// アイテム使用用
+bool UseItemMain(int index)
 {
-	DeleteInventoryList(index);
+	return UseItem(GetPlayerPointer(), index);
 }

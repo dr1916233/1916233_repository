@@ -7,6 +7,7 @@
 #include "main.h"
 #include "ui.h"
 #include "keycheck.h"
+#include "item.h"
 
 // 変数宣言
 int menuImage[MENU_TYPE_MAX];		// メニュー画像用
@@ -41,7 +42,14 @@ void UiControl(void)
 		if ((mousePos.x > itemboxPosList[invCnt].x && mousePos.x < itemboxPosList[invCnt].x + ITEMBOX_SIZE_X) &&
 			(mousePos.y > itemboxPosList[invCnt].y && mousePos.y < itemboxPosList[invCnt].y + ITEMBOX_SIZE_Y))
 		{
-			if (mouseTrgUp) InventoryDeleteMain(invCnt);
+			if (mouseTrgUp)
+			{
+				if (UseItemMain(invCnt))
+				{
+					DeleteInventoryList(invCnt);
+				}
+			}
+			//if (mouseTrgUp) DeleteItem(invCnt);
 		}
 	}
 }
@@ -75,6 +83,4 @@ void UiGameDraw(void)
 			DrawFormatString(mousePos.x + 32, mousePos.y + 32, GetColor(255, 255, 255), "アイテム説明");
 		}
 	}
-
-	// 
 }

@@ -6,25 +6,32 @@
 //#pragma once
 
 // 定数
-#define ITEM_MAX 12	// アイテムの最大数
-#define ITEM_SIZE_X	32
+#define ITEM_MAX 17		// アイテムの最大数
+#define ITEM_SIZE_X	32	
 #define ITEM_SIZE_Y 32
+
+#define PORTION_HEAL	100
 
 // アイテムの種類
 enum ITEM_TYPE
 {
-	ITEM_TYPE_HARDSTONE,	// ID： 0 硬い石
-	ITEM_TYPE_SOFTSTONE,	// ID： 1 柔らかい石
-	ITEM_TYPE_DIAMOND,		// ID： 2 ダイアモンド
-	ITEM_TYPE_AMETHYST,		// ID： 3 アメジスト
-	ITEM_TYPE_EMERALD,		// ID： 4 エメラルド
-	ITEM_TYPE_SAPPHIRE,		// ID： 5 サファイア
-	ITEM_TYPE_RUBY,			// ID： 6 ルビー
-	ITEM_TYPE_TOPAZ,		// ID： 7 トパーズ
-	ITEM_TYPE_IRON,			// ID： 8 鉄
-	ITEM_TYPE_GOLD,			// ID： 9 金
-	ITEM_TYPE_WOODLOG,		// ID：10 木の幹
-	ITEM_TYPE_WOODBRANCH,	// ID：11 木の枝
+	ITEM_TYPE_HARDSTONE,			// ID： 0 硬い石
+	ITEM_TYPE_SOFTSTONE,			// ID： 1 柔らかい石
+	ITEM_TYPE_DIAMOND,				// ID： 2 ダイアモンド
+	ITEM_TYPE_AMETHYST,				// ID： 3 アメジスト
+	ITEM_TYPE_EMERALD,				// ID： 4 エメラルド
+	ITEM_TYPE_SAPPHIRE,				// ID： 5 サファイア
+	ITEM_TYPE_RUBY,					// ID： 6 ルビー
+	ITEM_TYPE_TOPAZ,				// ID： 7 トパーズ
+	ITEM_TYPE_IRON,					// ID： 8 鉄
+	ITEM_TYPE_GOLD,					// ID： 9 金
+	ITEM_TYPE_WOODLOG,				// ID：10 木の幹
+	ITEM_TYPE_WOODBRANCH,			// ID：11 木の枝
+	ITEM_TYPE_HEALPORTION,			// ID：12 回復ポーション
+	ITEM_TYPE_SPEEDUPPORTION,		// ID：13 スピードアップポーション
+	ITEM_TYPE_ANTIDOTEPORTION,		// ID：14 毒消しポーション
+	ITEM_TYPE_ANTIFREEZEPORTION,	// ID：15 凍結解除ポーション
+	ITEM_TYPE_ANTIBURNPORTION,		// ID：16 火傷解除ポーション
 	ITEM_TYPE_NON,			
 	ITEM_TYPE_MAX
 };
@@ -81,6 +88,7 @@ XY GetItemPos(int index);
 INVENTORY* GetInventoryPointer(void);
 void DeleteItem(int index);
 int InventoryItemDraw(void);
+bool UseItem(CHARACTER* player, int index);
 
 
 

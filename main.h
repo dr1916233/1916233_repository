@@ -90,4 +90,4 @@ int CircleHitCheckMain(CHARATYPE type, XY pos1, XY size1);	// 円と円の当たり判定
 void ItemHitCheckMain(XY pPos, XY pSize);	// プレイヤーとアイテムの当たり判定
 int InventoryItemDrawMain(void);	// アイテムの描画を促し、描画した数を返す
 XY GetMousePosMain(void);	// マウスの座標取得用関数
-void InventoryDeleteMain(int index);
+bool UseItemMain(int index);

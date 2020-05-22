@@ -187,3 +187,8 @@ XY PlayerControl(XY chipNum, XY mapPos)
 
 	return camDiff;
 }
+
+CHARACTER* GetPlayerPointer(void)
+{
+	return &player;
+}

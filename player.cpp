@@ -38,7 +38,7 @@ void PlayerGameInit(void)
 	player.lifeMax = PLAYER_LIFE_DEF;
 	player.life = player.lifeMax;
 	player.moveSpeed = PLAYER_SPEED_DEF;
-	player.pos = { 10.0f,180.0f };
+	player.pos = { 180.0f,180.0f };
 	player.size = { 32,32 };
 	player.offsetSize = { PLAYER_OFFSET_X,0 };
 	player.type = CHARA_PLAYER;

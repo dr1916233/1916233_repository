@@ -247,7 +247,12 @@ bool AddInventoryList(int index)
 void DeleteInventoryList(int index)
 {
 	// 引数で渡されたインデックスを消す。
-	for (int listCnt = index; listCnt > inventoryListCnt; listCnt++)
+	//for (int listCnt = index; listCnt > inventoryListCnt; listCnt++)
+	//{
+	//	inventoryList[listCnt] = inventoryList[listCnt + 1];
+	//}
+
+	for (int listCnt = index; listCnt < inventoryListCnt; listCnt++)
 	{
 		inventoryList[listCnt] = inventoryList[listCnt + 1];
 	}

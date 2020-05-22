@@ -89,3 +89,5 @@ int RectHitCheckMain(CHARATYPE type, XY pos1, XY size1);	// ‹éŒ`‚Ì“–‚½‚è”»’è(Ú
 int CircleHitCheckMain(CHARATYPE type, XY pos1, XY size1);	// ‰~‚Æ‰~‚Ì“–‚½‚è”»’è(ÚGF0A”ñÚGF-1Aƒ_ƒ[ƒW‚ª‚ ‚éê‡F1ˆÈã‚Ì®”)
 void ItemHitCheckMain(XY pPos, XY pSize);	// ƒvƒŒƒCƒ„[‚ÆƒAƒCƒeƒ€‚Ì“–‚½‚è”»’è
 int InventoryItemDrawMain(void);	// ƒAƒCƒeƒ€‚Ì•`‰æ‚ğ‘£‚µA•`‰æ‚µ‚½”‚ğ•Ô‚·
+XY GetMousePosMain(void);	// ƒ}ƒEƒX‚ÌÀ•Wæ“¾—pŠÖ”
+void InventoryDeleteMain(int index);

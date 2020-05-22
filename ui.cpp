@@ -6,10 +6,12 @@
 #include "DxLib.h"
 #include "main.h"
 #include "ui.h"
+#include "keycheck.h"
 
 // 変数宣言
 int menuImage[MENU_TYPE_MAX];		// メニュー画像用
-int itemboxImage[2];
+int itemboxImage[2];				// アイテムボックスの画像用
+XY itemboxPosList[ITEMBOX_MAX];		// アイテムボックスの座標記憶用
 
 // UIのシステム初期化
 void UiSystemInit(void)
@@ -32,28 +34,47 @@ void UiGameInit(void)
 // UIの制御
 void UiControl(void)
 {
+	XY mousePos = GetMousePosMain();
 
+	for (int invCnt = 0; invCnt < ITEMBOX_MAX; invCnt++)
+	{
+		if ((mousePos.x > itemboxPosList[invCnt].x && mousePos.x < itemboxPosList[invCnt].x + ITEMBOX_SIZE_X) &&
+			(mousePos.y > itemboxPosList[invCnt].y && mousePos.y < itemboxPosList[invCnt].y + ITEMBOX_SIZE_Y))
+		{
+			if (mouseTrgUp) InventoryDeleteMain(invCnt);
+		}
+	}
 }
 
 // UIの描画
 void UiGameDraw(void)
 {
+	XY mousePos = GetMousePosMain();
 	// メニュー画面の描画
 	DrawGraph(20, 150, menuImage[MENU_TYPE_CRAFT], true);
 	DrawGraph(250, 150, menuImage[MENU_TYPE_STATUS], true);
 	DrawGraph(600, 150, menuImage[MENU_TYPE_INVENTORY], true);
+
+	// インベントリの開放数を取得してアイテムを描画
 	int lockIndex = InventoryItemDrawMain();
 
+	// アイテムボックスをインベントリに描画
 	for (int invCnt = 0; invCnt < ITEMBOX_MAX; invCnt++)
 	{
-		if (invCnt < lockIndex)
-		{
-			DrawGraph(611 + (4 + 38) * (invCnt % 4) - 2, 189 + (invCnt / 4 * 40) - 2, itemboxImage[0], true);
-		}
-		else
-		{
-			DrawGraph(611 + (4 + 38) * (invCnt % 4) - 2, 189 + (invCnt / 4 * 40) - 2, itemboxImage[1], true);
-		}
-		
+		int imageIndex = (invCnt < lockIndex) ? 0 : 1;
+		itemboxPosList[invCnt] = { 611 + (4 + 38) * (invCnt % 4) - 2 ,189 + (invCnt / 4 * 40) - 2 };
+		DrawGraph(itemboxPosList[invCnt].x,itemboxPosList[invCnt].y, itemboxImage[imageIndex], true);
 	}
+
+	// アイテム説明の描画
+	for (int invCnt = 0; invCnt < ITEMBOX_MAX; invCnt++)
+	{
+		if ((mousePos.x > itemboxPosList[invCnt].x && mousePos.x < itemboxPosList[invCnt].x + ITEMBOX_SIZE_X) &&
+			(mousePos.y > itemboxPosList[invCnt].y && mousePos.y < itemboxPosList[invCnt].y + ITEMBOX_SIZE_Y))
+		{
+			DrawFormatString(mousePos.x + 32, mousePos.y + 32, GetColor(255, 255, 255), "アイテム説明");
+		}
+	}
+
+	// 
 }

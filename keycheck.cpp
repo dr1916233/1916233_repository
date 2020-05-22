@@ -13,6 +13,13 @@ bool keyTrgDown[KEY_MAX];
 bool keyNow[KEY_MAX];
 bool keyOld[KEY_MAX];
 
+bool mouseTrgUp;
+bool mouseTrgDown;
+bool mouseNow;
+bool mouseOld;
+
+XY mousePos;
+
 
 // キー情報の初期化
 void KeyInit(void)
@@ -25,6 +32,12 @@ void KeyInit(void)
 		keyNow[keyID] = false;
 		keyOld[keyID] = false;
 	}
+
+	// マウス情報の初期化
+	mouseTrgUp = false;
+	mouseTrgDown = false;
+	mouseNow = false;
+	mouseOld = false;
 }
 
 // キーの状態をチェック
@@ -60,4 +73,29 @@ void KeyCheck(void)
 			keyTrgUp[keyID] = true;
 		}
 	}
+
+	// 1フレーム前のマウスの状態
+	mouseOld = mouseNow;
+
+	// 今のフレームの状態を保存
+	mouseNow = (bool)GetMouseInput();
+
+	// トリガー初期化
+	mouseTrgDown = false;
+	mouseTrgUp = false;
+
+	//　トリガー処理
+	if (!mouseOld && mouseNow)
+	{
+		mouseTrgUp = true;
+	}
+
+	// マウスカーソルの座標を取得
+	GetMousePoint(&mousePos.x, &mousePos.y);
+}
+
+// マウスの座標の取得用
+XY GetMousePos(void)
+{
+	return mousePos;
 }

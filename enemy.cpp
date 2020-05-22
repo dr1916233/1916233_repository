@@ -19,7 +19,7 @@ void EnemySystemInit(void)
 	{
 		enemyMaster[cnt].offsetSize = { 0,0 };	// 敵の初期オフセットサイズ
 		enemyMaster[cnt].animCnt = 0;			// 敵の初期アニメーションカウント
-		enemyMaster[cnt].life = enemyMaster[cnt].lifeMax;				// 敵の初期ライフ
+		enemyMaster[cnt].life = enemyMaster[cnt].lifeMax;	// 敵の初期ライフ
 		enemyMaster[cnt].dir = DIR_DOWN;		// 敵の初期向き
 		enemyMaster[cnt].type = CHARA_ENEMY;
 		enemyMaster[cnt].moveFlag = true;

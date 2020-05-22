@@ -7,6 +7,8 @@
 
 // ’è”éŒ¾
 #define ITEMBOX_MAX 36
+#define ITEMBOX_SIZE_X 38
+#define ITEMBOX_SIZE_Y 38
 
 enum MENU_TYPE
 {

@@ -116,7 +116,7 @@ void InitScene(void)
 	StageGameInit();	// ステージのゲームループ毎初期化
 	EnemyGameInit();	// 敵のゲームループ毎初期化
 	ItemGameInit(10);	// アイテムのゲームループ毎初期化
-	UiGameDraw();		// UIのゲームループ毎初期化
+	UiGameInit();		// UIのゲームループ毎初期化
 }
 
 // タイトルシーン
@@ -155,6 +155,7 @@ void GameScene(void)
 	{
 		mapPosMain = GetMapPos();
 		if (keyTrgUp[KEY_MENU]) menuFlag = false;
+		UiControl();	// UIの制御
 	}
 	else
 	{
@@ -353,4 +354,15 @@ bool IsPassMain(XY playerPos)
 int InventoryItemDrawMain(void)
 {
 	return InventoryItemDraw();
+}
+
+// マウスの座標取得用
+XY GetMousePosMain(void)
+{
+	return GetMousePos();
+}
+
+void InventoryDeleteMain(int index)
+{
+	DeleteInventoryList(index);
 }

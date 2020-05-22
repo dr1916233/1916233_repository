@@ -8,6 +8,7 @@
 // プロトタイプ宣言
 void KeyInit(void);		// キー情報の初期化
 void KeyCheck(void);	// キーの状態を取得
+XY GetMousePos(void);	// マウスの座標取得用
 
 // キー制御用
 enum KEY_ID {
@@ -27,3 +28,7 @@ extern bool keyTrgUp[KEY_MAX];
 extern bool keyTrgDown[KEY_MAX];
 extern bool keyNow[KEY_MAX];
 extern bool keyOld[KEY_MAX];
+
+extern bool mouseTrgUp;
+extern bool mouseNow;
+extern XY mousePos;

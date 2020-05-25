@@ -17,6 +17,7 @@ INVENTORY* inventoryList; // インベントリ内のアイテム制御用
 int inventoryListCnt;	// インベントリ配列の最後のインデックス保持用
 int itemImage[128+20];		// アイテムの画像用
 int inventoryMax;		// インベントリの最大値
+ITEM_TYPE playerArmor;	// プレイヤーが着てるアーマー判定用
 
 // アイテムのシステム初期化
 void ItemSystemInit(void)
@@ -29,6 +30,9 @@ void ItemSystemInit(void)
 	LoadDivGraph("image/item/item_stone.png", 128, 16, 8, 32, 32, itemImage);
 	// ポーション関係アイテムの画像読み込み
 	LoadDivGraph("image/item/item_portion.png", 20, 10, 2, 32, 32, &itemImage[128]);
+	// 防具アイテムの画像読み込み
+	itemImage[149] = LoadGraph("image/item/item_whiteDougi.png",true);
+	itemImage[150] = LoadGraph("image/item/item_braveDougi.png",true);
 
 	// ------------------------------------
 	//		   アイテム情報初期化
@@ -118,6 +122,16 @@ void ItemSystemInit(void)
 	itemMaster[ITEM_TYPE_ANTIBURNPORTION].imageIndex = 130;
 	itemMaster[ITEM_TYPE_ANTIBURNPORTION].type = ITEM_TYPE_ANTIBURNPORTION;
 	itemMaster[ITEM_TYPE_ANTIBURNPORTION].attribute = ITEM_ATTRIBUTE_ACTIVE;
+
+	// 白の道着情報初期化
+	itemMaster[ITEM_TYPE_WHITEDOUGI].imageIndex = 149;
+	itemMaster[ITEM_TYPE_WHITEDOUGI].type = ITEM_TYPE_WHITEDOUGI;
+	itemMaster[ITEM_TYPE_WHITEDOUGI].attribute = ITEM_ATTRIBUTE_ARMOR;
+
+	// 勇者の道着情報初期化
+	itemMaster[ITEM_TYPE_BRAVEDOUGI].imageIndex = 150;
+	itemMaster[ITEM_TYPE_BRAVEDOUGI].type = ITEM_TYPE_BRAVEDOUGI;
+	itemMaster[ITEM_TYPE_BRAVEDOUGI].attribute = ITEM_ATTRIBUTE_ARMOR;
 }
 
 // アイテムのゲーム初期化
@@ -125,6 +139,9 @@ void ItemGameInit(int invMax)
 {
 	// インベントリの最大値用変数
 	inventoryMax = invMax;
+
+	// プレイヤーの防具情報初期化
+	playerArmor = ITEM_TYPE_MAX;
 
 	// プレイヤーインベントリを作成
 	inventoryList = (INVENTORY*)malloc(sizeof(INVENTORY) * invMax);
@@ -161,7 +178,6 @@ void ItemGameDraw(XY mapPos)
 	{
 		DrawFormatString(10, 18 * cnt + 10, GetColor(255, 255, 255), "個数：%d", inventoryList[cnt].num);
 	}
-
 }
 
 // アイテムのコントロール
@@ -182,7 +198,7 @@ void ItemControl(void)
 void UpdateInventoryList(int max)
 {
 	// リストのコピーを作成
-	INVENTORY* inventoryListCopy = (INVENTORY*)malloc(sizeof(INVENTORY) * inventoryListCnt);
+	INVENTORY* inventoryListCopy = (INVENTORY*)malloc(sizeof(INVENTORY) * inventoryMax);
 	
 	// コピーにインベントリ内のアイテム移動
 	//inventoryListCopy = inventoryList;
@@ -340,7 +356,7 @@ int InventoryItemDraw(void)
 // アイテムの使用
 bool UseItem(CHARACTER* player,int index)
 {
-	if (itemMaster[inventoryList[index].itemType].attribute != ITEM_ATTRIBUTE_ACTIVE) return false;
+	if (itemMaster[inventoryList[index].itemType].attribute == ITEM_ATTRIBUTE_MATERIAL || itemMaster[inventoryList[index].itemType].attribute == ITEM_ATTRIBUTE_PASSIVE) return false;
 	//(*player)
 	switch (inventoryList[index].itemType)
 	{
@@ -356,6 +372,26 @@ bool UseItem(CHARACTER* player,int index)
 	case ITEM_TYPE_ANTIFREEZEPORTION:
 		break;
 	case ITEM_TYPE_ANTIBURNPORTION:
+		break;
+	case ITEM_TYPE_WHITEDOUGI:
+		if (playerArmor != ITEM_TYPE_MAX)
+		{
+			inventoryList[index].itemType = playerArmor;
+			inventoryList[index].imageIndex = itemMaster[playerArmor].imageIndex;
+			playerArmor = inventoryList[index].itemType;
+			return false;
+		}
+		playerArmor = inventoryList[index].itemType;
+		break;
+	case ITEM_TYPE_BRAVEDOUGI:
+		if (playerArmor != ITEM_TYPE_MAX)
+		{
+			inventoryList[index].itemType = playerArmor;
+			inventoryList[index].imageIndex = itemMaster[playerArmor].imageIndex;
+			playerArmor = inventoryList[index].itemType;
+			return false;
+		}
+		playerArmor = inventoryList[index].itemType;
 		break;
 	default:
 		break;

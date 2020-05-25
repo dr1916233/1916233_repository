@@ -128,7 +128,6 @@ void EnemyControl(XY playerPos, int cnt)
 	}
 }
 
-
 // “G‚Ì•`‰æ
 void EnemyGameDraw(XY mapPos)
 {

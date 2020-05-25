@@ -112,10 +112,10 @@ void InitScene(void)
 {
 	menuFlag = false;	// メニュー画面表示状態をfalseにする
 
-	PlayerGameInit();	// プレイヤーのゲームループ毎初期化
+		
 	StageGameInit();	// ステージのゲームループ毎初期化
 	EnemyGameInit();	// 敵のゲームループ毎初期化
-	ItemGameInit(10);	// アイテムのゲームループ毎初期化
+	ItemGameInit(PlayerGameInit());	// アイテムのゲームループ毎初期化
 	UiGameInit();		// UIのゲームループ毎初期化
 }
 
@@ -366,4 +366,26 @@ XY GetMousePosMain(void)
 bool UseItemMain(int index)
 {
 	return UseItem(GetPlayerPointer(), index);
+}
+
+// プレイヤーの情報を取得
+CHARACTER GetPlayerMain(void)
+{
+	return GetPlayer();
+}
+
+// プレイヤーのポインタを取得
+CHARACTER* GetPlayerPointerMain(void)
+{
+	return GetPlayerPointer();
+}
+
+void UpdateInvenyoryListMain(int max)
+{
+	UpdateInventoryList(max);
+}
+
+void DeleteInventoryListMain(int index)
+{
+	DeleteInventoryList(index);
 }

@@ -73,6 +73,8 @@ struct CHARACTER
 	int level;			// レベル
 	int attack;			// 攻撃力用
 	bool moveFlag;		// 動いてるかどうかの判定用
+	int inventoryCnt;	// インベントリの数
+	int statusPoint;	// ステータスを上昇させる回数用
 };
 
 // プロトタイプ宣言
@@ -91,3 +93,7 @@ void ItemHitCheckMain(XY pPos, XY pSize);	// プレイヤーとアイテムの当たり判定
 int InventoryItemDrawMain(void);	// アイテムの描画を促し、描画した数を返す
 XY GetMousePosMain(void);	// マウスの座標取得用関数
 bool UseItemMain(int index);
+CHARACTER GetPlayerMain(void);	// プレイヤーの情報取得
+CHARACTER* GetPlayerPointerMain(void);	// プレイヤーのポインタを取得
+void UpdateInvenyoryListMain(int max);
+void DeleteInventoryListMain(int index);

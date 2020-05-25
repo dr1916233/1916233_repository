@@ -7,12 +7,12 @@
 #include "main.h"
 #include "ui.h"
 #include "keycheck.h"
-#include "item.h"
 
 // 変数宣言
 int menuImage[MENU_TYPE_MAX];		// メニュー画像用
 int itemboxImage[2];				// アイテムボックスの画像用
 XY itemboxPosList[ITEMBOX_MAX];		// アイテムボックスの座標記憶用
+int statusUp;						// ステータスを上げれるかの判定用
 
 // UIのシステム初期化
 void UiSystemInit(void)
@@ -35,8 +35,10 @@ void UiGameInit(void)
 // UIの制御
 void UiControl(void)
 {
+	// マウスの座標記憶用
 	XY mousePos = GetMousePosMain();
 
+	// アイテムボックスの上にカーソルがあるかを判定してかつ、押されてたらアイテムを使用する
 	for (int invCnt = 0; invCnt < ITEMBOX_MAX; invCnt++)
 	{
 		if ((mousePos.x > itemboxPosList[invCnt].x && mousePos.x < itemboxPosList[invCnt].x + ITEMBOX_SIZE_X) &&
@@ -46,17 +48,51 @@ void UiControl(void)
 			{
 				if (UseItemMain(invCnt))
 				{
-					DeleteInventoryList(invCnt);
+					DeleteInventoryListMain(invCnt);
 				}
 			}
-			//if (mouseTrgUp) DeleteItem(invCnt);
 		}
 	}
+
+	// ステータスアップUIの上にカーソルがあるかを判定して、かつ押されてたらステータスを上げる
+	CHARACTER* playerStatus = GetPlayerPointerMain();
+
+	if ((*playerStatus).statusPoint > 0)
+	{
+		if (mousePos.x > 510 && mousePos.x < 534 && mousePos.y > 366 && mousePos.y < 390 && mouseTrgUp)
+		{
+			(*playerStatus).life += 20;
+			(*playerStatus).lifeMax += 20;
+			(*playerStatus).statusPoint--;
+		}
+		if (mousePos.x > 510 && mousePos.x < 534 && mousePos.y > 411 && mousePos.y < 435 && mouseTrgUp)
+		{
+			(*playerStatus).moveSpeed += 0.5f;
+			(*playerStatus).statusPoint--;
+		}
+		if (mousePos.x > 510 && mousePos.x < 534 && mousePos.y > 456 && mousePos.y < 480 && mouseTrgUp)
+		{
+			(*playerStatus).attack += 2;
+			(*playerStatus).statusPoint--;
+		}
+		if (mousePos.x > 510 && mousePos.x < 534 && mousePos.y > 501 && mousePos.y < 525 && mouseTrgUp)
+		{
+			(*playerStatus).inventoryCnt += 2;
+			UpdateInvenyoryListMain((*playerStatus).inventoryCnt);
+			(*playerStatus).statusPoint--;
+		}
+	}
+
+	statusUp = (*playerStatus).statusPoint;
 }
 
 // UIの描画
 void UiGameDraw(void)
 {
+	// ----------------------------------------
+	//			  メニュー画面の描画 
+	// ----------------------------------------
+
 	XY mousePos = GetMousePosMain();
 	// メニュー画面の描画
 	DrawGraph(20, 150, menuImage[MENU_TYPE_CRAFT], true);
@@ -83,4 +119,27 @@ void UiGameDraw(void)
 			DrawFormatString(mousePos.x + 32, mousePos.y + 32, GetColor(255, 255, 255), "アイテム説明");
 		}
 	}
+
+	// プレイヤーの情報を取得
+	CHARACTER playerInfo = GetPlayerMain();
+
+	for (int barCnt = 0; barCnt < 4; barCnt++)
+	{
+		if (barCnt == 0) DrawFormatString(267, 370 + barCnt * 45, GetColor(255, 0, 0), "HP：%d", playerInfo.life);
+		if (barCnt == 1)DrawFormatString(267, 370 + barCnt * 45, GetColor(255, 0, 0), "移動速度：%d％", (int)(playerInfo.moveSpeed / 3.0f * 100.0f));
+		if (barCnt == 2)DrawFormatString(267, 370 + barCnt * 45, GetColor(255, 0, 0), "攻撃力：%d％", (int)((float)playerInfo.attack / 10.0f * 100.0f));
+		if (barCnt == 3)DrawFormatString(267, 370 + barCnt * 45, GetColor(255, 0, 0), "インベントリ数：%d個", playerInfo.inventoryCnt);
+	}
+
+	if (statusUp <= 0)
+	{
+		for (int barCnt = 0; barCnt < 4; barCnt++)
+		{
+			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
+			DrawBox(510, 366 + barCnt * 45, 535, 391 + barCnt * 45, GetColor(0, 0, 0), true);
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+		}
+	}
+
+	DrawFormatString(30 + 250, 150 + 190, GetColor(255, 0, 0), "残りステータス上昇回数：%d回", statusUp);
 }

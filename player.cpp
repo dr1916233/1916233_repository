@@ -29,11 +29,11 @@ void PlayerSystemInit(void)
 }
 
 // プレイヤーのゲーム毎初期化
-void PlayerGameInit(void)
+int PlayerGameInit(void)
 {
 	// プレイヤー情報初期化
 	player.animCnt = 0;
-	player.animCnt = 10;
+	player.attack = 10;
 	player.dir = DIR_DOWN;
 	player.lifeMax = PLAYER_LIFE_DEF;
 	player.life = player.lifeMax;
@@ -43,6 +43,10 @@ void PlayerGameInit(void)
 	player.offsetSize = { PLAYER_OFFSET_X,0 };
 	player.type = CHARA_PLAYER;
 	player.visible = true;
+	player.inventoryCnt = PLAYER_INVENTORY_DEF;
+	player.statusPoint = 4;
+
+	return player.inventoryCnt;
 }
 
 // プレイヤー情報の描画
@@ -188,7 +192,14 @@ XY PlayerControl(XY chipNum, XY mapPos)
 	return camDiff;
 }
 
+// プレイヤーのポインターを取得
 CHARACTER* GetPlayerPointer(void)
 {
 	return &player;
+}
+
+// プレイヤーの情報を取得
+CHARACTER GetPlayer(void)
+{
+	return player;
 }

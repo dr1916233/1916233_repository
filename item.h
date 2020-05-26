@@ -6,7 +6,7 @@
 //#pragma once
 
 // 定数
-#define ITEM_MAX 19		// アイテムの最大数
+#define ITEM_MAX 20		// アイテムの最大数
 #define ITEM_SIZE_X	32	
 #define ITEM_SIZE_Y 32
 
@@ -88,6 +88,7 @@ bool AddInventoryList(int index);
 void DeleteInventoryList(int index);
 XY GetItemPos(int index);
 INVENTORY* GetInventoryPointer(void);
+int CreateItem(ITEM_TYPE type, XY pos);
 void DeleteItem(int index);
 int InventoryItemDraw(void);
 bool UseItem(CHARACTER* player, int index);

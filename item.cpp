@@ -14,6 +14,7 @@
 ITEM itemMaster[ITEM_TYPE_MAX];	// アイテムの情報保持用
 ITEM item[ITEM_CREATE_MAX];	// アイテム用
 INVENTORY* inventoryList; // インベントリ内のアイテム制御用
+INVENTORY armorInventory;	// アーマー用のインベントリ
 int inventoryListCnt;	// インベントリ配列の最後のインデックス保持用
 int itemImage[128+20+2+1];		// アイテムの画像用
 int inventoryMax;		// インベントリの最大値
@@ -159,13 +160,29 @@ void ItemGameInit(int invMax)
 		inventoryList[list].imageIndex = 0;
 	}
 
+	// アーマー用インベントリ初期化
+	armorInventory.imageIndex = 0;
+	armorInventory.itemType = ITEM_TYPE_NON;
+	armorInventory.num = 1;
+
 	// アイテム確認用配置
-	for (int itemCnt = 0; itemCnt < ITEM_MAX; itemCnt++)
+
+	for (int itemCnt = 0; itemCnt < ITEM_CREATE_MAX; itemCnt++)
 	{
-		item[itemCnt] = itemMaster[itemCnt];
-		item[itemCnt].state = ITEM_STATE_DROP;
-		item[itemCnt].pos = { 40 * itemCnt + 50 ,200};
+		item[itemCnt].type = ITEM_TYPE_NON;
+		item[itemCnt].state = ITEM_STATE_NON;
+		item[itemCnt].pos = {0,0};
 	}
+
+	for (int itemCnt = 0; itemCnt < 2; itemCnt++)
+	{
+		item[itemCnt] = itemMaster[ITEM_TYPE_WHITEDOUGI + itemCnt];
+		item[itemCnt].state = ITEM_STATE_DROP;
+		item[itemCnt].pos = { 40 * itemCnt + 50 ,200 };
+	}
+
+
+	
 }
 
 // アイテムのゲーム描画
@@ -315,26 +332,48 @@ void DeleteInventoryList(int index)
 	inventoryListCnt -= 1;
 }
 
+// アイテムの生成
+int CreateItem(ITEM_TYPE type, XY pos)
+{
+	for (int itemCnt = 0; itemCnt < ITEM_MAX; itemCnt++)
+	{
+		if (item[itemCnt].type == ITEM_TYPE_NON)
+		{
+			item[itemCnt] = itemMaster[type];
+			item[itemCnt].pos = pos;
+			return itemCnt;
+		}
+	}
+
+	return -1;
+}
+
 // アイテムの配列から該当アイテムを削除
 void DeleteItem(int index)
 {
-	// アイテムをずらして削除
-	for (int sortHead = index; sortHead < ITEM_MAX; sortHead++)
-	{
-		item[sortHead] = item[sortHead + 1];
-	}
+	//// アイテムをずらして削除
+	//for (int sortHead = index; sortHead < ITEM_MAX; sortHead++)
+	//{
+	//	item[sortHead] = item[sortHead + 1];
+	//}
 
-	// 最後の配列を削除
-	for (int head = index; head < ITEM_MAX; head++)
-	{
-		if (item[head].type != ITEM_TYPE_NON && item[head + 1].type == ITEM_TYPE_NON)
-		{
-			item[head].imageIndex = 0;
-			item[head].pos = { 0,0 };
-			item[head].state = ITEM_STATE_NON;
-			item[head].type = ITEM_TYPE_NON;
-		}
-	}
+	//// 最後の配列を削除
+	//for (int head = index; head < ITEM_MAX; head++)
+	//{
+	//	if (item[head].type != ITEM_TYPE_NON && item[head + 1].type == ITEM_TYPE_NON)
+	//	{
+	//		item[head].imageIndex = 0;
+	//		item[head].pos = { 0,0 };
+	//		item[head].state = ITEM_STATE_NON;
+	//		item[head].type = ITEM_TYPE_NON;
+	//	}
+	//}
+
+	item[index].attribute = ITEM_ATTRIBUTE_MAX;
+	item[index].imageIndex = -1;
+	item[index].type = ITEM_TYPE_NON;
+	item[index].state = ITEM_STATE_NON;
+	item[index].pos = { -32,-32 };
 }
 
 // アイテムインベントリのアドレス取得用
@@ -391,10 +430,26 @@ bool UseItem(CHARACTER* player,int index)
 		break;
 	case ITEM_TYPE_WHITEDOUGI:
 		playerArmor = inventoryList[index].itemType;
-		return false;
+		if (armorInventory.itemType == ITEM_TYPE_NON) armorInventory = inventoryList[index];
+		else
+		{
+			int index = CreateItem(armorInventory.itemType, { -32,-32 });
+			AddInventoryList(index);
+			DeleteItem(index);
+			armorInventory = inventoryList[index];
+		}
+		break;
 	case ITEM_TYPE_BRAVEDOUGI:
 		playerArmor = inventoryList[index].itemType;
-		return false;
+		if (armorInventory.itemType == ITEM_TYPE_NON) armorInventory = inventoryList[index];
+		else
+		{
+			int index = CreateItem(armorInventory.itemType, { -32,-32 });
+			AddInventoryList(index);
+			DeleteItem(index);
+			armorInventory = inventoryList[index];
+		}
+		break;
 	default:
 		break;
 	}

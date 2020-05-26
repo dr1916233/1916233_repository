@@ -1,11 +1,12 @@
 //----------------------------------	
-//	IsekaiKanchoProject
+//	IsekaiKanchoProject				
 //	By ƒQƒ‘ƒ€“¹ŠÙ–å‰º¶
 //----------------------------------
 
 #include "DxLib.h"
 #include "main.h"
 #include "enemy.h"
+#include "player.h"
 
 // •Ï”éŒ¾
 CHARACTER enemyMaster[ENEMY_TYPE_MAX];	// “G‚Ì•Ï”
@@ -209,3 +210,4 @@ void EnemyRad(void)
 {
 	//17+26= 43/2= 21.5= 21
 }
+

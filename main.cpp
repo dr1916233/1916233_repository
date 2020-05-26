@@ -1,4 +1,4 @@
-//----------------------------------
+//----------------------------------	
 //	IsekaiKanchoProject
 //	By ゲヱム道館門下生
 //----------------------------------
@@ -299,7 +299,7 @@ int CircleHitCheckMain(CHARATYPE type, XY pos1, XY size1)
 		{
 			pos2 = GetEnemyPos(en);
 			size2 = GetEnemySize(en);
-			// 画像の真ん中を座標の中心にする
+	// 画像の真ん中を座標の中心にする
 			pos2.x = pos2.x + size2.x / 2;
 			pos2.y = pos2.y + size2.y / 2;
 			size2.x = (size2.x + size2.y) / 2; // 画像の縦サイズと横サイズの半分の平均を半径として判定を取る

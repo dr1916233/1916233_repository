@@ -136,6 +136,9 @@ void ItemSystemInit(void)
 	itemMaster[ITEM_TYPE_BRAVEDOUGI].imageIndex = 150;
 	itemMaster[ITEM_TYPE_BRAVEDOUGI].type = ITEM_TYPE_BRAVEDOUGI;
 	itemMaster[ITEM_TYPE_BRAVEDOUGI].attribute = ITEM_ATTRIBUTE_ARMOR;
+
+	// アイテム初期化用
+	itemMaster[ITEM_TYPE_NON].attribute = ITEM_ATTRIBUTE_MAX;
 }
 
 // アイテムのゲーム初期化
@@ -367,7 +370,9 @@ int InventoryItemDraw(void)
 // アイテムの使用
 bool UseItem(CHARACTER* player,int index)
 {
-	if (itemMaster[inventoryList[index].itemType].attribute == ITEM_ATTRIBUTE_MATERIAL || itemMaster[inventoryList[index].itemType].attribute == ITEM_ATTRIBUTE_PASSIVE) return false;
+	if (itemMaster[inventoryList[index].itemType].attribute == ITEM_ATTRIBUTE_MATERIAL ||
+		itemMaster[inventoryList[index].itemType].attribute == ITEM_ATTRIBUTE_PASSIVE ||
+		itemMaster[inventoryList[index].itemType].attribute == ITEM_ATTRIBUTE_MAX) return false;
 	//(*player)
 	switch (inventoryList[index].itemType)
 	{

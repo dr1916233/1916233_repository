@@ -30,13 +30,13 @@ enum EVENT_ID
 };
 
 XY GetStageSize(void);
-XY GetMapPos(void);
+XY_F GetMapPos(void);
 
 // プロトタイプ宣言	
 void StageGameDraw(XY mapPos);				// ステージ関連の描画
 void StageSystemInit(void);					// ステージ関連の初期化
 void StageGameInit(void);					// ステージゲーム関連の初期化
-XY StageControl(XY playerMoveDiff);			// ステージの制御処理
+XY_F StageControl(XY_F playerMoveDiff);			// ステージの制御処理
 bool IsPass(XY pos);						// プレイヤーが次のブロックを通過できるか判定
 XY PosToIndex(XY pos);						// プレイヤーの座標をマップのインデックスに変換して返す
 EVENT_ID GetEvent(XY pos);

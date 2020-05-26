@@ -149,7 +149,7 @@ void GameScene(void)
 
 
 	// 各オブジェクトの制御処理
-	XY mapPosMain;	// マップ移動量保存用
+	XY_F mapPosMain;	// マップ移動量保存用
 
 	if (menuFlag)
 	{
@@ -160,14 +160,14 @@ void GameScene(void)
 	else
 	{
 		if (keyTrgUp[KEY_MENU]) menuFlag = true;
-		XY playerMoveDiff = PlayerControl(GetStageSize(), GetMapPos());	// プレイヤーの制御
+		XY_F playerMoveDiff = PlayerControl(GetStageSize(), GetMapPos());	// プレイヤーの制御
 		mapPosMain = StageControl(playerMoveDiff);		// ステージの制御
-		EnemyControl(playerMoveDiff, SceneCounter);		// 敵の制御
+		EnemyControl({ (int)playerMoveDiff.x,(int)playerMoveDiff.y }, SceneCounter);		// 敵の制御
 		ItemControl();	// アイテムの制御
 	}
 
 	// ゲーム描画
-	GameDraw(mapPosMain);
+	GameDraw({ (int)mapPosMain.x,(int)mapPosMain.y });
 }
 
 // ゲームメインシーン描画

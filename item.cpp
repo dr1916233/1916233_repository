@@ -398,8 +398,16 @@ int InventoryItemDraw(void)
 
 	// プレイヤーの選択中防具のビュー描画
 	int imageIndex = 0;
-	if (playerArmor == ITEM_TYPE_WHITEDOUGI) imageIndex = 1;
-	if (playerArmor == ITEM_TYPE_BRAVEDOUGI) imageIndex = 2;
+	if (playerArmor == ITEM_TYPE_WHITEDOUGI)
+	{
+		imageIndex = 1;
+		DrawGraph(185 + 250, 90 + 150, itemImage[149], true);
+	}
+	if (playerArmor == ITEM_TYPE_BRAVEDOUGI)
+	{
+		imageIndex = 2;
+		DrawGraph(185 + 250, 90 + 150, itemImage[150], true);
+	}
 
 	DrawGraph(200 + 100,  150 + 55, selectArmorImage[imageIndex], true);
 

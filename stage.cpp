@@ -13,7 +13,7 @@ int DungeonMap[6][256];
 int mapID;
 
 int map[MAP_Y_FIELD][MAP_X_FIELD];
-XY mapPos;
+XY_F mapPos;
 STAGE_ID stgID;
 
 // フィールドマップ
@@ -447,7 +447,7 @@ XY PosToIndex(XY pos)
 	return rtnIndex;
 }
 
-XY StageControl(XY playerMoveDiff)
+XY_F StageControl(XY_F playerMoveDiff)
 {
 	mapPos.x += playerMoveDiff.x;
 	mapPos.y += playerMoveDiff.y;
@@ -455,7 +455,7 @@ XY StageControl(XY playerMoveDiff)
 	return mapPos;
 }
 
-XY GetMapPos(void)
+XY_F GetMapPos(void)
 {
 	return mapPos;
 }

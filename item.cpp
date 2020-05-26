@@ -15,9 +15,10 @@ ITEM itemMaster[ITEM_TYPE_MAX];	// アイテムの情報保持用
 ITEM item[ITEM_CREATE_MAX];	// アイテム用
 INVENTORY* inventoryList; // インベントリ内のアイテム制御用
 int inventoryListCnt;	// インベントリ配列の最後のインデックス保持用
-int itemImage[128+20];		// アイテムの画像用
+int itemImage[128+20+2+1];		// アイテムの画像用
 int inventoryMax;		// インベントリの最大値
-ITEM_TYPE playerArmor;	// プレイヤーが着てるアーマー判定用
+ITEM_TYPE playerArmor;	// プレイヤーが着てる防具判定用
+int selectArmorImage[3];	// プレイヤーがどの装備を着ているかの表示用
 
 // アイテムのシステム初期化
 void ItemSystemInit(void)
@@ -33,6 +34,9 @@ void ItemSystemInit(void)
 	// 防具アイテムの画像読み込み
 	itemImage[149] = LoadGraph("image/item/item_whiteDougi.png",true);
 	itemImage[150] = LoadGraph("image/item/item_braveDougi.png",true);
+	selectArmorImage[0] = LoadGraph("image/character/naked_kancho_view.png", true);
+	selectArmorImage[1] = LoadGraph("image/character/dougi_kancho_view.png", true);
+	selectArmorImage[2] = LoadGraph("image/character/brave_kancho_view.png", true);
 
 	// ------------------------------------
 	//		   アイテム情報初期化
@@ -350,6 +354,13 @@ int InventoryItemDraw(void)
 		DrawGraph(611 + (4 + 38) * (invCnt % 4), 189 + (invCnt/4*40),itemImage[inventoryList[invCnt].imageIndex],true);
 	}
 
+	// プレイヤーの選択中防具のビュー描画
+	int imageIndex = 0;
+	if (playerArmor == ITEM_TYPE_WHITEDOUGI) imageIndex = 1;
+	if (playerArmor == ITEM_TYPE_BRAVEDOUGI) imageIndex = 2;
+
+	DrawGraph(200 + 100,  150 + 55, selectArmorImage[imageIndex], true);
+
 	return inventoryMax;
 }
 
@@ -374,25 +385,11 @@ bool UseItem(CHARACTER* player,int index)
 	case ITEM_TYPE_ANTIBURNPORTION:
 		break;
 	case ITEM_TYPE_WHITEDOUGI:
-		if (playerArmor != ITEM_TYPE_MAX)
-		{
-			inventoryList[index].itemType = playerArmor;
-			inventoryList[index].imageIndex = itemMaster[playerArmor].imageIndex;
-			playerArmor = inventoryList[index].itemType;
-			return false;
-		}
 		playerArmor = inventoryList[index].itemType;
-		break;
+		return false;
 	case ITEM_TYPE_BRAVEDOUGI:
-		if (playerArmor != ITEM_TYPE_MAX)
-		{
-			inventoryList[index].itemType = playerArmor;
-			inventoryList[index].imageIndex = itemMaster[playerArmor].imageIndex;
-			playerArmor = inventoryList[index].itemType;
-			return false;
-		}
 		playerArmor = inventoryList[index].itemType;
-		break;
+		return false;
 	default:
 		break;
 	}

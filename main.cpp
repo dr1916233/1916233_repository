@@ -186,7 +186,7 @@ void GameDraw(XY mapPos)
 		PlayerGameDraw(mapPos);
 		ItemGameDraw(mapPos);
 		SetDrawBright(255, 255, 255);
-		UiGameDraw();
+		UiGameDraw(menuFlag);
 	}
 	else
 	{
@@ -196,6 +196,7 @@ void GameDraw(XY mapPos)
 		EnemyGameDraw(mapPos);
 		PlayerGameDraw(mapPos);
 		ItemGameDraw(mapPos);
+		UiGameDraw(menuFlag);
 	}
 }
 

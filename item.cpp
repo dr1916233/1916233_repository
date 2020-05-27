@@ -424,8 +424,10 @@ bool UseItem(CHARACTER* player,int index)
 	switch (inventoryList[index].itemType)
 	{
 	case ITEM_TYPE_HEALPORTION:
-		if ((*player).life < (*player).lifeMax) (*player).life += PORTION_HEAL;
-		if ((*player).life > (*player).lifeMax) (*player).life = (*player).lifeMax;
+		/*if ((*player).life < (*player).lifeMax) (*player).life += PORTION_HEAL;
+		if ((*player).life > (*player).lifeMax) (*player).life = (*player).lifeMax;*/
+
+		(*player).lifeMax += PORTION_HEAL;
 		break;
 	case ITEM_TYPE_SPEEDUPPORTION:
 		(*player).moveSpeed += 10;

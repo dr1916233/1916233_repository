@@ -1,4 +1,4 @@
-//----------------------------------	
+//----------------------------------
 //	IsekaiKanchoProject				
 //	By ƒQƒ‘ƒ€“¹ŠÙ–å‰º¶
 //----------------------------------
@@ -203,19 +203,44 @@ int MoveEnemyY(CHARACTER *enemy, XY playerPos)
 	int speed = (*enemy).moveSpeed;
 	int diff = playerPos.y - (*enemy).pos.y;
 
+	XY_F enemyPosCopy = (*enemy).pos;
+	XY enemyPosRIght;
+	XY enemyPosLeft;
+
 	if (diff >= 0)
 	{
 		// ‰º
 		speed = (diff < speed) ? diff : speed;
-		(*enemy).pos.y += speed;
-		(*enemy).dir = DIR_DOWN;
+
+		enemyPosCopy.x += speed;
+		enemyPosCopy.x += (*enemy).size.x;
+
+		enemyPosRIght = { (int)enemyPosCopy.x ,  (int)enemyPosCopy.y };
+		enemyPosLeft = { (int)enemyPosCopy.x ,  (int)enemyPosCopy.y };
+
+		enemyPosLeft.y += (int)enemyPosCopy.y + (*enemy).size.y;
+
+
+		if (IsPassMain(enemyPosRIght) && IsPassMain(enemyPosLeft))
+		{
+			(*enemy).pos.y += speed;
+			(*enemy).dir = DIR_DOWN;
+		}
 	}
 	else
 	{
 		// ã
 		speed = (-diff < speed) ? -diff : speed;
-		(*enemy).pos.y -= speed;
-		(*enemy).dir = DIR_UP;
+		enemyPosRIght = { (int)enemyPosCopy.x ,  (int)enemyPosCopy.y };
+		enemyPosLeft = { (int)enemyPosCopy.x ,  (int)enemyPosCopy.y };
+
+		enemyPosLeft.y += (int)enemyPosCopy.y + (*enemy).size.y;
+
+		if (IsPassMain(enemyPosRIght) && IsPassMain(enemyPosLeft))
+		{
+			(*enemy).pos.y -= speed;
+			(*enemy).dir = DIR_UP;
+		}
 	}
 	return speed;
 }

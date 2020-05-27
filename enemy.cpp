@@ -151,19 +151,47 @@ int MoveEnemyX(CHARACTER *enemy, XY playerPos)
 	int speed = (*enemy).moveSpeed;
 	int diff = playerPos.x - (*enemy).pos.x;
 
+	XY_F enemyPosCopy = (*enemy).pos;
+	XY enemyPosTop;
+	XY enemyPosUnder;
+
 	if (diff >= 0)
 	{
 		// ‰E
 		speed = (diff < speed) ? diff : speed;
-		(*enemy).pos.x += speed;
-		(*enemy).dir = DIR_RIGHT;
+
+		enemyPosCopy.x += speed;
+		enemyPosCopy.x += (*enemy).size.x;
+
+		enemyPosTop = { (int)enemyPosCopy.x ,  (int)enemyPosCopy.y };
+		enemyPosUnder = { (int)enemyPosCopy.x ,  (int)enemyPosCopy.y };
+
+		enemyPosUnder.y += (int)enemyPosCopy.y + (*enemy).size.y;
+
+
+		if (IsPassMain(enemyPosTop) && IsPassMain(enemyPosUnder))
+		{
+			(*enemy).pos.x += speed;
+			(*enemy).dir = DIR_RIGHT;
+		}
 	}
 	else
 	{
 		// ¶
 		speed = (-diff < speed) ? -diff : speed;
-		(*enemy).pos.x -= speed;
-		(*enemy).dir = DIR_LEFT;
+
+		enemyPosCopy.x -= speed;
+
+		enemyPosTop = { (int)enemyPosCopy.x ,  (int)enemyPosCopy.y };
+		enemyPosUnder = { (int)enemyPosCopy.x ,  (int)enemyPosCopy.y };
+
+		enemyPosUnder.y += (int)enemyPosCopy.y + (*enemy).size.y;
+
+		if (IsPassMain(enemyPosTop) && IsPassMain(enemyPosUnder))
+		{
+			(*enemy).pos.x -= speed;
+			(*enemy).dir = DIR_LEFT;
+		}
 	}
 
 	return speed;

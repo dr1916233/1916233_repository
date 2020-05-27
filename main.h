@@ -9,6 +9,11 @@
 #define SCREEN_SIZE_X	800		// ゲームスクリーンのXサイズ
 #define SCREEN_SIZE_Y	600		// ゲームスクリーンのYサイズ
 
+#define GAME_SCREEN_X	800		// ゲームエリアのサイズX
+#define GAME_SCREEN_Y	540		// ゲームエリアのサイズY
+
+#define SCREEN_OFFSET_Y	60		// ゲームエリア上部の余白Yサイズ
+
 // シーン遷移用
 enum SCENE_ID {
 	SCENE_INIT,		// 初期化用

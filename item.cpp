@@ -192,7 +192,7 @@ void ItemGameDraw(XY mapPos)
 	{
 		DrawGraph(
 			item[itemCnt].pos.x - mapPos.x,
-			item[itemCnt].pos.y - mapPos.y,
+			item[itemCnt].pos.y - mapPos.y + SCREEN_OFFSET_Y,
 			itemImage[item[itemCnt].imageIndex],
 			true
 		);

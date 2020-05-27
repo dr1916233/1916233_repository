@@ -136,7 +136,7 @@ void EnemyGameDraw(XY mapPos)
 		{
 				DrawGraph(
 					enemy[en].pos.x - mapPos.x,
-					enemy[en].pos.y - mapPos.y,
+					enemy[en].pos.y - mapPos.y + SCREEN_OFFSET_Y,
 					enemyImage[enemy[en].enemyType][enemy[en].dir * 4 + enemy[en].animCnt / 10 % 4],
 					true);
 		}

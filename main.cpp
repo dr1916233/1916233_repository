@@ -186,7 +186,6 @@ void GameDraw(XY mapPos)
 		PlayerGameDraw(mapPos);
 		ItemGameDraw(mapPos);
 		SetDrawBright(255, 255, 255);
-		UiGameDraw(menuFlag);
 	}
 	else
 	{
@@ -196,8 +195,13 @@ void GameDraw(XY mapPos)
 		EnemyGameDraw(mapPos);
 		PlayerGameDraw(mapPos);
 		ItemGameDraw(mapPos);
-		UiGameDraw(menuFlag);
 	}
+
+	// オフセットエリア描画
+	DrawBox(0, 0, 800, 60, GetColor(15, 15, 15), true);
+
+	// UI描画
+	UiGameDraw(menuFlag);
 }
 
 // ゲームオーバーシーン

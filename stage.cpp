@@ -11,8 +11,8 @@
 int FieldMap[3][256];
 int DungeonMap[6][256];
 int mapID;
-int map1[MAP_Y_FIELD][MAP_X_FIELD];
-int map2[MAP_Y_FIELD][MAP_X_FIELD];
+int map1[MAP_Y_DUNGEON][MAP_X_DUNGEON];
+int map2[MAP_Y_DUNGEON][MAP_X_DUNGEON];
 XY_F mapPos;
 XY mapSize;
 STAGE_ID stgID;
@@ -215,7 +215,7 @@ void StageSystemInit(void)
 void StageGameInit(void)
 {
 	mapPos = { 0,0 };
-	SetMap(STAGE_ID_FIELD);
+	SetMap(STAGE_ID_DUNGEON);
 }
 
 XY GetStageSize(void)
@@ -235,20 +235,20 @@ void StageGameDraw(XY mapPos)
 			for (int x = 0; x < mapSize.x; x++)
 			{
 				// 背景用
-				DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, y * MAP_IMAGESIZE_Y - mapPos.y, FieldMap[0][map1[y][x]], true);
+				DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, SCREEN_OFFSET_Y + y * MAP_IMAGESIZE_Y - mapPos.y, FieldMap[0][map1[y][x]], true);
 				// オブジェ用
 				if (Field[y][x] >= 448)
 				{
-					DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, y * MAP_IMAGESIZE_Y - mapPos.y, FieldMap[1][map2[y][x] - 448], true);
+					DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, SCREEN_OFFSET_Y + y * MAP_IMAGESIZE_Y - mapPos.y, FieldMap[1][map2[y][x] - 448], true);
 
 				}
 				else if (Field[y][x] >= 256)
 				{
-					DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, y * MAP_IMAGESIZE_Y - mapPos.y, FieldMap[0][map2[y][x] - 256], true);
+					DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, SCREEN_OFFSET_Y + y * MAP_IMAGESIZE_Y - mapPos.y, FieldMap[0][map2[y][x] - 256], true);
 				}
 				else
 				{
-					DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, y * MAP_IMAGESIZE_Y - mapPos.y, FieldMap[2][map2[y][x]], true);
+					DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, SCREEN_OFFSET_Y + y * MAP_IMAGESIZE_Y - mapPos.y, FieldMap[2][map2[y][x]], true);
 				}
 			}
 		}
@@ -334,8 +334,8 @@ bool IsPass(XY pos)
 			// 土凹集団
 		case 278:
 		case 279:
-		case 280:
-		case 281:
+		case 294:
+		case 295:
 			// 木株
 		case 144:
 		case 145:
@@ -446,13 +446,13 @@ bool IsPass(XY pos)
 		default:
 			break;
 		}
-
+		break;
 	case STAGE_ID_DUNGEON:
 		// ダンジョン用
 		switch (map1[Index.y][Index.x])
 		{
 			// ダンジョンの壁
-		//case  0:
+		case  0:
 		case  1:
 		case  2:
 		case  6:

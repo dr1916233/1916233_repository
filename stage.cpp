@@ -11,9 +11,10 @@
 int FieldMap[3][256];
 int DungeonMap[6][256];
 int mapID;
-
-int map[MAP_Y_FIELD][MAP_X_FIELD];
+int map1[MAP_Y_FIELD][MAP_X_FIELD];
+int map2[MAP_Y_FIELD][MAP_X_FIELD];
 XY_F mapPos;
+XY mapSize;
 STAGE_ID stgID;
 
 // フィールドマップ
@@ -214,75 +215,76 @@ void StageSystemInit(void)
 void StageGameInit(void)
 {
 	mapPos = { 0,0 };
+	SetMap(STAGE_ID_FIELD);
 }
 
 XY GetStageSize(void)
 {
-	if (dungeon1)
-	{
-		return { MAP_X_DUNGEON,MAP_Y_DUNGEON };
-	}
-	else
-	{
-		return { MAP_X_FIELD,MAP_Y_FIELD };
-	}
+	return mapSize;
 }
 
 // ステージ関連の描画
 void StageGameDraw(XY mapPos)
 {
-// フィールド用
-/*	for (int y = 0; y < MAP_Y_FIELD; y++)
-	{
-		for (int x = 0; x < MAP_X_FIELD; x++)
-		{
-			// 背景用
-			DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, y * MAP_IMAGESIZE_Y - mapPos.y, FieldMap[0][grass[y][x]], true);
-			// オブジェ用
-			if (Field[y][x] >= 448)
-			{
-				DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, y * MAP_IMAGESIZE_Y - mapPos.y, FieldMap[1][Field[y][x] - 448], true);
 
-			}
-			else if (Field[y][x] >= 256)
+	switch (stgID)
+	{
+	case STAGE_ID_FIELD:
+		for (int y = 0; y < mapSize.y; y++)
+		{
+			for (int x = 0; x < mapSize.x; x++)
 			{
-				DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, y * MAP_IMAGESIZE_Y - mapPos.y, FieldMap[0][Field[y][x] - 256], true);
-			}
-			else
-			{
-				DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, y * MAP_IMAGESIZE_Y - mapPos.y, FieldMap[2][Field[y][x]], true);
+				// 背景用
+				DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, y * MAP_IMAGESIZE_Y - mapPos.y, FieldMap[0][map1[y][x]], true);
+				// オブジェ用
+				if (Field[y][x] >= 448)
+				{
+					DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, y * MAP_IMAGESIZE_Y - mapPos.y, FieldMap[1][map2[y][x] - 448], true);
+
+				}
+				else if (Field[y][x] >= 256)
+				{
+					DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, y * MAP_IMAGESIZE_Y - mapPos.y, FieldMap[0][map2[y][x] - 256], true);
+				}
+				else
+				{
+					DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, y * MAP_IMAGESIZE_Y - mapPos.y, FieldMap[2][map2[y][x]], true);
+				}
 			}
 		}
-	}*/
-	
-// ダンジョン用
-
-	for (int y = 0; y < MAP_Y_DUNGEON; y++)
-	{
-		for (int x = 0; x < MAP_X_DUNGEON; x++)
+		break;
+	case STAGE_ID_DUNGEON:
+		for (int y = 0; y < mapSize.y; y++)
 		{
-			// 背景用 
-			DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, SCREEN_OFFSET_Y + y * MAP_IMAGESIZE_Y - mapPos.y, DungeonMap[0][dungeon1[y][x]], true);
-			// オブジェ用
-			if (dungeonObj[y][x] >= 640)
+			for (int x = 0; x < mapSize.x; x++)
 			{
-				DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, SCREEN_OFFSET_Y + y * MAP_IMAGESIZE_Y - mapPos.y, DungeonMap[0][dungeonObj[y][x] - 640], true);
-			}
-			else if (dungeonObj[y][x] >= 448)
-			{
-				DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, SCREEN_OFFSET_Y + y * MAP_IMAGESIZE_Y - mapPos.y, DungeonMap[2][dungeonObj[y][x] - 448], true);
-			}
+				// 背景用 
+				DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, SCREEN_OFFSET_Y + y * MAP_IMAGESIZE_Y - mapPos.y, DungeonMap[0][map1[y][x]], true);
+				// オブジェ用
+				if (dungeonObj[y][x] >= 640)
+				{
+					DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, SCREEN_OFFSET_Y + y * MAP_IMAGESIZE_Y - mapPos.y, DungeonMap[0][map2[y][x] - 640], true);
+				}
+				else if (dungeonObj[y][x] >= 448)
+				{
+					DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, SCREEN_OFFSET_Y + y * MAP_IMAGESIZE_Y - mapPos.y, DungeonMap[2][map2[y][x] - 448], true);
+				}
 
-			else if (dungeonObj[y][x] >= 256)
-			{
-				DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, SCREEN_OFFSET_Y + y * MAP_IMAGESIZE_Y - mapPos.y , DungeonMap[5][dungeonObj[y][x] - 256], true);
-			}
-			else
-			{
-				DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, SCREEN_OFFSET_Y + y * MAP_IMAGESIZE_Y - mapPos.y , DungeonMap[1][dungeonObj[y][x]], true);
+				else if (dungeonObj[y][x] >= 256)
+				{
+					DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, SCREEN_OFFSET_Y + y * MAP_IMAGESIZE_Y - mapPos.y, DungeonMap[5][map2[y][x] - 256], true);
+				}
+				else
+				{
+					DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, SCREEN_OFFSET_Y + y * MAP_IMAGESIZE_Y - mapPos.y, DungeonMap[1][map2[y][x]], true);
+				}
 			}
 		}
+		break;
+	default:
+		break;
 	}
+
 }
 
 // プレイヤーが次のブロックを通過できるか判定
@@ -292,220 +294,226 @@ bool IsPass(XY pos)
 
 	Index = PosToIndex(pos);
 	// フィールド用
-	switch (Field[Index.y][Index.x])
+	switch (stgID)
 	{
-	// 木材
-//	case 106:
-//	case 107:
-//	case 108:
-//	// 石
-//	case 128:
-//	case 235:
-//	case 236:
-//	case 237:
-//	case 251:
-//	case 252:
-//	case 253:
-//	case 318:
-//	// 小物
-//	case  11:
-//	case  12:
-//	case  13:
-//	case  28:
-//	case  29:
-//	case 113:
-//	case 114:
-//	// 塀
-//	case 14:
-//	// ツボ系
-//	case   8:
-//	case   9:
-//	case  10:
-//	case  24:
-//	case  25:
-//	case  26:
-//	// 土凹
-//	case 262:
-//	// 土凹集団
-//	case 278:
-//	case 279:
-//	case 280:
-//	case 281:
-//	// 木株
-//	case 144:
-//	case 145:
-//	// 木
-//	case  32:
-//	case  33:
-//	case  34:
-//	case  35:
-//	case  48:
-//	case  49:
-//	case  50:
-//	case  51:
-//	case  64:
-//	case  65:
-//	case  66:
-//	case  67:
-//	case  80:
-//	case  81:
-//	case  82:
-//	case  83:
-//	case  96:
-//	case  97:
-//	case  98:
-//	case  99:
-//	case  52:
-//	case  53:
-//	case  54:
-//	case  55:
-//	case  68:
-//	case  69:
-//	case  70:
-//	case  71:
-//	case  84:
-//	case  85:
-//	case  86:
-//	case  87:
-//	case 100:
-//	case 101:
-//	case 102:
-//	case 103:
-//	case 189:
-//	case 190:
-//	case 191:
-//	case 205:
-//	case 206:
-//	case 207:
-//	case 221:
-//	case 222:
-//	case 223:
-//	case 448:
-//	case 449:
-//	case 450:
-//	case 451:
-//	case 452:
-//	case 453:
-//	case 454:
-//	case 455:
-//	case 456:
-//	case 457:
-//	case 458:
-//	case 459:
-//	case 460:
-//	case 461:
-//	case 462:
-//	case 463:
-//	case 464:
-//	case 465:
-//	case 466:
-//	case 467:
-//	case 468:
-//	case 469:
-//	case 470:
-//	case 471:
-//	case 472:
-//	case 473:
-//	case 474:
-//	case 475:
-//	case 476:
-//	case 477:
-//	case 478:
-//	case 479:
-//	case 480:
-//	case 481:
-//	case 482:
-//	case 483:
-//	case 484:
-//	case 485:
-//	case 486:
-//	case 487:
-//	// 崖
-//	case 489:
-//	case 496:
-//	case 498:
-//	case 509:
-//	case 512:
-//	case 513:
-//	case 514:
-//	case 520:
-//	case 521:
-//	case 522:
-//	case 537:
-//// ダンジョン穴
-//	case 199:
-//	case 215:
-//	case 229:
-//	case 231: 
-		return false;
-	default:
-		break;
-	}
-	// ダンジョン用
-	switch (dungeon1[Index.y][Index.x])
-	{
-	// ダンジョンの壁
-	case  0:
-	case  1:
-	case  2:
-	case  6:
-	case  7:
-	case  8:
-	case  9:
-	case 10:
-	case 14:
-	case 15:
-	case 16:
-	case 17:
-	case 18:
-		return false;
-	default:
-		break;
-	}
+	case STAGE_ID_FIELD:
+		switch (map2[Index.y][Index.x])
+		{
+			// 木材
+		case 106:
+		case 107:
+		case 108:
+			// 石
+		case 128:
+		case 235:
+		case 236:
+		case 237:
+		case 251:
+		case 252:
+		case 253:
+		case 318:
+			// 小物
+		case  11:
+		case  12:
+		case  13:
+		case  28:
+		case  29:
+		case 113:
+		case 114:
+			// 塀
+		case 14:
+			// ツボ系
+		case   8:
+		case   9:
+		case  10:
+		case  24:
+		case  25:
+		case  26:
+			// 土凹
+		case 262:
+			// 土凹集団
+		case 278:
+		case 279:
+		case 280:
+		case 281:
+			// 木株
+		case 144:
+		case 145:
+			// 木
+		case  32:
+		case  33:
+		case  34:
+		case  35:
+		case  48:
+		case  49:
+		case  50:
+		case  51:
+		case  64:
+		case  65:
+		case  66:
+		case  67:
+		case  80:
+		case  81:
+		case  82:
+		case  83:
+		case  96:
+		case  97:
+		case  98:
+		case  99:
+		case  52:
+		case  53:
+		case  54:
+		case  55:
+		case  68:
+		case  69:
+		case  70:
+		case  71:
+		case  84:
+		case  85:
+		case  86:
+		case  87:
+		case 100:
+		case 101:
+		case 102:
+		case 103:
+		case 189:
+		case 190:
+		case 191:
+		case 205:
+		case 206:
+		case 207:
+		case 221:
+		case 222:
+		case 223:
+		case 448:
+		case 449:
+		case 450:
+		case 451:
+		case 452:
+		case 453:
+		case 454:
+		case 455:
+		case 456:
+		case 457:
+		case 458:
+		case 459:
+		case 460:
+		case 461:
+		case 462:
+		case 463:
+		case 464:
+		case 465:
+		case 466:
+		case 467:
+		case 468:
+		case 469:
+		case 470:
+		case 471:
+		case 472:
+		case 473:
+		case 474:
+		case 475:
+		case 476:
+		case 477:
+		case 478:
+		case 479:
+		case 480:
+		case 481:
+		case 482:
+		case 483:
+		case 484:
+		case 485:
+		case 486:
+		case 487:
+			// 崖
+		case 489:
+		case 496:
+		case 498:
+		case 509:
+		case 512:
+		case 513:
+		case 514:
+		case 520:
+		case 521:
+		case 522:
+		case 537:
+			// ダンジョン穴
+		case 199:
+		case 215:
+		case 229:
+		case 231:
+			return false;
+		default:
+			break;
+		}
 
-	// ダンジョンのオブジェ用
-	switch (dungeonObj[Index.y][Index.x])
-	{
-	// 水
-	case  13:
-	case  14:
-	case  15:
-	case  29:
-	case  30:
-	case  31:
-	case  45:
-	case  46:
-	case  47:
-	// 置物
-	case 107:
-	// 穴
-	case 125:
-	case 126:
-	case 127:
-	case 141:
-	case 142:
-	case 143:
-	case 157:
-	case 458:
-	case 159:
-	// 水晶系
-	case 170:
-	case 171:
-	case 186:
-	case 172:
-	case 188:
-	// 石
-	case  53:
-	case  54:
-	case  69:
-	case  70:
-	case  85:
-	case 101:
-	case 102:
-	case 207:
-		return false;
-	default:
-		break;
+	case STAGE_ID_DUNGEON:
+		// ダンジョン用
+		switch (map1[Index.y][Index.x])
+		{
+			// ダンジョンの壁
+		//case  0:
+		case  1:
+		case  2:
+		case  6:
+		case  7:
+		case  8:
+		case  9:
+		case 10:
+		case 14:
+		case 15:
+		case 16:
+		case 17:
+		case 18:
+			return false;
+		default:
+			break;
+		}
+
+		// ダンジョンのオブジェ用
+		switch (map2[Index.y][Index.x])
+		{
+			// 水
+		case  13:
+		case  14:
+		case  15:
+		case  29:
+		case  30:
+		case  31:
+		case  45:
+		case  46:
+		case  47:
+			// 置物
+		case 107:
+			// 穴
+		case 125:
+		case 126:
+		case 127:
+		case 141:
+		case 142:
+		case 143:
+		case 157:
+		case 458:
+		case 159:
+			// 水晶系
+		case 170:
+		case 171:
+		case 186:
+		case 172:
+		case 188:
+			// 石
+		case  53:
+		case  54:
+		case  69:
+		case  70:
+		case  85:
+		case 101:
+		case 102:
+		case 207:
+			return false;
+		default:
+			break;
+		}
 	}
 	return true;
 }
@@ -519,6 +527,7 @@ EVENT_ID GetEvent(XY pos)
 	switch (Field[Index.y][Index.x])
 	{
 	case 246:
+		return EVENT_ID_STG_JUNP;
 	default:
 		break;
 	}
@@ -536,8 +545,26 @@ void SetMap(STAGE_ID stageID)
 	switch (stageID)
 	{
 	case STAGE_ID_FIELD:
+		for (int y = 0; y < MAP_Y_FIELD; y++)
+		{
+			for (int x = 0; x < MAP_X_FIELD; x++)
+			{
+				map1[y][x] = grass[y][x];
+				map2[y][x] = Field[y][x];
+			}
+		}
+		mapSize = { MAP_X_FIELD ,MAP_Y_FIELD };
 		break;
 	case STAGE_ID_DUNGEON:
+		for (int y = 0; y < MAP_Y_DUNGEON; y++)
+		{
+			for (int x = 0; x < MAP_X_DUNGEON; x++)
+			{
+				map1[y][x] = dungeon1[y][x];
+				map2[y][x] = dungeonObj[y][x];
+			}
+		}
+		mapSize = { MAP_X_DUNGEON ,MAP_Y_DUNGEON };
 		break;
 	default:
 		break;

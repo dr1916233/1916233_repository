@@ -119,7 +119,7 @@ XY_F PlayerControl(XY chipNum, XY_F mapPos)
 			CircleHitCheckMain(CHARA_ENEMY, { (int)playerPosCopy.x,(int)playerPosCopy.y },player.size) == -1)
 		{
 			if (player.pos.y < chipNum.y * 32 - 32) player.pos.y += player.moveSpeed;
-			if (mapPos.y + SCREEN_SIZE_Y < chipNum.y * 32 && player.pos.y > 100) camDiff.y += player.moveSpeed;
+			if (mapPos.y + SCREEN_SIZE_Y -SCREEN_OFFSET_Y < chipNum.y * 32 && player.pos.y > 100 + SCREEN_OFFSET_Y) camDiff.y += player.moveSpeed;
 		}
 		break;
 	case DIR_RIGHT:
@@ -181,7 +181,7 @@ XY_F PlayerControl(XY chipNum, XY_F mapPos)
 			CircleHitCheckMain(CHARA_ENEMY, { (int)playerPosCopy.x,(int)playerPosCopy.y }, player.size) == -1)
 		{
 			if (player.pos.y > 0) player.pos.y -= player.moveSpeed;
-			if (mapPos.y > 0 && player.pos.y < chipNum.y * 32 - 100 - SCREEN_OFFSET_Y) camDiff.y -= player.moveSpeed;
+			if (mapPos.y > 0 && player.pos.y < chipNum.y * 32 - 100) camDiff.y -= player.moveSpeed;
 		}
 		break;
 	default:

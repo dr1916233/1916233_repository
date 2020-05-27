@@ -22,4 +22,4 @@ enum MENU_TYPE
 void UiSystemInit(void);
 void UiGameInit(void);
 void UiControl(void);
-void UiGameDraw(void);
+void UiGameDraw(bool menuFlag);

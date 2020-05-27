@@ -262,24 +262,24 @@ void StageGameDraw(XY mapPos)
 		for (int x = 0; x < MAP_X_DUNGEON; x++)
 		{
 			// 背景用 
-			DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, y * MAP_IMAGESIZE_Y - mapPos.y, DungeonMap[0][dungeon1[y][x]], true);
+			DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, SCREEN_OFFSET_Y + y * MAP_IMAGESIZE_Y - mapPos.y, DungeonMap[0][dungeon1[y][x]], true);
 			// オブジェ用
 			if (dungeonObj[y][x] >= 640)
 			{
-				DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, y * MAP_IMAGESIZE_Y - mapPos.y, DungeonMap[0][dungeonObj[y][x] - 640], true);
+				DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, SCREEN_OFFSET_Y + y * MAP_IMAGESIZE_Y - mapPos.y, DungeonMap[0][dungeonObj[y][x] - 640], true);
 			}
 			else if (dungeonObj[y][x] >= 448)
 			{
-				DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, y * MAP_IMAGESIZE_Y - mapPos.y, DungeonMap[2][dungeonObj[y][x] - 448], true);
+				DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, SCREEN_OFFSET_Y + y * MAP_IMAGESIZE_Y - mapPos.y, DungeonMap[2][dungeonObj[y][x] - 448], true);
 			}
 
 			else if (dungeonObj[y][x] >= 256)
 			{
-				DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, y * MAP_IMAGESIZE_Y - mapPos.y, DungeonMap[5][dungeonObj[y][x] - 256], true);
+				DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, SCREEN_OFFSET_Y + y * MAP_IMAGESIZE_Y - mapPos.y , DungeonMap[5][dungeonObj[y][x] - 256], true);
 			}
 			else
 			{
-				DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, y * MAP_IMAGESIZE_Y - mapPos.y, DungeonMap[1][dungeonObj[y][x]], true);
+				DrawGraph(x * MAP_IMAGESIZE_X - mapPos.x, SCREEN_OFFSET_Y + y * MAP_IMAGESIZE_Y - mapPos.y , DungeonMap[1][dungeonObj[y][x]], true);
 			}
 		}
 	}

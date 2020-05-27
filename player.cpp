@@ -53,7 +53,7 @@ int PlayerGameInit(void)
 void PlayerGameDraw(XY mapPos)
 {
 	player.animCnt++;
-	DrawGraph(player.pos.x - mapPos.x, player.pos.y - mapPos.y, playerImage[player.dir][player.animCnt / 10 % 4], true);
+	DrawGraph(player.pos.x - mapPos.x, player.pos.y - mapPos.y + SCREEN_OFFSET_Y, playerImage[player.dir][player.animCnt / 10 % 4], true);
 	DrawFormatString(50, 100, GetColor(255, 255, 255), "プレイヤーのチップ : %d,%d", (int)player.pos.x / 32, (int)player.pos.y / 32);
 }
 
@@ -181,7 +181,7 @@ XY_F PlayerControl(XY chipNum, XY_F mapPos)
 			CircleHitCheckMain(CHARA_ENEMY, { (int)playerPosCopy.x,(int)playerPosCopy.y }, player.size) == -1)
 		{
 			if (player.pos.y > 0) player.pos.y -= player.moveSpeed;
-			if (mapPos.y > 0 && player.pos.y < chipNum.y * 32 - 100) camDiff.y -= player.moveSpeed;
+			if (mapPos.y > 0 && player.pos.y < chipNum.y * 32 - 100 - SCREEN_OFFSET_Y) camDiff.y -= player.moveSpeed;
 		}
 		break;
 	default:

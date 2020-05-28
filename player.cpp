@@ -7,6 +7,7 @@
 #include "main.h"
 #include "player.h"
 #include "keycheck.h"
+#include "effect.h"
 
 // 変数宣言
 CHARACTER player;
@@ -187,7 +188,10 @@ XY_F PlayerControl(XY chipNum, XY_F mapPos)
 	}
 
 	// プレイヤーの攻撃処理
-	if (keyTrgUp[KEY_NORMAL_ATTACK]) PlayerAttack();
+//	if (keyTrgUp[KEY_NORMAL_ATTACK]) PlayerAttack();
+	XY attackPos = { (int)player.pos.x,(int)player.pos.y };
+	if (keyTrgUp[KEY_NORMAL_ATTACK]) CreateGameEffect(EFFECT_TYPE_FIRESWORD,attackPos);
+
 
 	// アイテムとの当たり判定
 	ItemHitCheckMain({ (int)player.pos.x + PLAYER_OFFSET_X,(int)player.pos.y }, {PLAYER_SIZE_X,PLAYER_SIZE_Y});

@@ -202,6 +202,7 @@ void GameDraw(XY mapPos)
 		StageGameDraw(mapPos);
 		EnemyGameDraw(mapPos);
 		PlayerGameDraw(mapPos);
+		EffectGameDraw(mapPos,SceneCounter);
 		ItemGameDraw(mapPos);
 	}
 

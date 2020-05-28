@@ -102,3 +102,4 @@ CHARACTER GetPlayerMain(void);	// プレイヤーの情報取得
 CHARACTER* GetPlayerPointerMain(void);	// プレイヤーのポインタを取得
 void UpdateInvenyoryListMain(int max);
 void DeleteInventoryListMain(int index);
+void GetEventMain(XY pos);

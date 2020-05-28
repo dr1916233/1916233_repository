@@ -394,3 +394,12 @@ void DeleteInventoryListMain(int index)
 {
 	DeleteInventoryList(index);
 }
+
+void GetEventMain(XY pos)
+{
+	GetEvent(pos);
+	if (GetEvent(pos) == EVENT_ID_STG_JUNP)
+	{
+		SetMap(STAGE_ID_DUNGEON);
+	}
+}

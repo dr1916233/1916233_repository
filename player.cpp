@@ -38,7 +38,7 @@ int PlayerGameInit(void)
 	player.lifeMax = PLAYER_LIFE_DEF;
 	player.life = player.lifeMax;
 	player.moveSpeed = PLAYER_SPEED_DEF;
-	player.pos = { 180.0f,180.0f };
+	player.pos = { 100.0f,180.0f };
 	player.size = { 32,32 };
 	player.offsetSize = { PLAYER_OFFSET_X,0 };
 	player.type = CHARA_PLAYER;
@@ -192,6 +192,9 @@ XY_F PlayerControl(XY chipNum, XY_F mapPos)
 
 	// アイテムとの当たり判定
 	ItemHitCheckMain({ (int)player.pos.x + PLAYER_OFFSET_X,(int)player.pos.y }, {PLAYER_SIZE_X,PLAYER_SIZE_Y});
+
+	// プレイヤーのマップイベント
+	GetEventMain({ (int)player.pos.x,(int)player.pos.y });
 
 	return camDiff;
 }

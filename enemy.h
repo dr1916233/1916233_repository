@@ -30,3 +30,5 @@ int MoveEnemyX(CHARACTER* enemy, XY playerPos);
 
 XY GetEnemyPos(int en);
 XY GetEnemySize(int en);
+
+void DoDamageEnemy(int index, int damage);	// 渡されたインデックスの敵のHPをダメージ分減算する

@@ -115,8 +115,7 @@ XY_F PlayerControl(XY chipNum, XY_F mapPos)
 		playerHitRight.x += PLAYER_OFFSET_X + PLAYER_SIZE_X;
 
 		// コピーが移動できたときは実態を移動させ、カメラの位置をずらす
-		if (IsPassMain(playerHitLeft)&& IsPassMain(playerHitRight) &&
-			CircleHitCheckMain(CHARA_ENEMY, { (int)playerPosCopy.x,(int)playerPosCopy.y },player.size) == -1)
+		if (IsPassMain(playerHitLeft)&& IsPassMain(playerHitRight))
 		{
 			if (player.pos.y < chipNum.y * 32 - 32) player.pos.y += player.moveSpeed;
 			if (mapPos.y + SCREEN_SIZE_Y -SCREEN_OFFSET_Y < chipNum.y * 32 && player.pos.y > 100 + SCREEN_OFFSET_Y) camDiff.y += player.moveSpeed;
@@ -136,8 +135,7 @@ XY_F PlayerControl(XY chipNum, XY_F mapPos)
 		playerHitUnder.y += PLAYER_SIZE_Y;
 
 		// コピーが移動できたときは実態を移動させ、カメラの位置をずらす
-		if (IsPassMain(playerHitTop) && IsPassMain(playerHitUnder) && 
-			CircleHitCheckMain(CHARA_ENEMY, { (int)playerPosCopy.x,(int)playerPosCopy.y } , player.size) == -1)
+		if (IsPassMain(playerHitTop) && IsPassMain(playerHitUnder))
 		{
 			if (player.pos.x < chipNum.x * 32 - 32) player.pos.x += player.moveSpeed;
 			if (mapPos.x + SCREEN_SIZE_X < chipNum.x * 32 && player.pos.x > 100) camDiff.x += player.moveSpeed;
@@ -157,8 +155,7 @@ XY_F PlayerControl(XY chipNum, XY_F mapPos)
 		playerHitUnder.y += PLAYER_SIZE_Y;
 
 		// コピーが移動できたときは実態を移動させ、カメラの位置をずらす
-		if (IsPassMain(playerHitTop) && IsPassMain(playerHitUnder) && 
-			CircleHitCheckMain(CHARA_ENEMY, { (int)playerPosCopy.x,(int)playerPosCopy.y }, player.size) == -1)
+		if (IsPassMain(playerHitTop) && IsPassMain(playerHitUnder))
 		{
 			if (player.pos.x > 0) player.pos.x -= player.moveSpeed;
 			if (mapPos.x > 0 && player.pos.x < chipNum.x * 32 - 100) camDiff.x -= player.moveSpeed;
@@ -177,8 +174,7 @@ XY_F PlayerControl(XY chipNum, XY_F mapPos)
 		playerHitRight.x += PLAYER_OFFSET_X + PLAYER_SIZE_X;
 
 		// コピーが移動できたときは実態を移動させ、カメラの位置をずらす
-		if (IsPassMain(playerHitLeft) && IsPassMain(playerHitRight) && 
-			CircleHitCheckMain(CHARA_ENEMY, { (int)playerPosCopy.x,(int)playerPosCopy.y }, player.size) == -1)
+		if (IsPassMain(playerHitLeft) && IsPassMain(playerHitRight))
 		{
 			if (player.pos.y > 0) player.pos.y -= player.moveSpeed;
 			if (mapPos.y > 0 && player.pos.y < chipNum.y * 32 - 100) camDiff.y -= player.moveSpeed;
@@ -190,6 +186,9 @@ XY_F PlayerControl(XY chipNum, XY_F mapPos)
 		break;
 	}
 
+	// プレイヤーの攻撃処理
+	if (keyTrgUp[KEY_NORMAL_ATTACK]) PlayerAttack();
+
 	// アイテムとの当たり判定
 	ItemHitCheckMain({ (int)player.pos.x + PLAYER_OFFSET_X,(int)player.pos.y }, {PLAYER_SIZE_X,PLAYER_SIZE_Y});
 
@@ -197,6 +196,35 @@ XY_F PlayerControl(XY chipNum, XY_F mapPos)
 	GetEventMain({ (int)player.pos.x,(int)player.pos.y });
 
 	return camDiff;
+}
+
+void PlayerAttack(void)
+{
+	XY attackHitPos = { (int)player.pos.x,  (int)player.pos.y };
+	XY attackSize = { 32,32 };
+
+	switch (player.dir)
+	{
+	case DIR_DOWN:
+		attackHitPos.y += 32;
+		break;
+	case DIR_RIGHT:
+		attackHitPos.x += 32;
+		break;
+	case DIR_LEFT:
+		attackHitPos.x -= 32;
+		break;
+	case DIR_UP:
+		attackHitPos.y -= 32;
+		break;
+	default:
+		break;
+	}
+
+	if (CircleHitCheckMain(CHARA_ENEMY, attackHitPos, attackSize,0))
+	{
+		DoDamageMain(CHARA_ENEMY, player.attack);
+	}
 }
 
 // プレイヤーのポインターを取得

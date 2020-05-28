@@ -21,6 +21,8 @@ SCENE_ID scnID;			// 今のシーン
 SCENE_ID scnIDpre;		// 1フレーム前のシーン
 
 bool menuFlag;		// ゲームメニュー画面判定用
+int enemyHitList[ENEMY_MAX];	// 敵にヒットしたリスト
+int listIndex = 0;	// 敵キャラクターの配列インデックス保持リストのカウント用
 
 // メイン関数
 int WINAPI WinMain(HINSTANCE , HINSTANCE , LPSTR, int)
@@ -147,6 +149,12 @@ void GameScene(void)
 		FadeOutFlag = true;
 	}
 
+	// 敵のヒットリストの初期化
+	for (int enemyCnt = 0; enemyCnt < ENEMY_MAX; enemyCnt++)
+	{
+		enemyHitList[enemyCnt] = -1;
+	}
+	listIndex = 0;
 
 	// 各オブジェクトの制御処理
 	XY_F mapPosMain;	// マップ移動量保存用
@@ -284,16 +292,18 @@ int RectHitCheckMain(CHARATYPE type, XY pos1,  XY size1)
 }
 
 // 円と円の当たり判定
-int CircleHitCheckMain(CHARATYPE type, XY pos1, XY size1)
+bool CircleHitCheckMain(CHARATYPE type, XY pos1, XY size1,int rad)
 {
+	// 返り値用変数
+	bool rtnFlag = false;
+
 	// 判定を取るオブジェクトの情報用変数
 	XY pos2 = { 0,0 };
 	XY size2 = { 0,0 };
 
+	// 座標を画像の中心にする
 	pos1.x += size1.x / 2;
 	pos1.y += size1.y / 2;
-
-	int attack = -1;
 
 	switch (type)
 	{
@@ -308,9 +318,11 @@ int CircleHitCheckMain(CHARATYPE type, XY pos1, XY size1)
 			pos2.x = pos2.x + size2.x / 2;
 			pos2.y = pos2.y + size2.y / 2;
 			size2.x = (size2.x + size2.y) / 2; // 画像の縦サイズと横サイズの半分の平均を半径として判定を取る
-			if ((pos2.x - pos1.x) * (pos2.x - pos1.x) + (pos2.y - pos1.y) * (pos2.y - pos1.y) <= 22*22)
+			if ((pos2.x - pos1.x) * (pos2.x - pos1.x) + (pos2.y - pos1.y) * (pos2.y - pos1.y) <= 22*22 + rad*rad)
 			{
-				attack = 0;
+				rtnFlag = true;
+				enemyHitList[listIndex] = en;
+				listIndex++;
 			}
 		}
 		break;
@@ -320,7 +332,7 @@ int CircleHitCheckMain(CHARATYPE type, XY pos1, XY size1)
 		break;
 	}
 
-	return attack;
+	return rtnFlag;
 }
 
 // アイテムとプレイヤーの当たり判定
@@ -345,6 +357,24 @@ void ItemHitCheckMain(XY pPos, XY pSize)
 				}
 			}
 		}
+	}
+}
+
+// 引数で渡されたキャラクターのHPをダメージ分減算する
+void DoDamageMain(CHARATYPE charaType, int damage)
+{
+	switch (charaType)
+	{
+	case CHARA_PLAYER:
+		break;
+	case CHARA_ENEMY:
+		for (int enemyCnt = 0; enemyCnt <= listIndex; enemyCnt++)
+		{
+			DoDamageEnemy(enemyHitList[enemyCnt], damage);
+		}
+		break;
+	default:
+		break;
 	}
 }
 

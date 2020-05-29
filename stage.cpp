@@ -6,6 +6,7 @@
 #include "DxLib.h"
 #include "main.h"
 #include "stage.h"
+#include "effect.h"
 
 // マップ画像用
 int FieldMap[3][256];
@@ -528,6 +529,7 @@ EVENT_ID GetEvent(XY pos)
 	case STAGE_ID_FIELD:
 		switch (map2[Index.y][Index.x])
 		{
+		case 230:
 		case 246:
 			return EVENT_ID_STG_JUNP;
 		default:

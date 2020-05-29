@@ -69,6 +69,7 @@ int WINAPI WinMain(HINSTANCE , HINSTANCE , LPSTR, int)
 		ScreenFlip();
 	}
 	free(GetInventoryPointer());
+	FreeEffectImage();
 	DxLib_End();     
 
 	return 0; 

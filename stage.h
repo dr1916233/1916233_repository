@@ -9,8 +9,11 @@
 #define MAP_X_FIELD 40			// フィールドの横大きさ
 #define MAP_Y_FIELD 30			// フィールドの縦大きさ
 
-#define MAP_X_DUNGEON 60		// フィールドの横大きさ
-#define MAP_Y_DUNGEON 50		// フィールドの縦大きさ
+#define MAP_X_DUNGEON 60		// ダンジョン1の横大きさ
+#define MAP_Y_DUNGEON 50		// ダンジョン1の縦大きさ
+
+#define MAP_X_DUNGEON2 30		// ダンジョン2の横大きさ
+#define MAP_Y_DUNGEON2 60		// ダンジョン2の縦大きさ
 
 #define MAP_IMAGESIZE_X	32		// マップ画像のX方向のサイズ
 #define MAP_IMAGESIZE_Y	32		// マップ画像のY方向のサイズ
@@ -19,6 +22,7 @@ enum STAGE_ID
 {
 	STAGE_ID_FIELD,
 	STAGE_ID_DUNGEON,
+	STAGE_ID_DUNGEON2,
 	STAGE_ID_MAX
 };
 

@@ -264,3 +264,10 @@ void EnemyRad(void)
 	//17+26= 43/2= 21.5= 21
 }
 
+// ˆø”‚Å“n‚³‚ê‚½”z—ñ“Yš‚Ì“GƒLƒƒƒ‰‚Éƒ_ƒ[ƒW‚ğ—^‚¦‚é
+void DoDamageEnemy(int index,int damage)
+{
+	enemy[index].life -= damage;
+	if (enemy[index].life <= 0) enemy[index].visible = false;
+}
+

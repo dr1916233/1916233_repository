@@ -20,6 +20,7 @@ enum KEY_ID {
 	KEY_E,
 	KEY_R,
 	KEY_MENU,
+	KEY_NORMAL_ATTACK,
 	KEY_MAX
 };
 

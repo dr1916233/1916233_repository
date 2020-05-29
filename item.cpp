@@ -180,9 +180,6 @@ void ItemGameInit(int invMax)
 		item[itemCnt].state = ITEM_STATE_DROP;
 		item[itemCnt].pos = { 40 * itemCnt + 50 ,200 };
 	}
-
-
-	
 }
 
 // アイテムのゲーム描画

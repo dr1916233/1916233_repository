@@ -93,7 +93,7 @@ void GameOverScene(void);	// ゲームオーバーシーン
 void GameOverDraw(void);	// ゲームオーバー描画
 bool IsPassMain(XY playerPos); // プレイヤーから座標をもらって通過可能化を返す
 int RectHitCheckMain(CHARATYPE type, XY pos1, XY size1);	// 矩形の当たり判定(接触：0、非接触：-1、ダメージがある場合：1以上の整数)
-int CircleHitCheckMain(CHARATYPE type, XY pos1, XY size1);	// 円と円の当たり判定(接触：0、非接触：-1、ダメージがある場合：1以上の整数)
+bool CircleHitCheckMain(CHARATYPE type, XY pos1, XY size1, int rad);	// 円と円の当たり判定(接触：0、非接触：-1、ダメージがある場合：1以上の整数)
 void ItemHitCheckMain(XY pPos, XY pSize);	// プレイヤーとアイテムの当たり判定
 int InventoryItemDrawMain(void);	// アイテムの描画を促し、描画した数を返す
 XY GetMousePosMain(void);	// マウスの座標取得用関数
@@ -103,3 +103,4 @@ CHARACTER* GetPlayerPointerMain(void);	// プレイヤーのポインタを取得
 void UpdateInvenyoryListMain(int max);
 void DeleteInventoryListMain(int index);
 void GetEventMain(XY pos);
+void DoDamageMain(CHARATYPE charaType, int damage);	// 引数で渡されたキャラクターのHPをダメージ分減算する

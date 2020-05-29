@@ -22,7 +22,8 @@ bool gameFadeOutFlag;
 int swordEffectImage[SWORDEFFECT_MAX];
 int swordEffectIndex;
 
-EFFECT effect[EFFECT_TYPE_MAX];
+EFFECT effectMaster[EFFECT_TYPE_MAX];
+EFFECT effect[EFFECT_TYPE_MAX][EFFECT_MAX];
 
 // フェード処理の初期化
 void EffectInit(void)
@@ -35,12 +36,22 @@ void EffectInit(void)
 	pauseFlag = false;
 	
 	// エフェクトの初期化
-	effect[EFFECT_TYPE_FIRESWORD].image = (int*)malloc(sizeof(int) * SWORDEFFECT_MAX);
-	LoadDivGraph("image/effect/fireSword.png", 16, 1, 16, 96, 72, effect[EFFECT_TYPE_FIRESWORD].image);
-	effect[EFFECT_TYPE_FIRESWORD].imageIndex = -1;
-	effect[EFFECT_TYPE_FIRESWORD].imageSize = { 96,72 };
-	effect[EFFECT_TYPE_FIRESWORD].pos = { 0,0 };
-	effect[EFFECT_TYPE_FIRESWORD].type = EFFECT_TYPE_FIRESWORD;
+	effectMaster[EFFECT_TYPE_FIRESWORD].image = (int*)malloc(sizeof(int) * SWORDEFFECT_MAX);
+	LoadDivGraph("image/effect/fireSword.png", 16, 1, 16, 96, 72, effectMaster[EFFECT_TYPE_FIRESWORD].image);
+	effectMaster[EFFECT_TYPE_FIRESWORD].disToPos = { 96,96 };
+	effectMaster[EFFECT_TYPE_FIRESWORD].imageIndex = -1;
+	effectMaster[EFFECT_TYPE_FIRESWORD].imageSize = { 96,72 };
+	effectMaster[EFFECT_TYPE_FIRESWORD].pos = { 0,0 };
+	effectMaster[EFFECT_TYPE_FIRESWORD].effectType = EFFECT_TYPE_FIRESWORD;
+
+	// 共通の初期化
+	for (int effectType = 0; effectType < EFFECT_TYPE_MAX; effectType++)
+	{
+		for (int effectCnt = 0; effectCnt < EFFECT_MAX; effectCnt++)
+		{
+			effect[effectType][effectCnt].imageIndex = -1;
+		}
+	}
 }
 
 // シーンのフェードイン フェードアウト
@@ -85,36 +96,77 @@ void SceneChange(SCENE_ID sceneID, int brightCnt, bool fade)
 }
 
 // ゲームエフェクトの生成
-void CreateGameEffect(EFFECT_TYPE type,XY pos)
+void CreateGameEffect(CHARATYPE charaType, EFFECT_TYPE effectType, XY pos, DIR dir)
 {
-	effect[type].imageIndex = 0;
+	for (int effectCnt = 0; effectCnt < EFFECT_MAX; effectCnt++)
+	{
+		if (effect[effectType][effectCnt].imageIndex < 0)
+		{
+			effect[effectType][effectCnt] = effectMaster[effectType];
 
-	pos.x -= effect[type].imageSize.x;
-	pos.x -= effect[type].imageSize.y;
+			effect[effectType][effectCnt].charaType = charaType;
 
-	effect[type].pos = pos;
+			effect[effectType][effectCnt].imageIndex = 0;
+
+			pos.x -= effect[effectType][effectCnt].imageSize.x / 2;
+			pos.y -= effect[effectType][effectCnt].imageSize.y / 2;
+
+			effect[effectType][effectCnt].pos = pos;
+
+			switch (dir)
+			{
+			case DIR_DOWN:
+				effect[effectType][effectCnt].pos.y += effect[effectType][effectCnt].disToPos.y;
+				break;
+			case DIR_RIGHT:
+				effect[effectType][effectCnt].pos.x += effect[effectType][effectCnt].disToPos.x;
+				break;
+			case DIR_LEFT:
+				effect[effectType][effectCnt].pos.x -= effect[effectType][effectCnt].disToPos.x;
+				break;
+			case DIR_UP:
+				effect[effectType][effectCnt].pos.y -= effect[effectType][effectCnt].disToPos.y;
+				break;
+			default:
+				break;
+			}
+			break;
+		}
+	}
 }
 
 // ゲームエフェクトの描画
 void EffectGameDraw(XY mapPos,int frameCnt)
 {
-	SwordEffect(mapPos,frameCnt);
+	for (int effectCnt = 0; effectCnt < EFFECT_MAX; effectCnt++)
+	{
+		SwordEffect(mapPos, frameCnt, effectCnt);
+	}
 }
 
 // 剣エフェクトの描画
-void SwordEffect(XY mapPos,int frameCnt)
+void SwordEffect(XY mapPos,int frameCnt,int effectCnt)
 {
-	if (effect[EFFECT_TYPE_FIRESWORD].imageIndex >= 0)
+	if (effect[EFFECT_TYPE_FIRESWORD][effectCnt].imageIndex >= 0)
 	{
 		DrawGraph(
-			effect[EFFECT_TYPE_FIRESWORD].pos.x - mapPos.x,
-			effect[EFFECT_TYPE_FIRESWORD].pos.y + SCREEN_OFFSET_Y - mapPos.y,
-			effect[EFFECT_TYPE_FIRESWORD].image[effect[EFFECT_TYPE_FIRESWORD].imageIndex], 
+			effect[EFFECT_TYPE_FIRESWORD][effectCnt].pos.x - mapPos.x,
+			effect[EFFECT_TYPE_FIRESWORD][effectCnt].pos.y + SCREEN_OFFSET_Y - mapPos.y,
+			effect[EFFECT_TYPE_FIRESWORD][effectCnt].image[effect[EFFECT_TYPE_FIRESWORD][effectCnt].imageIndex],
 			true
 		);
 
-		if(frameCnt % 10 == 0) 	effect[EFFECT_TYPE_FIRESWORD].imageIndex++;
-		if (effect[EFFECT_TYPE_FIRESWORD].imageIndex >= SWORDEFFECT_MAX - 1) effect[EFFECT_TYPE_FIRESWORD].imageIndex = -1;
+		if(frameCnt % 10 == 0) 	effect[EFFECT_TYPE_FIRESWORD][effectCnt].imageIndex++;
+		if (effect[EFFECT_TYPE_FIRESWORD][effectCnt].imageIndex >= SWORDEFFECT_MAX - 1) effect[EFFECT_TYPE_FIRESWORD][effectCnt].imageIndex = -1;
+	}
+}
+
+// エフェクトの画像ハンドル用変数のメモリ解放用
+void FreeEffectImage(void)
+{
+	for (int effectType = 0; effectType < EFFECT_TYPE_MAX; effectType++)
+	{
+		free(effectMaster[effectType].image);
 	}
 }
 

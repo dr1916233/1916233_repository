@@ -189,8 +189,8 @@ XY_F PlayerControl(XY chipNum, XY_F mapPos)
 
 	// プレイヤーの攻撃処理
 //	if (keyTrgUp[KEY_NORMAL_ATTACK]) PlayerAttack();
-	XY attackPos = { (int)player.pos.x,(int)player.pos.y };
-	if (keyTrgUp[KEY_NORMAL_ATTACK]) CreateGameEffect(EFFECT_TYPE_FIRESWORD,attackPos);
+	XY attackPos = { (int)player.pos.x + player.size.x / 2,(int)player.pos.y + player.size.y / 2 };
+	if (keyTrgUp[KEY_NORMAL_ATTACK]) CreateGameEffect(CHARA_PLAYER, EFFECT_TYPE_FIRESWORD,attackPos,player.dir);
 
 
 	// アイテムとの当たり判定

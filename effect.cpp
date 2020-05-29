@@ -44,6 +44,15 @@ void EffectInit(void)
 	effectMaster[EFFECT_TYPE_FIRESWORD].pos = { 0,0 };
 	effectMaster[EFFECT_TYPE_FIRESWORD].effectType = EFFECT_TYPE_FIRESWORD;
 
+	// パンチのデータ初期化
+	effectMaster[EFFECT_TYPE_PUNCH].image = (int*)malloc(sizeof(int) * PUNCHEFFECT_MAX);
+	LoadDivGraph("image/effect/punch.png", 8, 8, 1, 32, 32, effectMaster[EFFECT_TYPE_PUNCH].image);
+	effectMaster[EFFECT_TYPE_PUNCH].disToPos = { 0,0 };
+	effectMaster[EFFECT_TYPE_PUNCH].imageIndex = -1;
+	effectMaster[EFFECT_TYPE_PUNCH].imageSize = { 32,32 };
+	effectMaster[EFFECT_TYPE_PUNCH].pos = { 0,0 };
+	effectMaster[EFFECT_TYPE_PUNCH].effectType = EFFECT_TYPE_PUNCH;
+
 	// 共通の初期化
 	for (int effectType = 0; effectType < EFFECT_TYPE_MAX; effectType++)
 	{
@@ -141,6 +150,7 @@ void EffectGameDraw(XY mapPos,int frameCnt)
 	for (int effectCnt = 0; effectCnt < EFFECT_MAX; effectCnt++)
 	{
 		SwordEffect(mapPos, frameCnt, effectCnt);
+		PunchEffect(mapPos, frameCnt, effectCnt);
 	}
 }
 
@@ -158,6 +168,23 @@ void SwordEffect(XY mapPos,int frameCnt,int effectCnt)
 
 		if(frameCnt % 10 == 0) 	effect[EFFECT_TYPE_FIRESWORD][effectCnt].imageIndex++;
 		if (effect[EFFECT_TYPE_FIRESWORD][effectCnt].imageIndex >= SWORDEFFECT_MAX - 1) effect[EFFECT_TYPE_FIRESWORD][effectCnt].imageIndex = -1;
+	}
+}
+
+// パンチエフェクトの描画
+void PunchEffect(XY mapPos, int frameCnt, int effectCnt)
+{
+	if (effect[EFFECT_TYPE_PUNCH][effectCnt].imageIndex >= 0)
+	{
+		DrawGraph(
+			effect[EFFECT_TYPE_PUNCH][effectCnt].pos.x - mapPos.x,
+			effect[EFFECT_TYPE_PUNCH][effectCnt].pos.y + SCREEN_OFFSET_Y - mapPos.y,
+			effect[EFFECT_TYPE_PUNCH][effectCnt].image[effect[EFFECT_TYPE_PUNCH][effectCnt].imageIndex],
+			true
+		);
+
+		if (frameCnt % 10 == 0) effect[EFFECT_TYPE_PUNCH][effectCnt].imageIndex++;
+		if (effect[EFFECT_TYPE_PUNCH][effectCnt].imageIndex >= PUNCHEFFECT_MAX - 1) effect[EFFECT_TYPE_PUNCH][effectCnt].imageIndex = -1;
 	}
 }
 

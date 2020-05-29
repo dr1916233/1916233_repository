@@ -80,6 +80,7 @@ struct CHARACTER
 	bool moveFlag;		// 動いてるかどうかの判定用
 	int inventoryCnt;	// インベントリの数
 	int statusPoint;	// ステータスを上昇させる回数用
+	int imageLockCnt;	// 画像を固定するフレームカウント数
 };
 
 // プロトタイプ宣言
@@ -104,3 +105,4 @@ void UpdateInvenyoryListMain(int max);
 void DeleteInventoryListMain(int index);
 void GetEventMain(XY pos);
 void DoDamageMain(CHARATYPE charaType, int damage);	// 引数で渡されたキャラクターのHPをダメージ分減算する
+void InsertDamageListMain(CHARATYPE charaType, int damage);

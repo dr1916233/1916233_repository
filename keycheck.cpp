@@ -60,6 +60,7 @@ void KeyCheck(void)
 	keyNow[KEY_R] = (bool)CheckHitKey(KEY_INPUT_R);
 	keyNow[KEY_MENU] = (bool)CheckHitKey(KEY_INPUT_M);
 	keyNow[KEY_NORMAL_ATTACK] = (bool)CheckHitKey(KEY_INPUT_LCONTROL);
+	keyNow[KEY_SPECIAL_ATTACK] = (bool)CheckHitKey(KEY_INPUT_Z);
 
 	// ÉgÉäÉKÅ[èàóù
 	for (int keyID = 0; keyID < KEY_MAX; keyID++)

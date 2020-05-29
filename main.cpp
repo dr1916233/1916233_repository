@@ -211,7 +211,7 @@ void GameDraw(XY mapPos)
 	DrawBox(0, 0, 800, 60, GetColor(15, 15, 15), true);
 
 	// UI描画
-	UiGameDraw(menuFlag);
+	UiGameDraw(menuFlag,mapPos);
 }
 
 // ゲームオーバーシーン
@@ -433,5 +433,26 @@ void GetEventMain(XY pos)
 	if (GetEvent(pos) == EVENT_ID_STG_JUNP)
 	{
 		SetMap(STAGE_ID_DUNGEON);
+	}
+}
+
+void InsertDamageListMain(CHARATYPE charaType, int damage)
+{
+	switch (charaType)
+	{
+	case CHARA_PLAYER:
+		break;
+	case CHARA_ENEMY:
+		for (int listCnt = 0; listCnt < listIndex; listCnt++)
+		{
+			XY drawPos = GetEnemyPos(enemyHitList[listCnt]);
+			drawPos.x += GetEnemySize(enemyHitList[listCnt]).x / 2 - 8;
+			drawPos.y += GetEnemySize(enemyHitList[listCnt]).y / 2;
+			drawPos.y -= 24;
+			InsertDamageList(CHARA_ENEMY, damage, drawPos);
+		}
+		break;
+	default:
+		break;
 	}
 }

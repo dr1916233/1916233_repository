@@ -6,12 +6,14 @@
 //#pragma once//----------------------------------
 // 定数宣言
 #define SWORDEFFECT_MAX 16
+#define PUNCHEFFECT_MAX 8
 #define EFFECT_MAX 10 // 同時に描画できるエフェクトの最大数
 
 // エフェクトの種類
 enum EFFECT_TYPE
 {
 	EFFECT_TYPE_FIRESWORD,
+	EFFECT_TYPE_PUNCH,
 	EFFECT_TYPE_MAX
 };
 
@@ -36,6 +38,7 @@ void SwordEffect(XY mapPos, int frameCnt, int effectCnt);
 void EffectGameDraw(XY mapPos, int frameCnt);
 void CreateGameEffect(CHARATYPE charaType, EFFECT_TYPE effectType, XY pos, DIR dir);
 void FreeEffectImage(void);
+void PunchEffect(XY mapPos, int frameCnt, int effectCnt);
 
 // extern宣言
 extern SCENE_ID scnID;

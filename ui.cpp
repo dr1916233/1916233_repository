@@ -15,6 +15,7 @@ int playerHpbarImage;				// プレイヤーのHPバーのイメージ
 
 XY itemboxPosList[ITEMBOX_MAX];		// アイテムボックスの座標記憶用
 int statusUp;						// ステータスを上げれるかの判定用
+DAMAGE damageList[DAMAGE_MAX];		// ダメージ表記用
 
 // UIのシステム初期化
 void UiSystemInit(void)
@@ -32,7 +33,14 @@ void UiSystemInit(void)
 // UIのゲーム初期化
 void UiGameInit(void)
 {
-
+	// ダメージ表記リストの初期化
+	for (int damageListCnt = 0; damageListCnt < DAMAGE_MAX; damageListCnt++)
+	{
+		damageList[damageListCnt].damage = 0;
+		damageList[damageListCnt].drawDamageCnt = 0;
+		damageList[damageListCnt].charaType = CHARATYPE_MAX;
+		damageList[damageListCnt].pos = { 0,0 };
+	}
 }
 
 // UIの制御
@@ -87,10 +95,11 @@ void UiControl(void)
 	}
 
 	statusUp = (*playerStatus).statusPoint;
+
 }
 
 // UIの描画
-void UiGameDraw(bool menuFlag)
+void UiGameDraw(bool menuFlag,XY mapPos)
 {
 	// プレイヤーの情報を取得
 	CHARACTER playerInfo = GetPlayerMain();
@@ -153,10 +162,51 @@ void UiGameDraw(bool menuFlag)
 	}
 	else // メニュー画面以外
 	{
+		// ダメージ表記の描画
+		for (int damageListCnt = 0; damageListCnt < DAMAGE_MAX; damageListCnt++)
+		{
+			if (damageList[damageListCnt].drawDamageCnt > 0)
+			{
+				DrawFormatString(damageList[damageListCnt].pos.x - mapPos.x, damageList[damageListCnt].pos.y - mapPos.y + SCREEN_OFFSET_Y, GetColor(255, 0, 0), "%d", damageList[damageListCnt].damage);
+			}
+		}
+
+		// ダメージ表示リストの初期化
+		for (int damageListCnt = 0; damageListCnt < DAMAGE_MAX; damageListCnt++)
+		{
+			if (damageList[damageListCnt].drawDamageCnt <= 0)
+			{
+				damageList[damageListCnt].damage = 0;
+				damageList[damageListCnt].drawDamageCnt = 0;
+				damageList[damageListCnt].charaType = CHARATYPE_MAX;
+				damageList[damageListCnt].pos = { 0,0 };
+			}
+			else
+			{
+				damageList[damageListCnt].drawDamageCnt--;
+			}
+		}
+
 		// プレイヤーのHPバー
 		DrawBox(15, 7, 186, 53, GetColor(70, 70, 70), true);
 		DrawBox(15, 7, 15 +  (171.0f / (float)playerInfo.lifeMax) * (float)playerInfo.life , 53, GetColor(0, 255, 0), true);
 		DrawGraph(0, 0, playerHpbarImage, true);
 		DrawFormatString(60, 22, GetColor(0, 0, 150), "HP：%d / %d", playerInfo.life, playerInfo.lifeMax);
+	}
+}
+
+// ダメージの描画リスト追加用関数
+void InsertDamageList(CHARATYPE charaType, int damage,XY pos)
+{
+	for (int damageListCnt = 0; damageListCnt < DAMAGE_MAX; damageListCnt++)
+	{
+		if (damageList[damageListCnt].drawDamageCnt <= 0)
+		{
+			damageList[damageListCnt].damage = damage;
+			damageList[damageListCnt].drawDamageCnt = 60;
+			damageList[damageListCnt].charaType = charaType;
+			damageList[damageListCnt].pos = pos;
+			break;
+		}
 	}
 }

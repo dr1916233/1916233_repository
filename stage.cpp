@@ -695,10 +695,6 @@ EVENT_ID GetEvent(XY pos)
 		{
 		case 230:
 		case 246:
-			if (!FadeInFlag && !FadeOutFlag)
-			{
-				FadeOutFlag = true;
-			}
 			return EVENT_ID_STG_JUNP;
 		default:
 			break;

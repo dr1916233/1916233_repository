@@ -45,3 +45,6 @@ bool IsPass(XY pos);						// プレイヤーが次のブロックを通過できるか判定
 XY PosToIndex(XY pos);						// プレイヤーの座標をマップのインデックスに変換して返す
 EVENT_ID GetEvent(XY pos);
 void SetMap(STAGE_ID stageID);
+
+// EXTERN宣言
+extern XY mapSize;

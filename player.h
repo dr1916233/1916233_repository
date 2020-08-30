@@ -31,3 +31,5 @@ XY_F PlayerControl(XY chipNum, XY_F mapPos);	// プレイヤーの制御処理
 CHARACTER* GetPlayerPointer(void);		// プレイヤーのポインタを取得
 CHARACTER GetPlayer(void);		// プレイヤーの情報を取得
 void PlayerAttack(void);			// プレイヤーの攻撃処理
+XY_F GetPlayerPos(void);				// プレイヤーの座標取得
+

@@ -72,6 +72,15 @@ void PlayerGameDraw(XY mapPos)
 	if (player.imageLockCnt > 0) DrawGraph(player.pos.x - mapPos.x, player.pos.y - mapPos.y + SCREEN_OFFSET_Y, playerImage[0][PLAYER_IMAGENUM_Y * PLAYER_IMAGENUM_X + player.dir], true);
 	else DrawGraph(player.pos.x - mapPos.x, player.pos.y - mapPos.y + SCREEN_OFFSET_Y, playerImage[0][(player.animCnt / 10 % 4) + player.dir * 4], true);
 	DrawFormatString(50, 100, GetColor(255, 255, 255), "プレイヤーのチップ : %d,%d", (int)player.pos.x / 32, (int)player.pos.y / 32);
+
+	DrawBox(
+		player.pos.x -player.offsetSize.x - mapPos.x,
+		player.pos.y - player.offsetSize.y - mapPos.y,
+		player.pos.x + player.offsetSize.x - mapPos.x,
+		player.pos.y + player.offsetSize.y - mapPos.y,
+		GetColor(255, 255, 255),
+		false
+	);
 }
 
 // プレイヤーの制御処理
@@ -261,6 +270,11 @@ void PlayerAttack(void)
 		DoDamageMain(CHARA_ENEMY, player.attack);
 		InsertDamageListMain(CHARA_ENEMY, player.attack);
 	}
+}
+
+XY_F GetPlayerPos(void)
+{
+	return player.pos;
 }
 
 // プレイヤーのポインターを取得

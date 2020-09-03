@@ -14,6 +14,9 @@
 
 #define SCREEN_OFFSET_Y	60		// ゲームエリア上部の余白Yサイズ
 
+#define LOGO_OFFSET_X 150
+#define LOGO_OFFSET_Y 32
+
 // シーン遷移用
 enum SCENE_ID {
 	SCENE_INIT,		// 初期化用

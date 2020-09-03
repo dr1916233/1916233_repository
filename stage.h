@@ -15,6 +15,18 @@
 #define MAP_X_DUNGEON2 30		// ƒ_ƒ“ƒWƒ‡ƒ“2‚Ì‰¡‘å‚«‚³
 #define MAP_Y_DUNGEON2 60		// ƒ_ƒ“ƒWƒ‡ƒ“2‚Ìc‘å‚«‚³
 
+#define MAP_X_DUNGEON3 50		// ƒ_ƒ“ƒWƒ‡ƒ“3‚Ì‰¡‘å‚«‚³
+#define MAP_Y_DUNGEON3 50		// ƒ_ƒ“ƒWƒ‡ƒ“3‚Ìc‘å‚«‚³
+
+#define MAP_X_DUNGEON4 60		// ƒ_ƒ“ƒWƒ‡ƒ“4‚Ì‰¡‘å‚«‚³
+#define MAP_Y_DUNGEON4 40		// ƒ_ƒ“ƒWƒ‡ƒ“4‚Ìc‘å‚«‚³
+
+#define MAP_X_DUNGEON5 30		// ƒ_ƒ“ƒWƒ‡ƒ“5‚Ì‰¡‘å‚«‚³
+#define MAP_Y_DUNGEON5 30		// ƒ_ƒ“ƒWƒ‡ƒ“5‚Ìc‘å‚«‚³
+
+#define MAP_X_MAX 100			// ƒ}ƒbƒv‚ÌÅ‘å‚Ì‰¡‘å‚«‚³
+#define MAP_Y_MAX 100			// ƒ}ƒbƒv‚ÌÅ‘å‚Ìc‘å‚«‚³
+
 #define MAP_IMAGESIZE_X	32		// ƒ}ƒbƒv‰æ‘œ‚ÌX•ûŒü‚ÌƒTƒCƒY
 #define MAP_IMAGESIZE_Y	32		// ƒ}ƒbƒv‰æ‘œ‚ÌY•ûŒü‚ÌƒTƒCƒY
 
@@ -23,13 +35,18 @@ enum STAGE_ID
 	STAGE_ID_FIELD,
 	STAGE_ID_DUNGEON,
 	STAGE_ID_DUNGEON2,
+	STAGE_ID_DUNGEON3,
+	STAGE_ID_DUNGEON4,
+	STAGE_ID_DUNGEON5,
 	STAGE_ID_MAX
 };
 
 enum EVENT_ID
 {
 	EVENT_ID_NON,
-	EVENT_ID_STG_JUNP,
+	EVENT_ID_STG_JUMP,
+	EVENT_ID_STG_DONW,
+	EVENT_ID_GAMEOVER,
 	EVENT_ID_MAX
 };
 
@@ -46,5 +63,6 @@ XY PosToIndex(XY pos);						// ƒvƒŒƒCƒ„[‚ÌÀ•W‚ðƒ}ƒbƒv‚ÌƒCƒ“ƒfƒbƒNƒX‚É•ÏŠ·‚µ‚Ä•
 EVENT_ID GetEvent(XY pos);
 void SetMap(STAGE_ID stageID);
 
-// EXTERNéŒ¾
+extern STAGE_ID stgID;			// ƒXƒe[ƒW‚ÌID
+extern XY_F mapPos;
 extern XY mapSize;

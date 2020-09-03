@@ -33,6 +33,7 @@ struct EFFECT
 
 // プロトタイプ宣言
 void SceneChange(SCENE_ID sceneID, int brightCnt, bool fade);	// シーンのフェードイン/アウト処理(SCENE_ID シーンID, int 1フレームごとの加減数)
+void StageFade(int brightC);
 void EffectInit(void);
 void SwordEffect(XY mapPos, int frameCnt, int effectCnt);
 void EffectGameDraw(XY mapPos, int frameCnt);
@@ -45,3 +46,4 @@ extern SCENE_ID scnID;
 extern bool FadeOutFlag;
 extern bool FadeInFlag;
 extern bool gameFadeOutFlag;
+extern bool stageFadeOutFlag;

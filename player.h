@@ -33,3 +33,5 @@ CHARACTER GetPlayer(void);		// プレイヤーの情報を取得
 void PlayerAttack(void);			// プレイヤーの攻撃処理
 XY_F GetPlayerPos(void);				// プレイヤーの座標取得
 
+extern CHARACTER player;
+

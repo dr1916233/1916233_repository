@@ -5,6 +5,7 @@
 
 #include "DxLib.h"
 #include "main.h"
+#include "stage.h"
 #include "effect.h"
 
 // ïœêîêÈåæ
@@ -14,6 +15,9 @@ int circleCntOut;
 bool FadeInFlag;
 bool FadeOutFlag;
 bool pauseFlag;
+
+bool stageFadeInFlag;
+bool stageFadeOutFlag;
 
 bool gameFadeInFlag;
 bool gameFadeOutFlag;
@@ -99,6 +103,38 @@ void SceneChange(SCENE_ID sceneID, int brightCnt, bool fade)
 						scnID = SCENE_INIT;
 					}
 				}
+			}
+		}
+	}
+}
+
+
+void StageFade(int brightC)
+{
+	if (stageFadeInFlag)
+	{
+		if (bright <= 255)
+		{
+			bright += brightC;
+			SetDrawBright(bright, bright, bright);
+			if (bright >= 255)
+			{
+				bright = 255;
+				stageFadeInFlag = false;
+			}
+		}
+	}
+	if (stageFadeOutFlag)
+	{
+		if (bright >= 0)
+		{
+			bright -= brightC;
+			SetDrawBright(bright, bright, bright);
+			if (bright <= 0)
+			{
+				bright = 0;
+				stageFadeInFlag = true;
+				stageFadeOutFlag = false;
 			}
 		}
 	}

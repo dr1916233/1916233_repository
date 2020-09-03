@@ -34,3 +34,9 @@ void UiGameInit(void);
 void UiControl(void);
 void UiGameDraw(bool menuFlag, XY mapPos);
 void InsertDamageList(CHARATYPE charaType, int damage, XY pos);
+
+
+extern int titleImage;
+extern int gameOverImage;
+extern int startImage;
+extern int reStartImage;

@@ -20,6 +20,9 @@ int testCount;
 SCENE_ID scnID;			// 今のシーン
 SCENE_ID scnIDpre;		// 1フレーム前のシーン
 
+XY logoPos[2];
+int logoR;
+
 bool menuFlag;		// ゲームメニュー画面判定用
 int enemyHitList[ENEMY_MAX];	// 敵にヒットしたリスト
 int listIndex = 0;	// 敵キャラクターの配列インデックス保持リストのカウント用
@@ -95,6 +98,11 @@ bool SystemInit(void)
 
 	// 変数の初期化
 	SceneCounter = 0;
+	logoR = 32;
+	logoPos[0].x = (SCREEN_SIZE_X / 2) - LOGO_OFFSET_X + logoR;
+	logoPos[0].y = 450;
+	logoPos[1].x = (SCREEN_SIZE_X / 2) + LOGO_OFFSET_X - logoR;
+	logoPos[1].y = 450;
 
 
 	// 各関数のシステム初期化　
@@ -125,11 +133,18 @@ void InitScene(void)
 // タイトルシーン
 void TitleScene(void)
 {
+	XY mousePos = GetMousePosMain();
 	if (keyTrgUp[KEY_SPACE] && !FadeInFlag && !FadeOutFlag)
 	{
 		FadeOutFlag = true;
 	}
 
+	if ((mousePos.x > 428 - LOGO_OFFSET_X && mousePos.y > 450 - LOGO_OFFSET_Y && mousePos.x < 672 - LOGO_OFFSET_X && mousePos.y < 515 - LOGO_OFFSET_Y) && mouseTrgUp ||
+		(((mousePos.x - logoPos[0].x) * (mousePos.x - logoPos[0].x)) + ((mousePos.y - logoPos[0].y) * (mousePos.y - logoPos[0].y))) < logoR * logoR && mouseTrgUp || 
+		(((mousePos.x - logoPos[1].x) * (mousePos.x - logoPos[1].x)) + ((mousePos.y - logoPos[1].y) * (mousePos.y - logoPos[1].y))) < logoR * logoR && mouseTrgUp)
+	{
+		FadeOutFlag = true;
+	}
 	// タイトル描画
 	TitleDraw();
 }
@@ -137,8 +152,21 @@ void TitleScene(void)
 // タイトル描画
 void TitleDraw(void)
 {
+	
 	DrawFormatString(0, 0, GetColor(255, 255, 255), "タイトルシーンカウンター  %d", SceneCounter);
-	DrawBox(100, 100, 700, 500, GetColor(0, 0, 255), true);
+	DrawBox(100, 100, 700, 500, GetColor(255,255, 255), true);
+	DrawGraph(0, 0, titleImage, true);
+	if ((mousePos.x > 428 - LOGO_OFFSET_X && mousePos.y > 450 - LOGO_OFFSET_Y && mousePos.x < 672 - LOGO_OFFSET_X && mousePos.y < 515 - LOGO_OFFSET_Y) ||
+		(((mousePos.x - logoPos[0].x) * (mousePos.x - logoPos[0].x)) + ((mousePos.y - logoPos[0].y) * (mousePos.y - logoPos[0].y))) < logoR * logoR ||
+		(((mousePos.x - logoPos[1].x) * (mousePos.x - logoPos[1].x)) + ((mousePos.y - logoPos[1].y) * (mousePos.y - logoPos[1].y))) < logoR * logoR )
+	{
+		DrawRotaGraph(SCREEN_SIZE_X / 2, 450, 1.2f, 0.0f, startImage, true);
+	}
+	else
+	{
+		DrawRotaGraph(SCREEN_SIZE_X / 2, 450, 1, 0.0f, startImage, true);
+	}
+
 }
 
 // ゲームメインシーン
@@ -146,6 +174,11 @@ void GameScene(void)
 {
 	// スペースが押されたらフェードアウト処理
 	if (keyTrgUp[KEY_SPACE] && !FadeInFlag && !FadeOutFlag)
+	{
+		FadeOutFlag = true;
+	}
+
+	if (player.life <= 0)
 	{
 		FadeOutFlag = true;
 	}
@@ -217,7 +250,9 @@ void GameDraw(XY mapPos)
 // ゲームオーバーシーン
 void GameOverScene(void)
 {
-	if (keyTrgUp[KEY_SPACE] && !FadeInFlag && !FadeOutFlag)
+	if ((mousePos.x > 428 - LOGO_OFFSET_X && mousePos.y > 450 - LOGO_OFFSET_Y && mousePos.x < 672 - LOGO_OFFSET_X && mousePos.y < 515 - LOGO_OFFSET_Y) && mouseTrgUp ||
+		(((mousePos.x - logoPos[0].x) * (mousePos.x - logoPos[0].x)) + ((mousePos.y - logoPos[0].y) * (mousePos.y - logoPos[0].y))) < logoR * logoR && mouseTrgUp ||
+		(((mousePos.x - logoPos[1].x) * (mousePos.x - logoPos[1].x)) + ((mousePos.y - logoPos[1].y) * (mousePos.y - logoPos[1].y))) < logoR * logoR && mouseTrgUp) 
 	{
 		FadeOutFlag = true;
 	}
@@ -229,6 +264,17 @@ void GameOverDraw(void)
 {
 	DrawFormatString(0, 0, GetColor(255,255,255), "ゲームオーバーシーンカウンター  %d", SceneCounter);
 	DrawBox(100, 100, 700, 500, GetColor(0, 255, 0), true);
+	DrawGraph(0, 0, gameOverImage, true);
+	if ((mousePos.x > 428 - LOGO_OFFSET_X && mousePos.y > 450 - LOGO_OFFSET_Y && mousePos.x < 672 - LOGO_OFFSET_X && mousePos.y < 515 - LOGO_OFFSET_Y) ||
+		(((mousePos.x - logoPos[0].x) * (mousePos.x - logoPos[0].x)) + ((mousePos.y - logoPos[0].y) * (mousePos.y - logoPos[0].y))) < logoR * logoR ||
+		(((mousePos.x - logoPos[1].x) * (mousePos.x - logoPos[1].x)) + ((mousePos.y - logoPos[1].y) * (mousePos.y - logoPos[1].y))) < logoR * logoR)
+	{
+		DrawRotaGraph(SCREEN_SIZE_X / 2, 450, 1.2f, 0.0f, reStartImage, true);
+	}
+	else
+	{
+		DrawRotaGraph(SCREEN_SIZE_X / 2, 450, 1, 0.0f, reStartImage, true);
+	}
 }
 
 // 矩形の当たり判定(接触：0、非接触：-1、ダメージがある場合：1以上の整数)
@@ -429,10 +475,48 @@ void DeleteInventoryListMain(int index)
 
 void GetEventMain(XY pos)
 {
+	GetPlayer();
 	GetEvent(pos);
-	if (GetEvent(pos) == EVENT_ID_STG_JUNP)
+	if (GetEvent(pos) == EVENT_ID_STG_JUMP)
 	{
-		SetMap(STAGE_ID_DUNGEON);
+		if (stgID == STAGE_ID_FIELD)
+		{
+			if (!stageFadeOutFlag)
+			{
+				player.pos = { 64,80 + SCREEN_OFFSET_Y };
+				mapPos = { 4,5 };
+				SetMap(STAGE_ID_DUNGEON);
+			}
+		}
+		else if (stgID == STAGE_ID_DUNGEON)
+		{
+			if (!stageFadeOutFlag)
+			{
+				player.pos = { 64,130 };
+				mapPos = { 4,5 };
+				SetMap(STAGE_ID_DUNGEON2);
+			}
+		}
+		else if (stgID == STAGE_ID_DUNGEON2) SetMap(STAGE_ID_DUNGEON3);
+		else if (stgID == STAGE_ID_DUNGEON3) SetMap(STAGE_ID_DUNGEON4);
+		else if (stgID == STAGE_ID_DUNGEON4) SetMap(STAGE_ID_DUNGEON5);
+	}
+
+	if (GetEvent(pos) == EVENT_ID_GAMEOVER)
+	{
+			//FadeOutFlag = true;
+			//if (scnID == SCENE_GAMEOVER)
+			//{
+			//	FadeOutFlag = false;
+			//}
+		SetMap(STAGE_ID_DUNGEON5);
+	}
+
+	if (GetEvent(pos) == EVENT_ID_STG_DONW)
+	{
+		player.pos = { 100, 100 };
+		mapPos = { 10,10 };
+		if (stgID == STAGE_ID_DUNGEON) SetMap(STAGE_ID_DUNGEON5);
 	}
 }
 

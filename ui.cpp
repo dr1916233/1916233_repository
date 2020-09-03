@@ -17,6 +17,11 @@ XY itemboxPosList[ITEMBOX_MAX];		// アイテムボックスの座標記憶用
 int statusUp;						// ステータスを上げれるかの判定用
 DAMAGE damageList[DAMAGE_MAX];		// ダメージ表記用
 
+int titleImage;
+int startImage;
+int gameOverImage;
+int reStartImage;
+
 // UIのシステム初期化
 void UiSystemInit(void)
 {
@@ -28,6 +33,13 @@ void UiSystemInit(void)
 	itemboxImage[0] = LoadGraph("image/ui/item_box.png", true);
 	itemboxImage[1] = LoadGraph("image/ui/item_box_lock.png", true);
 	playerHpbarImage = LoadGraph("image/ui/player_hpbar.png", true);
+
+	titleImage = LoadGraph("image/logo/title.png", true);
+	gameOverImage = LoadGraph("image/logo/gameover.png", true);
+
+	startImage = LoadGraph("image/logo/gamestart.png", true);
+	reStartImage = LoadGraph("image/logo/restart.png", true);
+
 }
 
 // UIのゲーム初期化

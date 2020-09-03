@@ -96,7 +96,7 @@ void EnemyGameInit(void)
 		enemy[cnt].pos.x = 500;
 		enemy[cnt].pos.y = 500;
 	}
- }
+}
 
 // “G‚ÌƒRƒ“ƒgƒ[ƒ‹
 void EnemyControl(XY playerPos, int cnt)
@@ -195,6 +195,7 @@ void EnemyControl(XY playerPos, int cnt)
 		{
 			enemy[enemyCnt].moveFlag = true;
 		}
+		PlayerEnemyHitCheck(enemy[enemyCnt].attack);
 	}
 }
 
@@ -202,139 +203,38 @@ void EnemyControl(XY playerPos, int cnt)
 void EnemyGameDraw(XY mapPos)
 {
 	//@ƒAƒjƒ[ƒVƒ‡ƒ“—pƒJƒEƒ“ƒg
-		for (int en = 0; en < ENEMY_MAX; en++)
-		{
-			enemy[en].animCnt++;
-				//DrawGraph(
-				//	enemy[en].pos.x - mapPos.x,
-				//	enemy[en].pos.y - mapPos.y + SCREEN_OFFSET_Y,
-				//	enemyImage[enemy[en].enemyType][enemy[en].dir * 4 + enemy[en].animCnt / 10 % 4],
-				//	true);
+	for (int en = 0; en < ENEMY_MAX; en++)
+	{
+		enemy[en].animCnt++;
+		//DrawGraph(
+		//	enemy[en].pos.x - mapPos.x,
+		//	enemy[en].pos.y - mapPos.y + SCREEN_OFFSET_Y,
+		//	enemyImage[enemy[en].enemyType][enemy[en].dir * 4 + enemy[en].animCnt / 10 % 4],
+		//	true);
 
-				// •`‰æˆ—
-				DrawGraph(
-					(enemy[en].pos.x - mapPos.x - enemy[en].offsetSize.x),
-					(enemy[en].pos.y - mapPos.y - enemy[en].offsetSize.y),
-					enemyImage[enemy[en].enemyType][enemy[en].dir * 4 + enemy[en].animCnt / 10 % 4],
-					true
-				);
+		// •`‰æˆ—
+		DrawGraph(
+			(enemy[en].pos.x - mapPos.x - enemy[en].offsetSize.x),
+			(enemy[en].pos.y - mapPos.y - enemy[en].offsetSize.y) + SCREEN_OFFSET_Y,
+			enemyImage[enemy[en].enemyType][enemy[en].dir * 4 + enemy[en].animCnt / 10 % 4],
+			true
+		);
 
-				//DrawCircle(enemy[en].pos.x, enemy[en].pos.y, 3, GetColor(255, 0, 255), true);
+		//DrawCircle(enemy[en].pos.x, enemy[en].pos.y, 3, GetColor(255, 0, 255), true);
 
-				DrawBox(
+		DrawBox(
 			enemy[en].pos.x - enemy[en].offsetSize.x - mapPos.x,
-			enemy[en].pos.y - enemy[en].offsetSize.y - mapPos.y,
+			enemy[en].pos.y - enemy[en].offsetSize.y - mapPos.y + SCREEN_OFFSET_Y,
 			enemy[en].pos.x + enemy[en].offsetSize.x - mapPos.x,
-			enemy[en].pos.y + enemy[en].offsetSize.y - mapPos.y,
+			enemy[en].pos.y + enemy[en].offsetSize.y - mapPos.y + SCREEN_OFFSET_Y,
 			GetColor(255, 255, 255),
 			false
 		);
-				//DrawCircle(enemy[en].pos.x - enemy[en].offsetSize.x - mapPos.x + 20,
-				//	enemy[en].pos.y - enemy[en].offsetSize.y - mapPos.y,
-				//	200, GetColor(255, 255, 255), false);
-		}
+		//DrawCircle(enemy[en].pos.x - enemy[en].offsetSize.x - mapPos.x + 20,
+		//	enemy[en].pos.y - enemy[en].offsetSize.y - mapPos.y,
+		//	200, GetColor(255, 255, 255), false);
+	}
 }
-
-
-//@“G‚ğˆÚ“®‚³‚¹‚éŠÖ”ŒQ XˆÚ“®
-//int MoveEnemyX(CHARACTER *enemy, XY playerPos)
-//{
-//	int speed = (*enemy).moveSpeed;
-//	int diff = playerPos.x - (*enemy).pos.x;
-//
-//	XY_F enemyPosCopy = (*enemy).pos;
-//	XY enemyPosTop;
-//	XY enemyPosUnder;
-//
-//	if (diff > 0)
-//	{
-//		// ‰E
-//		speed = (diff < speed) ? diff : speed;
-//
-//		enemyPosCopy.x += speed;
-//		enemyPosCopy.x += (*enemy).size.x;
-//
-//		enemyPosTop = { (int)enemyPosCopy.x ,  (int)enemyPosCopy.y };
-//		enemyPosUnder = { (int)enemyPosCopy.x ,  (int)enemyPosCopy.y };
-//
-//		enemyPosUnder.y += (int)enemyPosCopy.y + (*enemy).size.y;
-//
-//
-//		if (IsPassMain(enemyPosTop) && IsPassMain(enemyPosUnder))
-//		{
-//			(*enemy).pos.x += speed;
-//			(*enemy).dir = DIR_RIGHT;
-//		}
-//	}
-//	else
-//	{
-//		// ¶
-//		speed = (-diff < speed) ? -diff : speed;
-//
-//		enemyPosCopy.x -= speed;
-//
-//		enemyPosTop = { (int)enemyPosCopy.x ,  (int)enemyPosCopy.y };
-//		enemyPosUnder = { (int)enemyPosCopy.x ,  (int)enemyPosCopy.y };
-//
-//		enemyPosUnder.y += (int)enemyPosCopy.y + (*enemy).size.y;
-//
-//		if (IsPassMain(enemyPosTop) && IsPassMain(enemyPosUnder))
-//		{
-//			(*enemy).pos.x -= speed;
-//			(*enemy).dir = DIR_LEFT;
-//		}
-//	}
-//
-//	return speed;
-//}
-//
-//// “G‚ğˆÚ“®‚³‚¹‚éŠÖ”ŒQ YˆÚ“®
-//int MoveEnemyY(CHARACTER *enemy, XY playerPos)
-//{
-//	int speed = (*enemy).moveSpeed;
-//	int diff = playerPos.y - (*enemy).pos.y;
-//
-//	XY_F enemyPosCopy = (*enemy).pos;
-//	XY enemyPosRIght;
-//	XY enemyPosLeft;
-//
-//	if (diff >= 0)
-//	{
-//		// ‰º
-//		speed = (diff < speed) ? diff : speed;
-//
-//		enemyPosCopy.x += speed;
-//		enemyPosCopy.x += (*enemy).size.x;
-//
-//		enemyPosRIght = { (int)enemyPosCopy.x ,  (int)enemyPosCopy.y };
-//		enemyPosLeft = { (int)enemyPosCopy.x ,  (int)enemyPosCopy.y };
-//
-//		enemyPosLeft.y += (int)enemyPosCopy.y + (*enemy).size.y;
-//
-//
-//		if (IsPassMain(enemyPosRIght) && IsPassMain(enemyPosLeft))
-//		{
-//			(*enemy).pos.y += speed;
-//			(*enemy).dir = DIR_DOWN;
-//		}
-//	}
-//	else
-//	{
-//		// ã
-//		speed = (-diff < speed) ? -diff : speed;
-//		enemyPosRIght = { (int)enemyPosCopy.x ,  (int)enemyPosCopy.y };
-//		enemyPosLeft = { (int)enemyPosCopy.x ,  (int)enemyPosCopy.y };
-//
-//		enemyPosLeft.y += (int)enemyPosCopy.y + (*enemy).size.y;
-//
-//		if (IsPassMain(enemyPosRIght) && IsPassMain(enemyPosLeft))
-//		{
-//			(*enemy).pos.y -= speed;
-//			(*enemy).dir = DIR_UP;
-//		}
-//	}
-//	return speed;
-//}
 
 
 XY GetEnemyPos(int en)
@@ -383,7 +283,11 @@ int PlayerEnemyHitCheck(int playerSize)
 				)
 			{
 				// “G‚É“–‚½‚Á‚½‚ç“–‚½‚Á‚½“G‚ÌUŒ‚—Í‚ğ•Ô‚·
-				//return enemy[eCnt].attack;
+				enemy[eCnt].life -= 10;
+				if (enemy[eCnt].life <= 0)
+				{
+					enemy[eCnt].pos = { 500,500 };
+				}
 			}
 		}
 	}
@@ -391,9 +295,8 @@ int PlayerEnemyHitCheck(int playerSize)
 }
 
 // ˆø”‚Å“n‚³‚ê‚½”z—ñ“Yš‚Ì“GƒLƒƒƒ‰‚Éƒ_ƒ[ƒW‚ğ—^‚¦‚é
-void DoDamageEnemy(int index,int damage)
+void DoDamageEnemy(int index, int damage)
 {
 	enemy[index].life -= damage;
 	if (enemy[index].life <= 0) enemy[index].visible = false;
 }
-

@@ -206,11 +206,6 @@ void EnemyGameDraw(XY mapPos)
 	for (int en = 0; en < ENEMY_MAX; en++)
 	{
 		enemy[en].animCnt++;
-		//DrawGraph(
-		//	enemy[en].pos.x - mapPos.x,
-		//	enemy[en].pos.y - mapPos.y + SCREEN_OFFSET_Y,
-		//	enemyImage[enemy[en].enemyType][enemy[en].dir * 4 + enemy[en].animCnt / 10 % 4],
-		//	true);
 
 		// •`‰æˆ—
 		DrawGraph(
@@ -220,16 +215,16 @@ void EnemyGameDraw(XY mapPos)
 			true
 		);
 
-		//DrawCircle(enemy[en].pos.x, enemy[en].pos.y, 3, GetColor(255, 0, 255), true);
+		////DrawCircle(enemy[en].pos.x, enemy[en].pos.y, 3, GetColor(255, 0, 255), true);
 
-		DrawBox(
-			enemy[en].pos.x - enemy[en].offsetSize.x - mapPos.x,
-			enemy[en].pos.y - enemy[en].offsetSize.y - mapPos.y + SCREEN_OFFSET_Y,
-			enemy[en].pos.x + enemy[en].offsetSize.x - mapPos.x,
-			enemy[en].pos.y + enemy[en].offsetSize.y - mapPos.y + SCREEN_OFFSET_Y,
-			GetColor(255, 255, 255),
-			false
-		);
+		//DrawBox(
+		//	enemy[en].pos.x - enemy[en].offsetSize.x - mapPos.x,
+		//	enemy[en].pos.y - enemy[en].offsetSize.y - mapPos.y + SCREEN_OFFSET_Y,
+		//	enemy[en].pos.x + enemy[en].offsetSize.x - mapPos.x,
+		//	enemy[en].pos.y + enemy[en].offsetSize.y - mapPos.y + SCREEN_OFFSET_Y,
+		//	GetColor(255, 255, 255),
+		//	false
+		//);
 		//DrawCircle(enemy[en].pos.x - enemy[en].offsetSize.x - mapPos.x + 20,
 		//	enemy[en].pos.y - enemy[en].offsetSize.y - mapPos.y,
 		//	200, GetColor(255, 255, 255), false);
